@@ -12,18 +12,7 @@ This document describes how to organize the repository around those requirements
 
 ## Reusable architecture
 
-Keep one repository and one application deployment for the first prototype. Organize the code by responsibility so the decision engine can be extracted as a library later if another project actually needs it.
-
-| Boundary | Responsibility | Dependency rule |
-| --- | --- | --- |
-| Decision core | Decision records, version relationships, missing-information semantics, and revision rules | Must not depend on MCP, a web framework, database drivers, host accounts, or deployment configuration |
-| Application operations | Capture a decision, read cards and history, and coordinate persistence and retry handling | Uses the core and a small storage interface |
-| Storage adapter | Durable records and atomic writes using the selected store | Implements the storage interface; preserves the core's versioning rules |
-| MCP adapter | Validate tool calls, scope access, and translate inputs and results | Calls application operations; must not duplicate decision rules |
-| Viewer | Display cards, source attribution, and preserved history | Consumes the same versioned record contract |
-| Deployment | Runtime configuration, persistent data location, and publication | Configures the application without changing decision semantics |
-
-Prefer explicit dependency boundaries over separate services or separately published packages at this stage. Use a versioned record contract so future viewers and adapters can recognize compatible data. Choose one authoritative schema representation after selecting the implementation stack; avoid hand-maintaining contradictory schemas across layers.
+Keep one repository and one application instance initially. The [directory and contribution-boundary proposal](repository-structure.md) defines the canonical module layout, dependency direction, extension areas, and stronger foundation review. Decision rules stay independent of worker transport, storage drivers, interface, and hosting. Extract a library only when another project needs the implemented engine.
 
 ## Long-term product and growth proposal
 
@@ -60,53 +49,9 @@ The [build brief](prototype-brief.md) defines candidate scope, while the [implem
 
 Reference: [Ink & Switch's local-first software research](https://www.inkandswitch.com/essay/local-first/) discusses ownership, local storage, multiple devices, and collaboration. It informs this proposal; no specific synchronization algorithm or library is selected.
 
-## Proposed layout
+## Directory organization
 
-This is a target layout, not a list of existing files. Create source and workflow files when their implementation is authorized; do not add empty folders just to match this diagram.
-
-```text
-personal-memory-engine/
-  README.md
-  LICENSE
-  CLAUDE.md
-  .gitignore
-  .editorconfig
-  .env.example
-  .github/
-    CONTRIBUTING.md
-    SECURITY.md
-    CODE_OF_CONDUCT.md
-    pull_request_template.md
-    ISSUE_TEMPLATE/
-      bug_report.yml
-      feature_request.yml
-      config.yml
-    workflows/
-      ci.yml
-    dependabot.yml
-  docs/
-    design-decisions.md
-    repository-foundation.md
-    branching-and-releases.md
-    prototype-brief.md
-    architecture.md
-    CHANGELOG.md
-  src/
-    core/
-    application/
-    adapters/
-      mcp/
-      storage/
-    server/
-  web/
-  tests/
-    core/
-    integration/
-    fixtures/
-  scripts/
-```
-
-The root README introduces the project. Community policy files live in `.github/`, a supported discovery location, keeping the root small. `CLAUDE.md` will provide project commands and development guidance once the stack exists; it must not contain private personal context or machine-specific secrets. CI configurations and dependency automation must match actual project tooling rather than claim checks that do not run.
+See the [canonical directory proposal](repository-structure.md) for code, test, script, and documentation responsibilities, and the [documentation index](README.md) for current files. Create source, reference, and workflow files when authorized implementation actually needs them. Community policies remain in `.github`; public project introduction and actual developer commands remain in the root README and development guide.
 
 ## Public-facing documents
 
@@ -155,7 +100,7 @@ For public releases, maintain a changelog and versioned data contract. Changes t
 
 ## Contribution and maintenance model
 
-Propose a maintainer-led project initially. Contributors can improve documentation, synthetic examples, tests, adapters, and usability. Major changes to decision semantics, ownership, schema compatibility, or deployment access should first be discussed in an issue. Merge and release authority should be clearly identified once the GitHub owner is selected.
+Propose a maintainer-led project initially. Contributors can improve documentation, synthetic examples, tests, adapters, and usability. Major changes to decision semantics, ownership, schema compatibility, or deployment access should first be discussed in an issue. The verified maintainer `@david3xu` holds merge and release authority. The [contribution-boundary proposal](repository-structure.md#proposed-contribution-tiers) details stronger review for foundational behavior and project-control changes.
 
 Start with ordinary pull requests and a clear review process. Any additional contributor agreement or sign-off policy remains a separate choice. Do not promise response times, long-term release support, or a governance structure that has not been agreed.
 

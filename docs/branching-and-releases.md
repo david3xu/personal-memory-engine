@@ -41,7 +41,7 @@ Tags will only be created when their checkpoints actually exist. Formal semantic
 
 ## Review and protection settings
 
-`main` is protected on GitHub: pull requests are required, review conversations must be resolved, force pushes and deletion are disabled, and the rules also apply to administrators. Required approving reviews are set to zero while there is one maintainer. No application CI checks exist yet, so no nonexistent status checks are required. Add the actual checks once implemented and running.
+`main` is protected on GitHub: pull requests are required, review conversations must be resolved, force pushes and deletion are disabled, and the rules also apply to administrators. Required approving reviews are set to zero while there is one maintainer. Required code-owner review is disabled, and no CODEOWNERS file exists yet. No application CI checks exist yet, so no nonexistent status checks are required. Add actual verified checks and workable reviewer requirements when implemented. The [contribution-boundary proposal](repository-structure.md#proposed-enforcement-and-its-limits) describes planned foundation review and its limits.
 
 Do not require a second person's approval while the project has only one maintainer; enable an appropriate review requirement when another reviewer is available. Do not configure nonexistent CI check names or claim that local documentation files provide remote branch protection. The active stage can receive similar protections as the contributor group grows.
 

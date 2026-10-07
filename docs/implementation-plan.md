@@ -8,7 +8,7 @@ Status: proposed execution plan. The user requested this document and a stage/au
 
 Organize implementation around what users must accomplish: install, connect a worker, record an explicit choice, inspect preserved history, share selected content, and retain their memory across restarts and recovery.
 
-The [decision ledger](design-decisions.md) owns confirmed choices and their history. The [build brief](prototype-brief.md) owns candidate first-stage scope and acceptance checks. This plan owns work order, user-experience milestones, and proposed automation. The [branching document](branching-and-releases.md) owns branch lifecycle and existing protection settings. The [foundation proposal](repository-foundation.md) owns reusable component boundaries and later growth considerations.
+The [decision ledger](design-decisions.md) owns confirmed choices and their history. The [build brief](prototype-brief.md) owns candidate first-stage scope and acceptance checks. This plan owns work order, user-experience milestones, and proposed automation. The [branching document](branching-and-releases.md) owns branch lifecycle and existing protection settings. The [directory proposal](repository-structure.md) owns module/dependency and contribution boundaries; the [foundation proposal](repository-foundation.md) owns later growth rationale.
 
 When implementation changes scope, record the explicit user choice and update the brief before adding the feature. Do not treat a proposed milestone as approval of its framework, storage, or hosting.
 
@@ -92,7 +92,7 @@ These are open choices, not excuses to expand the app. A minimal package for one
 
 ## Keep implementation matched to the target
 
-For every milestone PR, include the user action, expected visible result, relevant decision/brief requirement, and verification evidence. Mark automated checks separately from a real worker conversation, clean installation, new-user test, or external-reader walkthrough.
+For every milestone PR, include the user action, expected visible result, relevant decision/brief requirement, and verification evidence. Classify contribution risk by actual behavior using the [review-tier proposal](repository-structure.md#proposed-contribution-tiers); a UI or adapter change affecting data or access receives foundation-level review. Mark automated checks separately from a real worker conversation, clean installation, new-user test, or external-reader walkthrough.
 
 Use synthetic examples throughout automated tests and public demos. When a milestone exposes a gap in the selected scope, update the design record and brief before broadening implementation. Prefer a working slice of the whole journey over many isolated modules that have not been connected.
 
