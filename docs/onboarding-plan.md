@@ -20,7 +20,7 @@ Pause blocks all worker tool reads and writes, including already running helper 
 
 ## Current release constraints
 
-This Mac has no valid code-signing identity. Any current package must be labeled an unsigned preview. ChatGPT app controls are unavailable to this agent, so the user must send the test chat and inspect the host integration. Public snapshot publishing and backup/restore remain separate Stage 01 work.
+No Developer ID Application identity is available on this Mac. An Apple Development identity is present, but it does not complete normal outside-App-Store distribution. Any current package must be labeled an unsigned preview. ChatGPT app controls are unavailable to this agent, so the user must send the test chat and inspect the host integration. Public snapshot publishing and backup/restore remain separate Stage 01 work.
 
 ## References
 
