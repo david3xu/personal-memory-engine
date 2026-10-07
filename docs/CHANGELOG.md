@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added a standalone stdio MCP helper and real-process protocol checks for recording, retry, linked revision, reading, and restart.
+- Restricted newly created local storage directories and SQLite files/sidecars to the current user on Unix.
+
 - Started Stage 01 following explicit implementation authorization (D029).
 - Added a dependency-isolated Rust engine, generated portable contracts, and append-only SQLite adapter.
 - Verified explicit-choice validation, absent reasons, restart persistence, linked revisions, retry/concurrency handling, and database overwrite prevention.

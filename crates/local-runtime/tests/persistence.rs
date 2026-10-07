@@ -88,3 +88,32 @@ fn future_database_is_not_silently_downgraded() {
         .unwrap();
     assert_eq!(version, 99);
 }
+
+#[cfg(unix)]
+#[test]
+fn new_storage_and_sidecars_are_private() {
+    use std::os::unix::fs::PermissionsExt;
+    let directory = tempfile::tempdir().unwrap();
+    let path = directory.path().join("private/memory.sqlite3");
+    let store = SqliteStore::open(&path).unwrap();
+    let engine = Engine::new(store);
+    engine.record(input("private", "Synthetic")).unwrap();
+    assert_eq!(
+        std::fs::metadata(path.parent().unwrap())
+            .unwrap()
+            .permissions()
+            .mode()
+            & 0o777,
+        0o700
+    );
+    for name in ["memory.sqlite3", "memory.sqlite3-wal", "memory.sqlite3-shm"] {
+        assert_eq!(
+            std::fs::metadata(path.parent().unwrap().join(name))
+                .unwrap()
+                .permissions()
+                .mode()
+                & 0o777,
+            0o600
+        );
+    }
+}

@@ -16,9 +16,22 @@ pub struct SqliteStore {
 impl SqliteStore {
     pub fn open(path: &Path) -> Result<Self, EngineError> {
         if let Some(parent) = path.parent() {
-            std::fs::create_dir_all(parent).map_err(|_| EngineError::Storage)?;
+            let mut builder = std::fs::DirBuilder::new();
+            builder.recursive(true);
+            #[cfg(unix)]
+            {
+                use std::os::unix::fs::DirBuilderExt;
+                builder.mode(0o700);
+            }
+            builder.create(parent).map_err(|_| EngineError::Storage)?;
         }
         let connection = Connection::open(path).map_err(|_| EngineError::Storage)?;
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            std::fs::set_permissions(path, std::fs::Permissions::from_mode(0o600))
+                .map_err(|_| EngineError::Storage)?;
+        }
         connection
             .busy_timeout(Duration::from_secs(5))
             .map_err(|_| EngineError::Storage)?;
@@ -47,12 +60,6 @@ impl SqliteStore {
             BEGIN SELECT RAISE(ABORT, 'Decision versions cannot be deleted individually'); END;
         CREATE TABLE IF NOT EXISTS mcp_activity (singleton INTEGER PRIMARY KEY CHECK (singleton=1), last_used_at TEXT NOT NULL);
         PRAGMA user_version=1;").map_err(|_| EngineError::Storage)?;
-        #[cfg(unix)]
-        {
-            use std::os::unix::fs::PermissionsExt;
-            std::fs::set_permissions(path, std::fs::Permissions::from_mode(0o600))
-                .map_err(|_| EngineError::Storage)?;
-        }
         Ok(Self {
             connection: Arc::new(Mutex::new(connection)),
         })
@@ -75,7 +82,11 @@ impl SqliteStore {
     }
 }
 fn parse(json: String) -> Result<DecisionVersion, EngineError> {
-    serde_json::from_str(&json).map_err(|_| EngineError::Storage)
+    let record: DecisionVersion = serde_json::from_str(&json).map_err(|_| EngineError::Storage)?;
+    if record.schema_version != 1 || record.submission.clone().validate().is_err() {
+        return Err(EngineError::Storage);
+    }
+    Ok(record)
 }
 impl DecisionRepository for SqliteStore {
     fn append(&self, input: ValidatedCapture) -> Result<DecisionVersion, EngineError> {

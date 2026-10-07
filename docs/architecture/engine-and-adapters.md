@@ -1,0 +1,11 @@
+# Engine and adapter boundaries
+
+The Rust engine owns the recording contract and validated operations. It has no database, MCP, desktop, network, or hosting dependency. `DecisionRepository` is its persistence port; callers cannot construct `ValidatedCapture` without validation. Rust declarations generate the portable JSON schemas and TypeScript types. CI rejects stale generated contracts and concrete host dependencies in the engine.
+
+`crates/local-runtime` composes adapters. SQLite atomically appends versions and serializes competing writers with immediate transactions. Exact retries return the same version; reusing a request ID with different content fails. Revisions must refer to the current version of the same decision. Database triggers reject update/delete of individual versions, and a newer database version is rejected without migration. This is application integrity, not protection against a local owner editing the file directly.
+
+The stdio MCP helper exposes `record_decision`, `list_decisions`, and `decision_history`. The worker starts a helper process pointing at the same local database as the owner app. No chat monitoring, inference model, or network listener is introduced. The process writes only MCP protocol messages to stdout. Tool errors do not claim persistence. Only last tool-use time is stored as activity metadata; it is not proof of a live or authenticated worker connection.
+
+The Tauri host and TypeScript view are separate delivery components. Their job is to display validated records and user-facing connection/setup states. They must not duplicate engine rules or silently edit earlier versions. New integrations enter through adapters; core changes require semantic and compatibility review under the contribution guide. These modules are contribution boundaries, not executable third-party plugin loading.
+
+Public publication will use an explicit projection and a separate adapter. Neither MCP recording nor reading a card grants permission to publish its contents. Installation/recovery and public hosting remain separate Stage 01 checks.

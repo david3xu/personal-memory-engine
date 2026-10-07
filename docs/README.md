@@ -8,6 +8,11 @@ Stage 01 implementation has started. Documents marked as proposals do not establ
 - [First-stage build brief](prototype-brief.md): candidate minimum scope, acceptance checks, and open implementation choices.
 - [User-first implementation plan](implementation-plan.md): incremental Stage 01 delivery, install/record/history/share/recovery milestones, and later improvement.
 
+## Implemented references
+
+- [Engine and adapters](architecture/engine-and-adapters.md): actual responsibilities and integrity limits.
+- [MCP tools](reference/mcp-tools.md): stdio process, arguments, retry/revision behavior, and attribution limits.
+
 ## Architecture and contributions
 
 - [Directory and contribution boundaries](repository-structure.md): target code/document layout, extension areas, stricter foundation review, and proposed enforcement.
