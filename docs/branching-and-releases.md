@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: proposed branch names and merge policy implementing the user's requirement for separate implementation-stage branches. Application implementation remains paused. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) has been created publicly under `david3xu`; local connection and publication are in progress.
+Status: `main` and `stage/00-repository-foundation` are published. Future implementation-stage names and scope remain proposals. Application implementation remains paused. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
 
 ## Branch responsibilities
 
@@ -14,7 +14,7 @@ Status: proposed branch names and merge policy implementing the user's requireme
 | `stage/02-tested-improvement` | Improve the first prototype after actual use | The user observes a concrete problem, requests a change, and verifies it; updated published prototype works |
 | `stage/03-next-capability` | Placeholder naming pattern for a later approved enhancement | Specific scope and checks are defined when this stage starts; maps, additional adapters, or extraction into a library are possibilities, not approved features |
 
-These are stage proposals, not a claim that these branches exist. The first prototype's final feature list remains governed by the approved build brief.
+`main` and `stage/00-repository-foundation` exist. The later stage branches remain proposals and will be created when their work starts. The first prototype's final feature list remains governed by the approved build brief.
 
 ## Branch lifecycle
 
@@ -39,7 +39,7 @@ Tags will only be created when their checkpoints actually exist. Formal semantic
 
 ## Review and protection settings
 
-When the GitHub repository exists, propose requiring pull requests for `main`, preventing force pushes and deletion, resolving review conversations, and requiring the real CI checks once those checks are implemented and running.
+`main` is protected on GitHub: pull requests are required, review conversations must be resolved, force pushes and deletion are disabled, and the rules also apply to administrators. Required approving reviews are set to zero while there is one maintainer. No application CI checks exist yet, so no nonexistent status checks are required. Add the actual checks once implemented and running.
 
 Do not require a second person's approval while the project has only one maintainer; enable an appropriate review requirement when another reviewer is available. Do not configure nonexistent CI check names or claim that local documentation files provide remote branch protection. The active stage can receive similar protections as the contributor group grows.
 
@@ -54,9 +54,9 @@ Do not require a second person's approval while the project has only one maintai
 - **Attribution:** the verified owner identifier `david3xu`, recorded in [NOTICE](../NOTICE). Private vulnerability reporting is enabled. A dedicated confidential conduct-reporting contact remains open.
 - **Verified remote repository:** [https://github.com/david3xu/personal-memory-engine](https://github.com/david3xu/personal-memory-engine).
 
-Local Git was initialized with `main` as its initial branch. The documentation foundation has been reviewed for credentials, private absolute paths, valid YAML, and local links. The initial baseline is being prepared for publication; no application checkpoint or release is being claimed.
+Local Git was initialized with `main` as its initial branch. The documentation foundation has been reviewed for credentials, private absolute paths, valid YAML, and local links. The initial documentation baseline is published on `main`, and the foundation stage branch is published. No application checkpoint or release is being claimed.
 
-The owner, public visibility, and license are now selected. Publish the initial documentation commit, attach the verified repository URL as `origin`, push the baseline, and configure the selected repository settings. Avoid independently initializing a remote README or license if the local repository already supplies those files, so the histories start consistently.
+The owner, public visibility, and license are selected. The initial documentation commit is published, `origin` points to the verified GitHub repository, private vulnerability reporting is enabled, and `main` protection is configured. Future updates follow the branch-and-pull-request workflow. Avoid independently initializing a remote README or license if the local repository already supplies those files, so the histories start consistently.
 
 ## Publication checks
 

@@ -413,3 +413,13 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Publication review:** Intended public files checked for credential patterns and private absolute paths; local Markdown links resolve and issue-template YAML parses.
 - **Next repository operation:** Publish the initial documentation baseline and prepare `stage/00-repository-foundation`; later application branches remain future work.
 - **Implementation state:** No application code or hosted prototype exists; implementation remains paused.
+
+
+### Verified foundation publication event — 2026-10-07
+
+- **Published baseline:** Initial documentation commit `4648b62c93e5e4da95b6be7a6c917e3ee199c528` verified on remote `main`.
+- **Published branches:** `main` and `stage/00-repository-foundation`; future application-stage branches are not created yet.
+- **License detection:** GitHub recognizes `Apache-2.0`.
+- **Main protection:** Pull requests and resolved review conversations required; administrator enforcement enabled; force pushes and deletion disabled. No nonexistent CI checks or second-reviewer requirement configured.
+- **Security reporting:** Private vulnerability reporting verified enabled. A dedicated confidential conduct-reporting contact remains open.
+- **Working stage:** Repository foundation and the still-pending first-stage build brief; application implementation remains paused.
