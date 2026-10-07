@@ -562,3 +562,32 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
 - **Action:** Appended D022 and refined the draft build brief so a minimum release includes installation and sharing usability work, without approving a technology or starting application implementation.
 - **Implementation state:** Documentation only. Latest design changes remain local and have not been pushed to GitHub.
+
+
+## User-first implementation planning — 2026-10-07
+
+### D023 / D023-v1 — Record and commit design, then plan around user actions
+
+- **Chosen direction:** Commit the recorded discussion and create a separate Markdown implementation plan that prioritizes user friendliness at each step, keeps implementation matched to the target, and designs stages using branches and GitHub Actions.
+- **Stated rationale:** The user asks that each step consider how people use the app and stay focused on the target.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** “commit, and then think about create a new Markdown file for the implementation plan”; “user-friendly first, each step”; “think about how user will use this and make sure focus match the target during the implementation”; “how we can use the GitHub action or branch, new branches, to design the implementation stages”.
+- **Related decisions:** D008 (maintain the ledger; app building paused), D016 (stage branches), D021 (minimum local-first engine), D022 (easy installation and sharing).
+- **Previous version:** None.
+- **Status:** Authorized documentation, commit, and stage/automation planning. Specific branch names, Actions jobs, framework, installer, and publishing mechanism remain proposed; application building is not authorized by this request.
+
+### Verified design commit event — 2026-10-07
+
+- **Commit:** `29d4f4b` records the recent local-first choices, format review, installation/sharing goals, future growth proposal, and draft first-stage build brief.
+- **Verification:** Six staged Markdown files reviewed; whitespace check passed, local file links resolve, and no private absolute paths or credential patterns were found.
+- **Branch:** `stage/00-repository-foundation`; public publication is the next repository operation, not yet claimed by this event.
+
+### Assistant proposal — execution plan
+
+- **P030 — User-first milestones and automation:** [Implementation plan](implementation-plan.md) maps installation, worker connection/capture, preserved history, sharing, recovery, and actual-use improvement to staged evidence. It proposes Actions checks and sequential branch creation, retaining unselected implementation choices and no nonexistent CI claims.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D023, preserved earlier entries, and created a separate user-first implementation plan with cross-links to the canonical scope and branch documents.
+- **Implementation state:** Documentation only. Future application branches, workflows, and runtime remain unimplemented.

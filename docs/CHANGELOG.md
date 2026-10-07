@@ -8,5 +8,6 @@
 - Planned separate implementation-stage branches and checkpoint tags.
 - Recorded local-first storage, interface review, and installation/sharing usability requirements.
 - Added a draft first-stage build brief and future growth proposal.
+- Added a user-first implementation plan with installation-to-sharing milestones and proposed Actions/branch integration.
 
 No application release or working prototype has been published yet.

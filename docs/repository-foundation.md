@@ -56,7 +56,7 @@ Use stable decision and version identifiers, explicit predecessor references, a 
 
 Keep the core independent of storage drivers, worker transports, user interfaces, and publication. Plan schema migration, export/import, backup/restore, and deliberate deletion so users can retain and move their records as the app evolves. These details need selection in the build brief or later capability briefs; synchronization and team collaboration are not first-stage requirements.
 
-The next design artifact should define the local engine, its operation contract, its durable record format, the candidate interface packaging, and the separate publication boundary. Then the first prototype can implement one complete path while leaving these boundaries intact.
+The [build brief](prototype-brief.md) defines candidate scope, while the [implementation plan](implementation-plan.md) organizes its user journeys and verification. The local engine operation contract, durable record format, interface packaging, and publication boundary still need selection before coding.
 
 Reference: [Ink & Switch's local-first software research](https://www.inkandswitch.com/essay/local-first/) discusses ownership, local storage, multiple devices, and collaboration. It informs this proposal; no specific synchronization algorithm or library is selected.
 

@@ -34,6 +34,7 @@ The proposed architecture separates decision rules from MCP, persistence, the vi
 
 - [Decision ledger](docs/design-decisions.md): user decisions, available supporting statements, proposals, and open questions.
 - [First-stage build brief](docs/prototype-brief.md): draft target, implementation boundary, acceptance checks, roadmap, and choices still open.
+- [User-first implementation plan](docs/implementation-plan.md): installation-to-sharing milestones, evidence, and proposed GitHub Actions/stage integration.
 - [Repository foundation](docs/repository-foundation.md): proposed module boundaries and contributor documentation.
 - [Branches and remote preparation](docs/branching-and-releases.md): proposed implementation-stage branches and publication workflow.
 

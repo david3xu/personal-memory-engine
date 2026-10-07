@@ -98,19 +98,9 @@ Test the selected distribution in a clean environment without the maintainer's e
 
 The attribution examples test worker behavior; schema validation cannot independently prove what was said in an external conversation. Append-only versions preserve history but do not by themselves solve future concurrent-update semantics.
 
-## Implementation roadmap
+## Execution plan
 
-| Milestone | Work | Evidence before moving on |
-| --- | --- | --- |
-| Foundation scope review | Select the initial interface, storage/backup policy, worker connection, publication behavior, and build context; approve this brief | Explicit selections and an approved bounded brief; a connection feasibility check or documented blocker |
-| Local engine | Define the portable record contract and implement local capture, retrieval, revision, retry, and persistence operations | Behavior checks for history, missing information, retries, invalid references, and restart persistence |
-| Real MCP path | Connect the selected worker to the local engine early, before visual polish | A synthetic choice and changed choice submitted by the actual worker; attribution edge-case walkthrough |
-| Viewer and publication | Build the minimum cards/history viewer and selected read-only demonstration publication | Local cards match stored data; public URL shows the intended sample records with the expected access and availability |
-| Installation and first-version use | Package for the selected primary platform, establish the first usable prototype checkpoint, then have the user install, use, and try it | Clean-environment installation and launch evidence, actual observations, failures if any, and a concrete requested software change |
-| Tested improvement and final delivery | Apply the requested improvement, rerun affected checks, verify the final public URL, and document setup and demonstration | Verified before/after behavior, reachable final URL, and accurate open-source instructions |
-| Later approved capability | Choose the next feature from actual use and define its scope independently | New decision and acceptance checks; no preapproved synchronization, team, or desktop roadmap |
-
-Repository preparation stays on `stage/00-repository-foundation`. Once the brief is approved and building is authorized, the proposed `stage/01-working-prototype` branch carries the first usable prototype; `stage/02-tested-improvement` carries the observed improvement. See [branching and releases](branching-and-releases.md). A tag or branch does not establish that the external brief's required ChatGPT Work conversation occurred.
+See the [user-first implementation plan](implementation-plan.md) for work order, milestone evidence, and proposed GitHub Actions checks. It plans the full installation, recording, history, sharing, recovery, and actual-use improvement journey. The [branching document](branching-and-releases.md) owns branch lifecycle and current protection settings. Those plans do not select the remaining choices below or establish that the required ChatGPT Work build conversation occurred.
 
 ## Choices to close before application building
 

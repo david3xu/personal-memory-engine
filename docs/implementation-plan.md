@@ -1,0 +1,145 @@
+# Personal Memory Engine — User-first implementation plan
+
+Recorded: 2026-10-07 (Australia/Perth)
+
+Status: proposed execution plan. The user requested this document and a stage/automation design; application building remains paused. No implementation-stage branch, Actions workflow, installed app, real MCP connection, or public demo is created by this plan.
+
+## Purpose and sources of truth
+
+Organize implementation around what users must accomplish: install, connect a worker, record an explicit choice, inspect preserved history, share selected content, and retain their memory across restarts and recovery.
+
+The [decision ledger](design-decisions.md) owns confirmed choices and their history. The [build brief](prototype-brief.md) owns candidate first-stage scope and acceptance checks. This plan owns work order, user-experience milestones, and proposed automation. The [branching document](branching-and-releases.md) owns branch lifecycle and existing protection settings. The [foundation proposal](repository-foundation.md) owns reusable component boundaries and later growth considerations.
+
+When implementation changes scope, record the explicit user choice and update the brief before adding the feature. Do not treat a proposed milestone as approval of its framework, storage, or hosting.
+
+## Users and expected experience
+
+| User | Desired outcome | Experience to design |
+| --- | --- | --- |
+| New memory owner | Start recording without learning the development stack | Download and open the supported package, see where data lives, follow connection guidance, and verify one sample decision |
+| Returning memory owner | Understand and retain earlier choices | Reopen the app, find cards, inspect versions and evidence, change a choice through the worker, and recover from a backup |
+| Public reader | Understand deliberately shared decisions | Open a URL without installing the app, see its publication/version scope and selected history, and read comfortably on a phone |
+
+The proposed everyday owner flow is: open the app, connect if needed, continue chatting normally with the configured worker, inspect a recorded choice, and deliberately publish a selected view when desired. This does not introduce chat monitoring or guarantee that every worker will call a tool automatically. Worker instructions and actual tests must establish the supported recording behavior.
+
+The public reader uses a separate read-only experience. Installing the app, authenticating a worker, and publishing a view are owner tasks, not requirements for the reader.
+
+## Before coding: close feasibility and scope
+
+1. Select the first supported operating system and distribution format. Prototype the user journey on paper before choosing a desktop shell or launcher.
+2. Select the candidate interface and local storage/recovery policy. Keep the authoritative store in durable per-user storage, separate from app binaries and development files.
+3. Select and verify one real worker connection, including transport, permissions, and authentication. Installation of the worker's desktop app alone does not establish local MCP access. Do this feasibility work before substantial UI polish.
+4. Select snapshot or live sharing, the publishing destination, publication/update/withdrawal semantics, and whether links must work while the owner's machine is off. A published snapshot stores the selected public copy elsewhere; a live local-backed view depends on local availability.
+5. Confirm the minimum visual scope and this plan against the build brief. Carry the approved scope into the single ChatGPT Work build conversation required by the supplied external brief.
+
+These are open choices, not excuses to expand the app. A minimal package for one platform and one publishing route is enough if they achieve the selected user journey. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
+
+## Milestones driven by user outcomes
+
+### M0 — Agree on the journey and remove the connection uncertainty
+
+- **User outcome:** The owner knows what they will install, where their memory will live, which worker can record it, and what a reader will see.
+- **Work:** Close the choices above; sketch first-run, empty, connected, disconnected, decision-detail, history, publication-preview, and failure states. Select a synthetic example and verify the candidate worker connection using a minimal feasibility setup when implementation is authorized.
+- **Evidence:** Selected scope and a documented supported connection path. Record unsupported account access or an unavailable publishing path plainly; do not claim feasibility as a successful end-to-end app.
+- **Target alignment:** D003-v2 (local storage), D021 (minimum local-first engine), D022 (installation and sharing).
+
+### M1 — A new user can install and open a minimal package
+
+- **User outcome:** Download, install or unpack, and open without compiling source or leaving a terminal running.
+- **Work:** Establish the runtime scaffold, dependency lockfile, initial record schema, local launcher/lifecycle, durable data location, and smallest viewer shell. Add the actual formatter, linter, strict types, meaningful tests, build command, pre-commit check, and CI before domain implementation. Build an early package on the selected platform so packaging difficulties are discovered early.
+- **Experience details:** Show local app health and first-run guidance. Explain any unavoidable platform or account steps; do not call setup one-click if it is not. Prevent duplicate launches from unexpectedly starting independent stores or leaving orphaned services.
+- **Evidence:** A clean-environment package launch without the maintainer's developer tools, an understandable empty state, and working local checks. This early package is not the completed prototype.
+- **Target alignment:** D022. Keep engine and viewer boundaries aligned with the foundation proposal.
+
+### M2 — The owner connects a worker and records the first decision
+
+- **User outcome:** Connection status is understandable; an explicit choice made in conversation appears as a local card.
+- **Work:** Implement validated capture/retrieval operations and durable atomic writes; add the MCP adapter and connection guidance; connect one actual worker. Provide scoped recording access and a minimal sample test.
+- **Experience details:** The card shows the chosen option and only supplied rationale, alternatives, reasons, and evidence. Missing information is visibly absent. Give understandable errors and recovery steps when the worker is disconnected or storage fails. A failed write must not be presented as saved.
+- **Evidence:** Real synthetic conversation capture, persistence after restart, and behavior checks for retries and rejected invalid input. Test an AI suggestion and an unresolved question without turning them into user decisions.
+- **Target alignment:** D002, D004, D005, D003-v2. Unit tests supplement the actual conversation walkthrough; they do not establish worker attribution by themselves.
+
+### M3 — The owner understands changed decisions
+
+- **User outcome:** A later choice appears as a linked new version; the earlier choice and its reasons remain readable.
+- **Work:** Implement revision references, current/history queries, and the card detail/timeline view. Define the selected policy for stale or competing revisions; do not infer semantic precedence from a timestamp.
+- **Experience details:** Distinguish the current choice from older versions. Keep recording time separate from decision time when the latter is supplied. A concern alone must not silently change a choice. A retried submission should not create a duplicate card or version.
+- **Evidence:** Real worker revision walkthrough plus checks for preservation, retries, invalid references, and the selected stale-update policy.
+- **Target alignment:** D006 and the proposed minimum history view under D007. Full relationship maps remain later work.
+
+### M4 — The owner shares a view and a reader opens it
+
+- **User outcome:** Select content, preview it, publish it, and copy a working URL; the recipient reads it without installation.
+- **Work:** Implement the selected publishing adapter and public read-only viewer. Public pages consume the approved published representation, separate from the recording endpoint and unrestricted local store.
+- **Experience details:** Preview versions, rationale, alternatives, and source evidence, not just card titles. Show publish progress, accurate success or failure, publication/version scope, and the selected update/withdrawal behavior. A failed publish must not claim a new public link exists.
+- **Evidence:** Synthetic publication whose page matches the preview; public-reader verification in a private session and another device or network; anonymous visitors cannot record or access unselected records. If offline availability is selected, test with the local service stopped. Use narrow-screen and empty/error checks.
+- **Target alignment:** D012 and D022. First-stage public tests use synthetic records; no personal memory is published by default.
+
+### M5 — The owner keeps their memory and receives the first usable version
+
+- **User outcome:** Reopening, reinstalling, and following recovery guidance retain the decision history.
+- **Work:** Finish the selected export/backup/restore/deletion policy, packaging, and quick-start documentation. Test the released package rather than only a development server. Keep backups and actual memory out of source control, build logs, and CI artifacts.
+- **Experience details:** Display the durable data location and a straightforward backup/recovery action. Uninstall and deletion behavior must be explicit. Any update or migration path introduced at this stage must preserve records and offer recovery on failure.
+- **Evidence:** Clean install and restart walkthrough, reinstall preservation, and restoration of a synthetic backup. Verify that restored records and version links match the original. Complete the build brief's relevant checks and publish an accurately labeled first prototype package/checkpoint.
+- **Target alignment:** D003-v2, D006, D011, D022. Only call the package easy to install after an actual new-user walkthrough; clean-runner tests alone do not establish usability.
+
+### M6 — Actual use produces a verified improvement
+
+- **User outcome:** A concrete difficulty observed while using the first version is improved and the user can verify the result.
+- **Work:** Let the user install/use/try the first version, record the actual observation and requested change, implement the change, and rerun affected checks. Reverify the final package and public URL.
+- **Evidence:** First-version checkpoint, observed issue or need, requested software change, and verified before/after result from the prescribed build conversation. Do not invent a defect in advance or count a stored decision revision as the software improvement.
+- **Target alignment:** D011 and the supplied external brief's iteration requirement. Later capabilities get separate scope decisions.
+
+## Keep implementation matched to the target
+
+For every milestone PR, include the user action, expected visible result, relevant decision/brief requirement, and verification evidence. Mark automated checks separately from a real worker conversation, clean installation, new-user test, or external-reader walkthrough.
+
+Use synthetic examples throughout automated tests and public demos. When a milestone exposes a gap in the selected scope, update the design record and brief before broadening implementation. Prefer a working slice of the whole journey over many isolated modules that have not been connected.
+
+Reusable modules remain inside one repository. No microservices or separately published library are needed for this proposed first stage. Sync and team features require later authority and conflict decisions even though identifiers, portable records, and version relationships should accommodate future evolution.
+
+## Proposed GitHub Actions plan
+
+No Actions workflows currently exist for this application. Add workflows only when their scripts and runtime exist, with real commands and verified run results. Candidate file/job names below are proposals, not existing required checks.
+
+| Automation | Proposed trigger and scope | What it verifies | What it cannot establish |
+| --- | --- | --- | --- |
+| Documentation check | PRs targeting `main` or the active stage; changes to project documents | Markdown consistency, local links, whitespace, and documented status | Approval of product choices or actual app usability |
+| Application CI | PRs targeting `main` or `stage/**`, plus accepted stage/main pushes | Reproducible install, formatter, lint, strict types, meaningful tests, and build; one local check command mirrors CI | Correct capture in an actual external worker or account access |
+| Package smoke test | Candidate implementation PRs and stage checkpoints, on the selected supported OS | Build/install/start the user package, isolated synthetic storage, restart persistence, and package contents | Desktop trust prompts and all human first-run friction |
+| UI and publication-contract checks | Implementation PRs with synthetic fixtures and a local test publishing destination | Cards/history rendering, preview contents, failure handling, and read-only published representation | Real provider credentials, internet availability, or a working public URL |
+| Demo publication | Explicit maintainer dispatch for an accepted commit and selected hosting route | Publish synthetic demonstration assets and verify the resulting URL | Authorization to publish a user's personal memory |
+| Release package | Accepted tagged checkpoint or maintainer dispatch with recorded checks | Package reproducibly, attach installable assets and checksums, and generate accurate release notes | Successful installation on a real new user's machine without a walkthrough |
+
+Implementation details to follow when creating workflows:
+
+- Use ordinary `pull_request` checks for contributed code. Give validation jobs read-only repository permissions and no signing or publication credentials. Do not execute untrusted PR code in a privileged publishing path.
+- Separate package testing from signed release/publication jobs. Use the chosen platform's actual packaging and trust requirements; signatures cannot be replaced by merely passing a build test.
+- Run required checks for both stage-targeted and main-targeted PRs. Do not accidentally skip a required check with broad path filters; use a stable final required job that reports the applicable result.
+- Add only actual verified job/context names to branch protection after the workflow runs successfully. Keep checks simple while there is one selected supported platform.
+- CI artifacts hold packages, synthetic reports, and sanitized evidence, never the owner's memory database, private source excerpts, tokens, backups, or personal runtime logs. Set appropriate retention and avoid excessive repeated runs.
+- Keep a manual or explicitly selected release/publication trigger initially. This protects the user-owned publication boundary; ordinary commits do not automatically publish local memory.
+- GitHub Actions executes the build/check/publish jobs. It is not the runtime database or a permanent connection to the owner's local app. A downloadable Actions artifact and an end-user GitHub Release asset are different delivery surfaces.
+
+Official references: [workflow triggers, branches, and permissions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax), [workflow artifacts](https://docs.github.com/en/actions/tutorials/store-and-share-data), and [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases). These inform the automation proposal; workflows and required application checks remain unimplemented.
+
+## Branch milestones and integration
+
+The existing [branch lifecycle](branching-and-releases.md) remains the source of truth. Map the user journeys to it as follows:
+
+| Branch | Planned contents | Exit evidence |
+| --- | --- | --- |
+| `stage/00-repository-foundation` | Current design notes, build brief, this plan, and pre-build choices | Accurate documentation and selected minimum scope; current policy/contact questions remain visible |
+| `stage/01-working-prototype` | M0 feasibility setup after authorization, then M1–M5 | One usable installable package, actual worker capture/revision, durable local memory, reader-visible URL, and applicable acceptance evidence |
+| `stage/02-tested-improvement` | M6 based on the accepted first version | Observed user difficulty and verified software improvement, with updated installable package and public view |
+| `stage/03-next-capability` | A later selected capability | New scoped brief and user evidence; no feature is preapproved |
+
+Create each implementation-stage branch from the latest accepted `main` when its work starts. Future branch names are planned here; do not create them all now from the documentation baseline. Maintain one active stage and a draft stage-to-main PR showing progress. Merge only when that stage's exit evidence exists. Preserve accepted milestones with tags and release notes rather than permanently diverging branches.
+
+Within an active stage, a contributor may use a short feature branch targeting that stage, such as `feat/first-run`, `feat/decision-capture`, `feat/decision-history`, `feat/public-sharing`, or `feat/backup-recovery`. These are optional proposed names, not current branches. A solo maintainer can instead use focused commits on the active stage. Stage-to-main integration still follows the protected-main PR process.
+
+Do not create a `prototype-v1` checkpoint until M1–M5 work together and the first prototype is actually usable. Create `stage/02-tested-improvement` after the accepted first-version baseline, then retain the observed change at the later checkpoint. Git branches/tags supplement rather than replace the external brief's single-conversation evidence.
+
+## Immediate next step
+
+Review the remaining choices in the build brief: supported platform/distribution, interface, storage/recovery, real worker connection, publication behavior/destination, and build context. This plan is ready for that review, not a claim that those choices have been made. Application building starts only after the agreed scope and build authorization.
