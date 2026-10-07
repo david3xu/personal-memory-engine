@@ -34,3 +34,6 @@ export async function getDecisions(): Promise<DecisionVersion[]> {
 export async function getHistory(id: string): Promise<DecisionVersion[]> {
   return records(await invoke<unknown>('decision_history', { decisionId: id }));
 }
+export async function openConnectionDocs(): Promise<void> {
+  await invoke('open_connection_docs');
+}

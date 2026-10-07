@@ -2,6 +2,11 @@
 
 Stage 01 implementation has started. Documents marked as proposals do not establish completed runtime behavior. Follow the implementation plan for checkpoint evidence and remaining work.
 
+## Use and verification
+
+- [Install and connect](user-guides/install-and-connect.md): current package, desktop plugin, and actual conversation checks.
+- [Implementation evidence](implementation-status.md): tested checkpoints and remaining acceptance.
+
 ## Product and scope
 
 - [Decision ledger](design-decisions.md): confirmed user choices, preserved versions, discussion, and separate proposals.
@@ -27,4 +32,4 @@ Stage 01 implementation has started. Documents marked as proposals do not establ
 - [Security policy](../.github/SECURITY.md): verified private vulnerability-reporting route.
 - [Code of conduct](../.github/CODE_OF_CONDUCT.md): community expectations and reporting limitations.
 
-User task guides, implemented architecture explanations, and exact API/record references will be added in their proposed subdirectories when the corresponding behavior exists. Their organization is defined in the directory proposal; empty documentation folders are not created in advance.
+User guides, implemented architecture explanations, and MCP references now cover the recording checkpoint. Further guides and references will be added when their behavior exists. Their organization is defined in the directory proposal; empty documentation folders are not created in advance.

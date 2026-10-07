@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: active Stage 01 execution following D029. Branch `stage/01-working-prototype` and implementation CI are created. The core/SQLite foundation passes local checks; MCP and desktop integration are next. Installed delivery, real ChatGPT Work recording, and public snapshot hosting remain unverified.
+Status: active Stage 01 execution following D029. Branch `stage/01-working-prototype` and implementation CI are created. Core/SQLite and real-process MCP checks pass. The packaged desktop is installed and opens on the maintainer’s Mac; its local plugin is installed/enabled and starts the helper. Real ChatGPT Work recording, full recovery/distribution, and public snapshot hosting remain unverified. See [checkpoint evidence](implementation-status.md).
 
 ## Purpose and sources of truth
 
@@ -39,7 +39,7 @@ Select remaining choices when they become necessary:
 3. **Before 01.3:** Configure the approved hosted snapshot route: select the destination, selection controls, and publication/update/withdrawal semantics. Only the selected public copy is hosted; verify it remains readable with the local app stopped.
 4. **Before 01.5:** Reconcile the completed steps with the agreed full minimum build brief, user walkthrough, and actual checks. Do not claim the first complete release until those checks pass.
 
-Tauri, embedded SQLite, and owner-selected public snapshots are approved in D020-v2, D003-v3, and D012-v2. Platform support, UI framework, drivers, exact contracts, account access, and hosting/lifecycle details remain open. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
+Tauri, embedded SQLite, and owner-selected public snapshots are approved in D020-v2, D003-v3, and D012-v2. The recording checkpoint now uses plain TypeScript/Vite, rusqlite, generated Rust contracts, and a macOS Apple Silicon development build. Broader platform support, actual Work capture, public distribution, and hosting/lifecycle details remain open. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
 
 Official [Work setup](https://learn.chatgpt.com/docs/get-started-with-work) and [local projects](https://learn.chatgpt.com/docs/projects?surface=app) describe approved local folder access. A cloud conversation does not automatically inherit the local repository or running processes; verify actual access rather than assuming it from the product name.
 

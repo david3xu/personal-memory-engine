@@ -17,7 +17,7 @@ A folder marks responsibility, not a security sandbox or permission to bypass th
 Keep one repository and one application instance initially. Create modules only when approved implementation needs them; do not scaffold empty directories for future capabilities.
 
 ```text
-Cargo.toml                # Proposed workspace; created only when implementation begins
+Cargo.toml                # Existing workspace; deeper module split below is a growth proposal
 crates/
   engine/
     src/
@@ -36,7 +36,7 @@ crates/
         publication/      # Hosted snapshot destination and approved read-only projection
       runtime/            # Local lifecycle, API transport, and instance configuration
     tests/                # Runtime and adapter integration with synthetic data
-contracts/                # Derived portable schemas/types; generation method not selected
+contracts/                # Existing Rust-derived schemas/types; future public schemas added as needed
 web/
   owner/                  # TypeScript owner interface
     src/
@@ -59,13 +59,15 @@ scripts/
   CODE_OF_CONDUCT.md
   pull_request_template.md
   ISSUE_TEMPLATE/
-  CODEOWNERS              # Candidate review routing, not currently configured
+  CODEOWNERS              # Actual maintainer routing; mandatory approval remains unconfigured
   workflows/              # Actual checks added with implementation
 ```
 
-Rust is selected for the engine and TypeScript for the interface. This physical layout remains proposed: an engine crate holds the core/application layers, while a local-runtime crate composes adapters and process lifecycle. Keep these responsibilities in modules rather than creating a crate for each feature. Create TypeScript project manifests with implementation, not as empty placeholders.
+Rust is selected for the engine and TypeScript for the interface. The engine crate now holds the core/application layers, while a local-runtime crate composes adapters and process lifecycle. Future directory entries remain proposed. Keep these responsibilities in modules rather than creating a crate for each feature. Create TypeScript project manifests with implementation, not as empty placeholders.
 
-Tauri owner delivery, embedded SQLite, and selected public snapshots are now approved. The proposed Tauri host lives under `web/owner/src-tauri` and calls the reusable engine/application operations through the local runtime; exact manifests and wiring are implementation work. Keep Tauri and SQLite dependencies out of the pure engine. UI framework, MCP transport, first platform, SQLite driver/schema, and snapshot destination remain open. A development browser viewer calls the same validated operations rather than duplicating decision rules.
+Tauri owner delivery, embedded SQLite, and selected public snapshots are now approved. The Tauri host is implemented under `web/owner/src-tauri` and reads reusable engine operations through the local SQLite runtime. Keep Tauri and SQLite dependencies out of the pure engine. The initial engineering implementation uses plain TypeScript/Vite, stdio MCP, rusqlite, and a macOS Apple Silicon package. These are implementation choices, not invented user decisions selecting a permanent platform boundary. The development browser view displays setup/layout only; authoritative records are accessed through Tauri. Snapshot destination remains open.
+
+The worker plugin lives separately in `plugins/personal-memory-engine`, with a marketplace catalog in `.agents/plugins/marketplace.json`. It provides worker instructions and a launcher for the installed helper; it does not add decision rules to the engine or load arbitrary plugin code into the owner app.
 
 ## Allowed dependency direction
 

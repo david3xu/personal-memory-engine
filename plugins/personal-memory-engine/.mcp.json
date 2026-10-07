@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "personal-memory": {
+      "type": "stdio",
+      "command": "/bin/bash",
+      "args": ["${CODEX_PLUGIN_ROOT}/scripts/start-mcp.sh"]
+    }
+  }
+}

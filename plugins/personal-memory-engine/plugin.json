@@ -1,0 +1,23 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "personal-memory-engine",
+  "version": "0.1.0",
+  "description": "Record explicit user choices and preserved revisions into the owner's local Personal Memory Engine app.",
+  "author": { "name": "david3xu" },
+  "license": "Apache-2.0",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Personal Memory Engine",
+        "shortDescription": "Keep your decisions locally",
+        "longDescription": "A desktop-only local MCP integration. Record explicit user decisions, read saved cards, and inspect preserved versions. Requires the installed Personal Memory Engine app; no cloud memory store or chat monitoring.",
+        "developerName": "david3xu",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "logo": "./assets/logo.png",
+        "composerIcon": "./assets/logo.png",
+        "defaultPrompt": "Record my explicit decisions locally, preserving only stated reasons and available evidence."
+      }
+    }
+  }
+}

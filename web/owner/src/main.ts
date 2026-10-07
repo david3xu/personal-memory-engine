@@ -1,6 +1,13 @@
-// Owner interface: display local cards, preserved history, and honest worker setup states.
+// Owner interface: display local cards, preserved versions, and honest worker setup states.
 import './style.css';
-import { desktopAvailable, getDecisions, getHistory, getStatus, type LocalStatus } from './bridge';
+import {
+  desktopAvailable,
+  getDecisions,
+  getHistory,
+  getStatus,
+  openConnectionDocs,
+  type LocalStatus,
+} from './bridge';
 import type { DecisionVersion } from '../../../contracts/generated/records';
 const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Application root is missing');
@@ -79,7 +86,7 @@ function page(connection: boolean): void {
   el('#breadcrumb-page').textContent = connection ? 'Worker connection' : 'Decisions';
 }
 let decisions: DecisionVersion[] = [];
-let status: LocalStatus | undefined;
+let localState: LocalStatus | undefined;
 let selectedId: string | undefined;
 let historyRequest = 0;
 let refreshBusy = false;
@@ -94,9 +101,9 @@ async function select(id: string): Promise<void> {
   renderCards();
   const request = ++historyRequest;
   try {
-    const history = await getHistory(id);
+    const versions = await getHistory(id);
     if (request !== historyRequest) return;
-    renderDetail(history);
+    renderDetail(versions);
   } catch (error) {
     showError(error);
   }
@@ -169,8 +176,8 @@ function renderCards(): void {
     ),
   );
 }
-function renderDetail(history: DecisionVersion[], versionIndex = 0): void {
-  const record = history[versionIndex];
+function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
+  const record = versions[versionIndex];
   if (!record) return;
   const target = el('#detail');
   target.replaceChildren();
@@ -209,21 +216,21 @@ function renderDetail(history: DecisionVersion[], versionIndex = 0): void {
   target.append(evidence);
   const timeline = node('section', '', 'timeline record-section');
   timeline.append(
-    node('h3', `Version history · ${history.length}`),
+    node('h3', `Version history · ${versions.length}`),
     node(
       'p',
       'Earlier choices stay intact. Select a version to read its original context.',
       'muted',
     ),
   );
-  history.forEach((version, index) => {
+  versions.forEach((version, index) => {
     const item = button(
       '',
-      () => renderDetail(history, index),
+      () => renderDetail(versions, index),
       `timeline-item${index === versionIndex ? ' active' : ''}`,
     );
     item.append(
-      node('span', `Version ${history.length - index}${index === 0 ? ' · Current' : ''}`),
+      node('span', `Version ${versions.length - index}${index === 0 ? ' · Current' : ''}`),
       node('strong', version.submission.chosen_option),
       node('small', date(version.recorded_at)),
     );
@@ -252,15 +259,15 @@ function renderConnection(): void {
         : 'This is the browser development view. Open the desktop app to access local memory.',
     ),
   );
-  if (status) {
+  if (localState) {
     overview.append(
-      node('code', status.database_path, 'path'),
+      node('code', localState.database_path, 'path'),
       node(
         'p',
-        status.helper_available
+        localState.helper_available
           ? 'The packaged recording helper is ready.'
           : 'Recording helper is missing. Rebuild or reinstall this package.',
-        status.helper_available ? 'success' : 'warning',
+        localState.helper_available ? 'success' : 'warning',
       ),
     );
   }
@@ -273,11 +280,25 @@ function renderConnection(): void {
       'A local MCP worker starts the helper below. ChatGPT Work on desktop can use the local plugin packaged with this project. Cloud-hosted ChatGPT needs a separate private tunnel route. Availability depends on your account and workspace.',
     ),
   );
-  if (status) {
+  connection.append(
+    node('h3', 'ChatGPT Work desktop plugin'),
+    node(
+      'p',
+      'Install this development plugin through the local host, then start a new Work chat with Personal Memory Engine enabled.',
+    ),
+    node(
+      'pre',
+      'codex plugin marketplace add david3xu/personal-memory-engine --ref stage/01-working-prototype\ncodex plugin add personal-memory-engine@personal-memory-engine',
+    ),
+  );
+  if (localState) {
     const config = JSON.stringify(
       {
         mcpServers: {
-          'personal-memory': { command: status.helper_path, args: ['--data-dir', status.data_dir] },
+          'personal-memory': {
+            command: localState.helper_path,
+            args: ['--data-dir', localState.data_dir],
+          },
         },
       },
       null,
@@ -291,7 +312,7 @@ function renderConnection(): void {
       }),
     );
     const quote = (value: string): string => `'${value.replaceAll("'", "'\\''")}'`;
-    const command = `${quote(status.helper_path)} --data-dir ${quote(status.data_dir)}`;
+    const command = `${quote(localState.helper_path)} --data-dir ${quote(localState.data_dir)}`;
     connection.append(
       node('h3', 'Helper command for an optional cloud tunnel'),
       node('pre', command),
@@ -305,6 +326,12 @@ function renderConnection(): void {
   link.href = 'https://learn.chatgpt.com/docs/plugins';
   link.target = '_blank';
   link.rel = 'noopener noreferrer';
+  if (desktopAvailable) {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      void openConnectionDocs().catch(showError);
+    });
+  }
   connection.append(link);
   connection.append(
     node(
@@ -329,8 +356,8 @@ function renderConnection(): void {
   check.append(
     node(
       'p',
-      status?.last_tool_use
-        ? `Last MCP tool use: ${date(status.last_tool_use)}. This is activity history, not a live connection check.`
+      localState?.last_tool_use
+        ? `Last MCP tool use: ${date(localState.last_tool_use)}. This is activity history, not a live connection check.`
         : 'No MCP tool use has been observed for this local store.',
       'muted',
     ),
@@ -342,16 +369,16 @@ async function refresh(force = false): Promise<void> {
   refreshBusy = true;
   try {
     const [nextDecisions, nextStatus] = await Promise.all([getDecisions(), getStatus()]);
-    status = nextStatus;
+    localState = nextStatus;
     decisions = nextDecisions;
     el('#error').classList.add('hidden');
     el('#decision-total').textContent = String(decisions.length);
     el('#nav-count').textContent = String(decisions.length);
-    el('#worker-state').textContent = status.last_tool_use ? 'Tool used' : 'Not verified';
-    el('#worker-caption').textContent = status.last_tool_use
-      ? date(status.last_tool_use)
+    el('#worker-state').textContent = localState.last_tool_use ? 'Tool used' : 'Not verified';
+    el('#worker-caption').textContent = localState.last_tool_use
+      ? date(localState.last_tool_use)
       : 'worker activity';
-    const fingerprint = JSON.stringify([decisions, status]);
+    const fingerprint = JSON.stringify([decisions, localState]);
     if (force || fingerprint !== previousFingerprint) {
       previousFingerprint = fingerprint;
       renderConnection();

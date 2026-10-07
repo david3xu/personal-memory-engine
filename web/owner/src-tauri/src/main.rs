@@ -4,6 +4,7 @@ use memory_local_runtime::{SqliteStore, paths::default_data_dir};
 use serde::Serialize;
 use std::path::PathBuf;
 use tauri::Manager;
+use tauri_plugin_opener::OpenerExt;
 struct DesktopState {
     store: SqliteStore,
     data_dir: PathBuf,
@@ -64,8 +65,16 @@ async fn decision_history(
     .await
     .map_err(|_| "History could not be read".to_string())?
 }
+#[tauri::command]
+fn open_connection_docs(app: tauri::AppHandle) -> Result<(), String> {
+    // A fixed help destination keeps arbitrary URL opening out of the interface boundary.
+    app.opener()
+        .open_url("https://learn.chatgpt.com/docs/plugins", None::<&str>)
+        .map_err(|error| error.to_string())
+}
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_opener::init())
         .setup(|app| {
             // An explicit override is only for isolated development/testing; installs use OS storage.
             let data_dir = match std::env::var_os("PERSONAL_MEMORY_DATA_DIR") {
@@ -88,7 +97,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             local_status,
             list_decisions,
-            decision_history
+            decision_history,
+            open_connection_docs
         ])
         .run(tauri::generate_context!())
         .expect("Personal Memory Engine could not open; check local storage access");

@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Stage: product scope and conceptual design. Implementation is paused.
+Current stage: implementation authorized in D029; see [implementation evidence](implementation-status.md). Earlier entries below preserve the original design-stage pauses and approvals.
 
 This is the initial decision ledger for the project. It records user choices from the design conversation, keeps assistant proposals separate, and leaves missing rationale or evidence explicitly absent. The user authorized this first Markdown record after reviewing the proposed snapshot and recording approach.
 

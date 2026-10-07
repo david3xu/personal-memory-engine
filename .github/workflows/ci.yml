@@ -35,6 +35,10 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm desktop:build
+      - name: Verify bundled MCP helper
+        run: pnpm test:package
+        env:
+          MCP_HELPER: target/release/bundle/macos/Personal Memory Engine.app/Contents/MacOS/memory-mcp
       - name: Archive unsigned development app
         run: ditto -c -k --sequesterRsrc --keepParent "target/release/bundle/macos/Personal Memory Engine.app" "Personal-Memory-Engine-macos.zip"
       - uses: actions/upload-artifact@v4
