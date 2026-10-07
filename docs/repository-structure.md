@@ -17,30 +17,34 @@ A folder marks responsibility, not a security sandbox or permission to bypass th
 Keep one repository and one application instance initially. Create modules only when approved implementation needs them; do not scaffold empty directories for future capabilities.
 
 ```text
-src/
-  core/
-    contracts/            # Canonical versioned record schema and portable types
-    decisions/            # Choice, revision, and missing-information rules
-  application/
-    operations/           # Capture, retrieve, revise, and selected publication operations
-    ports/                # Small storage and publication interfaces
-  adapters/
-    mcp/                  # Worker transport, input validation, and attribution metadata
-    storage/              # Selected local store; migrations belong with this adapter
-    publication/          # Selected publishing destination and read-only projection
-  runtime/
-    local/                # Local lifecycle, API transport, and instance configuration
+Cargo.toml                # Proposed workspace; created only when implementation begins
+crates/
+  engine/
+    src/
+      core/
+        contracts/        # Authoritative versioned record schema and portable types
+        decisions/        # Choice, revision, and missing-information rules
+      application/
+        operations/       # Capture, retrieve, revise, and selected publication operations
+        ports/            # Small storage and publication interfaces
+    tests/                # Engine behavior and port conformance
+  local-runtime/
+    src/
+      adapters/
+        mcp/              # Worker transport, input validation, and attribution metadata
+        storage/          # Selected local store and its migrations
+        publication/      # Selected publishing destination and read-only projection
+      runtime/            # Local lifecycle, API transport, and instance configuration
+    tests/                # Runtime and adapter integration with synthetic data
+contracts/                # Derived portable schemas/types; generation method not selected
 web/
-  owner/
+  owner/                  # TypeScript owner interface
     features/             # First run, cards, history, sharing preview, and recovery UI
-  public-view/            # Read-only published cards/history
+  public-view/            # TypeScript read-only published cards/history
   shared/                 # Browser-safe visual components only
 tests/
-  core/
-  application/
-  contracts/
-  adapters/
-  runtime/
+  contracts/              # Cross-language compatibility and input validation
+  integration/            # Connected worker/store/viewer and publication behavior
   web/
   fixtures/               # Synthetic decisions and publication examples
 scripts/
@@ -57,7 +61,9 @@ scripts/
   workflows/              # Actual checks added with implementation
 ```
 
-`runtime/local` replaces the earlier tentative `server` name so the process lifecycle has a clear home regardless of browser or desktop packaging. Directory names do not select a database, web framework, MCP transport, or native desktop shell. A browser viewer and a later desktop launcher should call the same application operations rather than duplicate decision rules.
+Rust is selected for the engine and TypeScript for the interface. This physical layout remains proposed: an engine crate holds the core/application layers, while a local-runtime crate composes adapters and process lifecycle. Keep these responsibilities in modules rather than creating a crate for each feature. Create TypeScript project manifests with implementation, not as empty placeholders.
+
+Directory names do not select a database, UI framework, MCP transport, or native desktop shell. If Tauri is selected, its Rust integration should call the engine/application operations; placement of that shell is settled with packaging. The owner interface and a launcher call the same operations rather than duplicate decision rules.
 
 ## Allowed dependency direction
 
@@ -70,7 +76,7 @@ scripts/
 | Owner UI | Browser-safe read contracts and a narrow owner API | Direct database access, embedded credentials, or duplicated revision logic |
 | Public viewer | Published read-only contracts and browser-safe UI | Local private-store access, recording operations, MCP credentials, and private runtime dependencies |
 
-Maintain one authoritative record schema. Derive browser-safe read and published contracts from it; avoid hand-maintaining conflicting copies. The public publication representation should contain only explicitly selected fields and versions; it is not the unrestricted internal store contract.
+Maintain one authoritative record schema in Rust. Derive browser-safe read and published schemas/TypeScript types from it; avoid hand-maintaining conflicting copies. Select the generation mechanism before creating generated files. Runtime validation still checks external input, including MCP submissions and UI requests; static TypeScript types do not validate received data. Keep transport commands small, versioned, and covered by cross-language contract checks. The public publication representation should contain only explicitly selected fields and versions; it is not the unrestricted internal store contract.
 
 Storage adapters implement atomicity and version preservation through a defined port and shared conformance checks. Publication adapters take the approved public representation rather than unrestricted database access. New adapter dependencies or network access must be reviewed for their actual permissions and data flow.
 
@@ -109,10 +115,10 @@ All contributions use the existing PR workflow and scope rules. The tiers below 
 | --- | --- | --- |
 | Routine contribution | User-guide clarity, synthetic fixtures, accessibility, visual polish, and focused tests for existing behavior | Focused PR, relevant user outcome, actual checks, and maintainer review; no hidden scope or semantic changes |
 | Contract-bound extension | `web/owner`, `web/public-view`, MCP or publishing adapters, installation improvements | Agreed feature scope, relevant adapter/contract tests, user-experience evidence, and review of new dependencies/permissions; elevated tier if it changes privacy or access |
-| Foundation change | `src/core`, `src/application`, storage/migrations, authentication/authorization, publication selection, record compatibility, and invariant tests | Maintainer-agreed design before semantic changes, preservation tests, compatibility/migration/recovery analysis, updated contract documentation, and explicit foundation review before merge |
+| Foundation change | `crates/engine`, storage/migrations, authentication/authorization, publication selection, record compatibility, and invariant tests | Maintainer-agreed design before semantic changes, preservation tests, compatibility/migration/recovery analysis, updated contract documentation, and explicit foundation review before merge |
 | Project control change | CI, packaging/signing/release scripts, ownership rules, security policy, supported platforms, or the historical design record | Maintainer agreement appropriate to the change; protect release credentials and data boundaries; record product choices explicitly; do not weaken checks silently |
 
-Classification follows behavior, not only changed paths. For example, a UI change that publishes an extra private source excerpt is a foundation/access change. An adapter that overwrites old versions is a foundation failure even if it never edits `src/core`. New platform or worker support still needs a scoped milestone; a contribution-friendly area is not automatic approval to add an out-of-scope feature.
+Classification follows behavior, not only changed paths. For example, a UI change that publishes an extra private source excerpt is a foundation/access change. An adapter that overwrites old versions is a foundation failure even if it never edits `crates/engine`. New platform or worker support still needs a scoped milestone; a contribution-friendly area is not automatic approval to add an out-of-scope feature.
 
 A bug fix or pure refactor within the agreed core semantics can be proposed as a focused PR with preservation evidence. It need not invent a new product choice. A proposal to change semantics needs an agreed design issue or private security discussion where appropriate, followed by an explicit decision if product requirements change.
 

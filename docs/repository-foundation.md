@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: proposed repository design. Application implementation remains paused. The [public repository](https://github.com/david3xu/personal-memory-engine) has been created under `david3xu`. Apache License 2.0 is selected, with attribution to the verified owner identifier. The implementation stack and hosting remain open; confidential conduct-reporting contact details are not yet supplied.
+Status: proposed repository design. Application implementation remains paused. The [public repository](https://github.com/david3xu/personal-memory-engine) has been created under `david3xu`. Apache License 2.0 is selected, with attribution to the verified owner identifier. Selected languages and remaining implementation choices are recorded in the [build brief](prototype-brief.md); hosting remains open; confidential conduct-reporting contact details are not yet supplied.
 
 ## Purpose and design boundary
 
@@ -117,4 +117,4 @@ Start with ordinary pull requests and a clear review process. Any additional con
 
 ## Current state
 
-The project contains design documentation and local repository configuration. Local Git is initialized with `main` as its initial branch; the documentation baseline is published and `stage/00-repository-foundation` is the active preparation branch. See [branching and remote preparation](branching-and-releases.md) for the proposed stage workflow. Apache License 2.0 and the owner `david3xu` are selected; the application stack remains open. No application code or deployment has been created.
+The project contains design documentation and local repository configuration. Local Git is initialized with `main` as its initial branch; the documentation baseline is published and `stage/00-repository-foundation` is the active preparation branch. See [branching and remote preparation](branching-and-releases.md) for the proposed stage workflow. Apache License 2.0 and the owner `david3xu` are selected; remaining application choices are listed in the [build brief](prototype-brief.md). No application code or deployment has been created.

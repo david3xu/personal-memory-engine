@@ -10,5 +10,7 @@
 - Added a draft first-stage build brief and future growth proposal.
 - Added a user-first implementation plan with installation-to-sharing milestones and proposed Actions/branch integration.
 - Added a canonical directory/contribution-boundary proposal and documentation index, with clearer foundation-review guidance.
+- Recorded Rust for the engine and TypeScript for the interface; desktop packaging and UI framework remain open.
+- Refined the proposed Rust/TypeScript directory boundary, portable contracts, and implementation checks.
 
 No application release or working prototype has been published yet.

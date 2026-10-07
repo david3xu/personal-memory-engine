@@ -2,7 +2,7 @@
 
 ## Project state
 
-Personal Memory Engine is in design and repository preparation. Application implementation is paused until the first-stage build brief is approved. No runtime stack, verified MCP integration, application build, or hosted prototype exists yet.
+Personal Memory Engine is in design and repository preparation. Application implementation is paused until the first-stage build brief is approved. Rust is selected for the engine and TypeScript for the interface. Desktop packaging, UI framework, storage, and connection/publishing mechanisms remain open. No runtime implementation, verified MCP integration, application build, or hosted prototype exists yet.
 
 ## Canonical records
 
@@ -18,7 +18,7 @@ Keep historical decision entries intact. Append revisions or corrections and dis
 
 ## Current checks
 
-For documentation changes, run `git diff --check` and verify local Markdown links. Runtime formatting, lint, type, test, and build commands must be added when the stack is selected; do not invent setup instructions or claim nonexistent CI.
+For documentation changes, run `git diff --check` and verify local Markdown links. Rust and TypeScript formatting, lint, type, test, and build commands must be added when implementation establishes the toolchains; do not invent setup instructions or claim nonexistent CI.
 
 ## Data rules
 

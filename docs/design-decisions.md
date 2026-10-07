@@ -615,3 +615,51 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
 - **Action:** Appended D024, created the structure/contribution proposal and documentation index, and pointed existing foundation/planning/contribution documents to this canonical directory design. Historical decision content remains intact.
 - **Implementation state:** Documentation only. No application directory, CODEOWNERS configuration, CI workflow, or new application branch created.
+
+
+## Engine language selection — 2026-10-07
+
+### D025 / D025-v1 — Rust for the memory engine
+
+- **Chosen direction:** Use Rust for the personal decision memory engine.
+- **Stated rationale:** Not stated by the user. The assistant's earlier packaging and safety rationale remains a recommendation, not attributed to the user.
+- **Rejected alternatives and reasons:** None explicitly stated. TypeScript for the engine was an earlier assistant proposal; no rejection reason was supplied.
+- **Source:** “yes, use rust for engine”.
+- **Related decisions:** D021 (minimum local-first engine), D022 (installation and sharing), D024 (clear foundation boundary).
+- **Previous version:** None; no engine language was previously selected.
+- **Status:** Confirmed engine language. The UI language, desktop framework, storage implementation, worker connection, and publication mechanism remain open. This language choice does not authorize application implementation under D008.
+
+### Related question and assistant proposal
+
+- **User question:** “how about tauri, is it typscript?” This is a framework question, not selection of Tauri.
+- **P032 — Candidate interface and packaging:** Use TypeScript for the web interface and consider Tauri for the desktop shell around the selected Rust engine. Tauri supports web frontend technologies and Rust backend integration. [Official Tauri documentation](https://v2.tauri.app/start/). This remains a proposal; physical Rust crate layout will be refined with the selected runtime and packaging.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D025 and reflected the engine language in the README and build brief, preserving previous decisions and keeping Tauri/interface choices unapproved.
+- **Implementation state:** Documentation only. No Rust source, Cargo project, or Tauri application created. These new notes are local and not yet published to GitHub.
+
+
+## Interface language confirmation — 2026-10-07
+
+### D026 / D026-v1 — TypeScript for the interface
+
+- **Chosen direction:** Use TypeScript for the interface alongside the Rust memory engine selected in D025.
+- **Stated rationale:** Not stated by the user. Earlier assistant recommendations are not attributed to the user.
+- **Rejected alternatives and reasons:** None explicitly stated.
+- **Source:** “good ,confirm typescript interface and rust enginee, now what's next”.
+- **Related decisions:** D025 (Rust engine), D024 (foundation boundary), D022 (installation and sharing).
+- **Previous version:** None; TypeScript for the interface was previously an assistant proposal in P032.
+- **Status:** Confirmed interface language and reaffirmed Rust engine. Tauri, UI framework, first supported operating system, local storage, worker connection, and publication mechanism remain open. Application implementation remains paused under D008.
+
+### Assistant proposal — refine the language boundary and close the build choices
+
+- **P033 — Rust/TypeScript implementation boundary:** Refine the proposed layout to a reusable Rust engine, a Rust local runtime/adapters layer, and TypeScript owner/public interfaces. Keep one authoritative record contract and derive browser-safe types/schemas; validate incoming data at runtime. The exact contract-generation mechanism and physical module names remain proposals.
+- **Proposed next step:** Select packaging and the first supported operating system, then storage/recovery, one verified worker connection, and publication behavior/destination. Close the build brief before authorizing the first implementation stage.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D026 without rewriting D025 or earlier history; updated current-state documentation and the proposed layout/implementation checks to reflect both selected languages.
+- **Implementation state:** Documentation only. No source files, Cargo workspace, desktop application, workflows, or implementation-stage branches created by this update. Repository publication is verified separately.
