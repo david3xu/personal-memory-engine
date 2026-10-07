@@ -663,3 +663,27 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
 - **Action:** Appended D026 without rewriting D025 or earlier history; updated current-state documentation and the proposed layout/implementation checks to reflect both selected languages.
 - **Implementation state:** Documentation only. No source files, Cargo workspace, desktop application, workflows, or implementation-stage branches created by this update. Repository publication is verified separately.
+
+
+## Incremental first-stage delivery — 2026-10-07
+
+### D027 / D027-v1 — Deliver the working minimum before expanding features
+
+- **Chosen direction:** Split Stage 01 into smaller implementation steps that together deliver a complete minimum working app, then return for improvements and additional features.
+- **Stated rationale:** The user wants the app to work first with basic features before improving it.
+- **Rejected alternatives and reasons:** None explicitly stated.
+- **Source:** “at the stage 01, how we do a full minimum delivery and then come back for more feature implemtnation”; “we let the app works first with basic features , then improve, split the stage 01 to multiplep steps”.
+- **Related decisions:** D011 (small tested/published release), D021 (minimum engine before mature stages), D022 (installation/sharing), D023 (user-first plan), D025/D026 (languages).
+- **Previous version:** None. This refines delivery sequencing without changing the earlier core requirements.
+- **Status:** Confirmed incremental minimum-first delivery direction. Exact step grouping and checkpoints below remain assistant proposals; packaging, storage, worker/publication choices, and application building remain unapproved.
+
+### Assistant proposal — Stage 01 delivery steps
+
+- **P034 — Five user-visible steps:** The [implementation plan](implementation-plan.md#stage-01-deliver-a-complete-minimum-in-small-steps) groups existing milestones into a first real capture slice, preserved revision history, deliberate public sharing, installation/recovery completion, and integrated minimum-release verification. Checkpoints make progress usable and reviewable but do not claim the complete prototype before all required behavior works together.
+- **Later work:** Preserve the accepted first version, observe actual use, verify a concrete improvement in Stage 02, and scope additional capabilities separately. Later features must retain records and the basic working journey.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D027 and refined the canonical plan, with brief/branch/index links to avoid a separate competing roadmap.
+- **Implementation state:** Documentation only. No application code, workflow, release, or new implementation-stage branch created.

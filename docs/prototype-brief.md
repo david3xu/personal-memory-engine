@@ -19,7 +19,7 @@ The confirmed direction is D021; local authoritative storage is D003-v2. See the
 - Preserve earlier versions and link a changed choice to its earlier record.
 - Store authoritative user memory on the user's local machine; the project does not operate a service holding users' memory.
 - Provide a visual decision and history interface, plus a public URL other people can visit. Exact interface packaging and publication scope remain open.
-- Start small while allowing later mature stages and reuse in a broader project.
+- Start small while allowing later mature stages and reuse in a broader project. Split Stage 01 into reviewable steps that together deliver the full basic working app before adding broader features (D027); exact step grouping remains proposed.
 - Use Rust for the memory engine (D025) and TypeScript for the interface (D026); UI framework, runtime adapters, and desktop packaging are not yet selected.
 - Make installation easy for users and make public-link sharing easy for readers (D022). Packaging and hosting are still choices to close.
 - The supplied external brief requires one working promised capability, a reachable public URL, and a verified software change after the first version, with its build workflow in one ChatGPT Work conversation. These are separate from the user's application decisions.
@@ -101,7 +101,7 @@ The attribution examples test worker behavior; schema validation cannot independ
 
 ## Execution plan
 
-See the [user-first implementation plan](implementation-plan.md) for work order, milestone evidence, and proposed GitHub Actions checks. It plans the full installation, recording, history, sharing, recovery, and actual-use improvement journey. The [branching document](branching-and-releases.md) owns branch lifecycle and current protection settings. Those plans do not select the remaining choices below or establish that the required ChatGPT Work build conversation occurred.
+See the [user-first implementation plan](implementation-plan.md) for work order, milestone evidence, and proposed GitHub Actions checks. Its [Stage 01 delivery steps](implementation-plan.md#stage-01-deliver-a-complete-minimum-in-small-steps) connect a first real capture slice to complete installation, history, sharing, recovery, and integrated delivery, followed by actual-use improvement. The [branching document](branching-and-releases.md) owns branch lifecycle and current protection settings. Those plans do not select the remaining choices below or establish that the required ChatGPT Work build conversation occurred.
 
 ## Choices to close before application building
 

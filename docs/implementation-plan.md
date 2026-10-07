@@ -34,6 +34,42 @@ The public reader uses a separate read-only experience. Installing the app, auth
 
 These are open choices, not excuses to expand the app. A minimal package for one platform and one publishing route is enough if they achieve the selected user journey. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
 
+## Stage 01: deliver a complete minimum in small steps
+
+D027 confirms that the first stage should reach a complete basic delivery before broader features. The five steps below are a proposed grouping of M0–M5, not five independent products. Each step extends the same working app and ends with a demonstration, focused checks, and a reproducible checkpoint. The milestone details below retain the work and evidence for each step.
+
+| Step | What the user can do at its end | Completion evidence | Milestone mapping |
+| --- | --- | --- | --- |
+| 01.1 — Record one real choice | Open an early package, connect the selected worker, make an explicit synthetic choice, and see a locally saved card with supplied rationale/alternatives/evidence | Real MCP conversation to durable storage to UI; restart retains the card; missing fields remain absent; invalid/retried submissions behave correctly; connection and save failures are understandable | Close M0 choices, then combine M1 and M2 into the first working slice |
+| 01.2 — Change a choice without losing history | Record a later choice and inspect both linked versions in a simple history view | Actual worker revision, old-content preservation, retry/reference checks, and unresolved concerns do not change the choice | M3 |
+| 01.3 — Share deliberately | Select synthetic content, preview it, publish, and give another person a read-only URL | Public page matches selection; an external/private-session reader can open it; recording and unselected memory remain inaccessible; selected update/withdrawal and availability behavior work | M4 |
+| 01.4 — Install and retain memory | Follow a short installation/connection guide, reopen or reinstall, and back up/restore the history | Clean-environment package test, new-user walkthrough, persistence and synthetic restore checks, documented data location and deletion behavior | M5; refine the early package rather than introducing a new application |
+| 01.5 — Receive the complete minimum | Use installation, recording, revision, recovery, and sharing together in the same accepted version | Full build-brief acceptance review, meaningful checks, released-package walkthrough, real worker verification, and final external URL check against the exact accepted commit | Combined M1–M5 acceptance and first-prototype checkpoint |
+
+Start with a real vertical slice: Rust engine, local storage, MCP, and TypeScript card view connected in 01.1. An empty viewer or mocked worker can help development but does not complete that step. The early package tests launch/distribution feasibility; 01.4 finishes the supported installation and recovery experience.
+
+Define stable record identifiers, the versioned record contract, revision references, and validated operation boundaries from 01.1. Implement the user-visible revision path in 01.2 without rewriting the first records. Durable writes, intended recording access, missing-information handling, and safe rendering apply as soon as their paths exist. They are not optional polish to postpone until the last step.
+
+### Complete minimum delivery boundary
+
+The first complete delivery consists of one owner/machine, one supported installation route, one real worker connection, explicit decision cards, preserved linked revisions, durable local storage and the selected recovery policy, plus deliberate read-only publication at a verified URL. Basic empty/error states and clear connection/save/publication status are part of making that journey work.
+
+Keep the UI small: list, card detail/history, connection guidance, publication preview, and a recovery action. Exact screens and backup controls follow the selected policies. Relationship graphs, richer search, extra workers, additional operating systems, sync, team features, automatic updating, and advanced visual customization need later scope decisions. The boundary does not remove any confirmed data-integrity or ownership requirement.
+
+If a step fails its completion evidence, fix that step before accumulating broader features. Earlier synthetic development checkpoints may be tried and reviewed, with their missing capabilities clearly stated; they are not the full minimum release or a claim of readiness for personal memory. Create `prototype-v1` only after 01.5 verifies the complete journey. This includes a downloadable supported package, working demonstration URL, concise quick start, recorded check results/limitations, and a known accepted code baseline.
+
+### Return for improvements after the baseline works
+
+Preserve the accepted code checkpoint and the user's records. In Stage 02, let the user actually use the first version, record one observed problem or need, make the requested software change, and verify both the improvement and the existing minimum journey. The issue can concern usability, connection reliability, sharing, or another observed difficulty; do not invent it in advance.
+
+Additional capabilities follow a separately scoped later stage. Each feature starts from the accepted baseline, defines one user outcome and acceptance evidence, addresses record compatibility if needed, and retains relevant regression checks. A new feature must not require users to reset their memory. Do not expand Stage 01 indefinitely to include every promising idea.
+
+### Step workflow inside one Stage 01 branch
+
+Use one active `stage/01-working-prototype` branch after build authorization. Track 01.1–01.5 as scoped issues/checklists and focused commits or short task PRs into that stage. Use the existing draft stage-to-main PR to show integrated progress. Do not create five permanently diverging stage branches. Attach demonstration/check evidence to each completed step and rerun affected earlier checks when new work changes their behavior. The final stage-to-main merge follows the existing branch lifecycle after complete minimum acceptance; Stage 02 starts from that accepted baseline.
+
+No step branch, issue, package, workflow, or tag is created by this design update. Actual commands and verified Actions jobs are introduced with implementation, using the automation plan below.
+
 ## Milestones driven by user outcomes
 
 ### M0 — Agree on the journey and remove the connection uncertainty
@@ -130,7 +166,7 @@ The existing [branch lifecycle](branching-and-releases.md) remains the source of
 | Branch | Planned contents | Exit evidence |
 | --- | --- | --- |
 | `stage/00-repository-foundation` | Current design notes, build brief, this plan, and pre-build choices | Accurate documentation and selected minimum scope; current policy/contact questions remain visible |
-| `stage/01-working-prototype` | M0 feasibility setup after authorization, then M1–M5 | One usable installable package, actual worker capture/revision, durable local memory, reader-visible URL, and applicable acceptance evidence |
+| `stage/01-working-prototype` | Steps 01.1–01.5: M0 feasibility after authorization, connected M1/M2 slice, then M3–M5 and integrated acceptance | One usable installable package, actual worker capture/revision, durable local memory, reader-visible URL, and applicable acceptance evidence |
 | `stage/02-tested-improvement` | M6 based on the accepted first version | Observed user difficulty and verified software improvement, with updated installable package and public view |
 | `stage/03-next-capability` | A later selected capability | New scoped brief and user evidence; no feature is preapproved |
 

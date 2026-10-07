@@ -6,7 +6,7 @@ Personal Memory Engine is in design and repository preparation. Documents marked
 
 - [Decision ledger](design-decisions.md): confirmed user choices, preserved versions, discussion, and separate proposals.
 - [First-stage build brief](prototype-brief.md): candidate minimum scope, acceptance checks, and open implementation choices.
-- [User-first implementation plan](implementation-plan.md): install, connect, record, inspect, share, recover, and improve milestones.
+- [User-first implementation plan](implementation-plan.md): incremental Stage 01 delivery, install/record/history/share/recovery milestones, and later improvement.
 
 ## Architecture and contributions
 
