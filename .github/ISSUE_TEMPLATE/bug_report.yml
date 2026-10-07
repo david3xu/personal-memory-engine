@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible problem in documentation or implemented behavior.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The project is currently in design. Use synthetic or redacted examples.
+        Report vulnerabilities privately through the repository's Security tab.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Expected and observed behavior
+      description: Explain what you expected and what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include the affected document or feature and enough steps to reproduce it.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit, version, or environment
+      description: Supply the commit or version if known; include environment details when relevant.

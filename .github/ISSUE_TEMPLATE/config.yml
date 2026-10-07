@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/david3xu/personal-memory-engine/security/advisories/new
+    about: Use private vulnerability reporting; do not disclose vulnerabilities or personal data in public issues.

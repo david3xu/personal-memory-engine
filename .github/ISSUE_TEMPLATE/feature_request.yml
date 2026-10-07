@@ -1,0 +1,23 @@
+name: Feature or design proposal
+description: Propose a focused improvement and its user need.
+title: "[Proposal]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User need
+      description: Describe the concrete problem this proposal addresses.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain the desired behavior and any considered alternatives.
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Scope, ownership, and compatibility
+      description: Explain effects on user attribution, missing information, preserved versions, or data access.
