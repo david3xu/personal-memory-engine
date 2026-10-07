@@ -1,6 +1,6 @@
 {
   "name": "personal-memory-engine",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Record explicit user choices and preserved revisions into the owner's local Personal Memory Engine app.",
   "author": {
     "name": "david3xu"

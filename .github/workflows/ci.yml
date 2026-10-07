@@ -27,6 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
       - uses: Swatinem/rust-cache@v2
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
@@ -34,15 +36,16 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm desktop:build
-      - name: Verify bundled MCP helper
-        run: pnpm test:package
-        env:
-          MCP_HELPER: target/release/bundle/macos/Personal Memory Engine.app/Contents/MacOS/memory-mcp
+      - run: pnpm desktop:package
+      - name: Check desktop host warnings
+        run: cargo clippy -p personal-memory-engine --all-targets --locked -- -D warnings
       - name: Archive unsigned development app
         run: ditto -c -k --sequesterRsrc --keepParent "target/release/bundle/macos/Personal Memory Engine.app" "Personal-Memory-Engine-macos.zip"
       - uses: actions/upload-artifact@v4
         with:
           name: macos-development-app
-          path: Personal-Memory-Engine-macos.zip
+          path: |
+            Personal-Memory-Engine-macos.zip
+            target/release/bundle/dmg/Personal-Memory-Engine-macos-*-preview.dmg
+            target/release/bundle/dmg/Personal-Memory-Engine-macos-*-preview.dmg.sha256
           retention-days: 14

@@ -27,6 +27,9 @@
     "active": true,
     "targets": ["app"],
     "externalBin": ["binaries/memory-mcp"],
-    "icon": ["icons/icon.png", "icons/icon.icns"]
+    "icon": ["icons/icon.png", "icons/icon.icns"],
+    "resources": {
+      "../../../plugins/personal-memory-engine/": "plugin-source/"
+    }
   }
 }

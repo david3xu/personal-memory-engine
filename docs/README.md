@@ -7,6 +7,8 @@ Stage 01 implementation has started. Documents marked as proposals do not establ
 - [Install and connect](user-guides/install-and-connect.md): current package, desktop plugin, and actual conversation checks.
 - [Implementation evidence](implementation-status.md): tested checkpoints and remaining acceptance.
 
+- [App-led onboarding plan](onboarding-plan.md): bundled connector, fresh-record verification and owner controls.
+
 ## Product and scope
 
 - [Decision ledger](design-decisions.md): confirmed user choices, preserved versions, discussion, and separate proposals.

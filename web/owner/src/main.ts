@@ -5,9 +5,11 @@ import {
   getDecisions,
   getHistory,
   getStatus,
-  openConnectionDocs,
+  getWorkerStatus,
+  type WorkerStatus,
   type LocalStatus,
 } from './bridge';
+import { renderSetup, workerLabel } from './connection';
 import type { DecisionVersion } from '../../../contracts/generated/records';
 const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Application root is missing');
@@ -16,7 +18,7 @@ root.innerHTML = `
   <div class="brand"><span class="brand-mark">m</span><div>Personal Memory<span>YOUR DECISIONS, YOURS TO KEEP</span></div></div>
   <div class="nav-label">WORKSPACE</div>
   <button id="nav-decisions" class="nav-button active"><span>▦</span> Decisions <span id="nav-count" class="count">0</span></button>
-  <button id="nav-connection" class="nav-button"><span>↔</span> Worker connection</button>
+  <button id="nav-connection" class="nav-button"><span>↔</span> Connect ChatGPT</button>
   <div class="sidebar-note"><span class="local-dot"></span> Private by default<p>Your memory lives on this device.<br>You choose what to share.</p></div>
   <div class="sidebar-footer">Personal Memory Engine <span>Early prototype · 0.1.0</span></div>
 </aside>
@@ -29,7 +31,7 @@ root.innerHTML = `
     <div class="content-layout"><section id="cards" aria-label="Decision cards"></section><section id="detail" class="detail-panel" aria-label="Selected decision"></section></div>
   </section>
   <section id="connection-page" class="page hidden">
-    <div class="page-heading"><div><div class="eyebrow">KEEP YOUR NORMAL CONVERSATION</div><h1>Connect your AI worker</h1><p>Your worker records a choice. This app keeps it on your device.</p></div></div>
+    <div class="page-heading"><div><div class="eyebrow">KEEP YOUR NORMAL CONVERSATION</div><h1>Connect ChatGPT</h1><p>Your worker records a choice. This app keeps it on your device.</p></div></div>
     <div id="connection-content"></div>
   </section>
   <div id="notice" role="status" aria-live="polite"></div>
@@ -83,10 +85,14 @@ function page(connection: boolean): void {
   el('#connection-page').classList.toggle('hidden', !connection);
   el('#nav-decisions').classList.toggle('active', !connection);
   el('#nav-connection').classList.toggle('active', connection);
-  el('#breadcrumb-page').textContent = connection ? 'Worker connection' : 'Decisions';
+  el('#breadcrumb-page').textContent = connection ? 'Connect ChatGPT' : 'Decisions';
 }
 let decisions: DecisionVersion[] = [];
 let localState: LocalStatus | undefined;
+let workerStatus: WorkerStatus | undefined;
+let connectionBusy = false;
+let actionError = false;
+let firstLoad = true;
 let selectedId: string | undefined;
 let historyRequest = 0;
 let refreshBusy = false;
@@ -121,7 +127,7 @@ function renderCards(): void {
         'Connect an AI worker, make an explicit choice in your conversation, and keep the decision here.',
       ),
     );
-    empty.append(button('Set up a worker →', () => page(true), 'button primary'));
+    empty.append(button('Connect ChatGPT →', () => page(true), 'button primary'));
     const steps = node('div', '', 'empty-steps');
     for (const [i, text] of [
       'Connect your worker',
@@ -244,141 +250,63 @@ function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
   );
   target.append(attribution);
 }
-const testPrompt =
-  'This is a synthetic test decision: I choose a blue cover for my demo notebook because I prefer blue. Please record this explicit choice in Personal Memory Engine. No rejected alternatives or source links were stated.';
+async function connectionAction(action: () => Promise<void>, message: string): Promise<void> {
+  if (connectionBusy) return;
+  connectionBusy = true;
+  actionError = false;
+  el('#error').classList.add('hidden');
+  renderConnection();
+  try {
+    await action();
+    notify(message);
+  } catch (error) {
+    actionError = true;
+    showError(error);
+  } finally {
+    connectionBusy = false;
+    await refresh(true);
+    renderConnection();
+  }
+}
 function renderConnection(): void {
-  const target = el('#connection-content');
-  target.replaceChildren();
-  const overview = node('div', '', 'setup-card');
-  overview.append(node('h2', '1. Open your local memory'));
-  overview.append(
-    node(
-      'p',
-      desktopAvailable
-        ? 'Local storage is ready. The MCP helper uses this same directory.'
-        : 'This is the browser development view. Open the desktop app to access local memory.',
-    ),
-  );
-  if (localState) {
-    overview.append(
-      node('code', localState.database_path, 'path'),
-      node(
-        'p',
-        localState.helper_available
-          ? 'The packaged recording helper is ready.'
-          : 'Recording helper is missing. Rebuild or reinstall this package.',
-        localState.helper_available ? 'success' : 'warning',
-      ),
-    );
-  }
-  target.append(overview);
-  const connection = node('div', '', 'setup-card');
-  connection.append(node('h2', '2. Connect a worker'));
-  connection.append(
-    node(
-      'p',
-      'A local MCP worker starts the helper below. ChatGPT Work on desktop can use the local plugin packaged with this project. Cloud-hosted ChatGPT needs a separate private tunnel route. Availability depends on your account and workspace.',
-    ),
-  );
-  connection.append(
-    node('h3', 'ChatGPT Work desktop plugin'),
-    node(
-      'p',
-      'Install this development plugin through the local host, then start a new Work chat with Personal Memory Engine enabled.',
-    ),
-    node(
-      'pre',
-      'codex plugin marketplace add david3xu/personal-memory-engine --ref stage/01-working-prototype\ncodex plugin add personal-memory-engine@personal-memory-engine',
-    ),
-  );
-  if (localState) {
-    const config = JSON.stringify(
-      {
-        mcpServers: {
-          'personal-memory': {
-            command: localState.helper_path,
-            args: ['--data-dir', localState.data_dir],
-          },
-        },
-      },
-      null,
-      2,
-    );
-    connection.append(
-      node('h3', 'Local worker configuration'),
-      node('pre', config),
-      button('Copy configuration', () => {
-        void copy(config);
-      }),
-    );
-    const quote = (value: string): string => `'${value.replaceAll("'", "'\\''")}'`;
-    const command = `${quote(localState.helper_path)} --data-dir ${quote(localState.data_dir)}`;
-    connection.append(
-      node('h3', 'Helper command for an optional cloud tunnel'),
-      node('pre', command),
-      button('Copy helper command', () => {
-        void copy(command);
-      }),
-    );
-  }
-  const link = document.createElement('a');
-  link.textContent = 'Read OpenAI’s desktop plugin setup ↗';
-  link.href = 'https://learn.chatgpt.com/docs/plugins';
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
-  if (desktopAvailable) {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      void openConnectionDocs().catch(showError);
-    });
-  }
-  connection.append(link);
-  connection.append(
-    node(
-      'p',
-      'A local plugin runs on this device. A cloud chat cannot reach the helper through a localhost URL alone. Verify actual recording in your chosen Work chat.',
-      'muted',
-    ),
-  );
-  target.append(connection);
-  const check = node('div', '', 'setup-card');
-  check.append(
-    node('h2', '3. Verify one choice'),
-    node(
-      'p',
-      'Once the worker lists the memory tools, use a clearly labeled synthetic decision. Verify its card here, then revise it in chat and inspect both versions.',
-    ),
-    node('blockquote', testPrompt),
-    button('Copy test message', () => {
-      void copy(testPrompt);
-    }),
-  );
-  check.append(
-    node(
-      'p',
-      localState?.last_tool_use
-        ? `Last MCP tool use: ${date(localState.last_tool_use)}. This is activity history, not a live connection check.`
-        : 'No MCP tool use has been observed for this local store.',
-      'muted',
-    ),
-  );
-  target.append(check);
+  renderSetup(el('#connection-content'), localState, workerStatus, {
+    busy: connectionBusy,
+    run: (action, message) => {
+      void connectionAction(action, message);
+    },
+    copy: (text) => {
+      void copy(text);
+    },
+  });
 }
 async function refresh(force = false): Promise<void> {
   if (!desktopAvailable || refreshBusy) return;
   refreshBusy = true;
   try {
-    const [nextDecisions, nextStatus] = await Promise.all([getDecisions(), getStatus()]);
+    const [nextDecisions, nextStatus, nextWorker] = await Promise.all([
+      getDecisions(),
+      getStatus(),
+      getWorkerStatus().catch((error: unknown) => {
+        actionError = true;
+        showError(error);
+        return undefined;
+      }),
+    ]);
+    workerStatus = nextWorker;
     localState = nextStatus;
     decisions = nextDecisions;
-    el('#error').classList.add('hidden');
+    if (!actionError) el('#error').classList.add('hidden');
     el('#decision-total').textContent = String(decisions.length);
     el('#nav-count').textContent = String(decisions.length);
-    el('#worker-state').textContent = localState.last_tool_use ? 'Tool used' : 'Not verified';
-    el('#worker-caption').textContent = localState.last_tool_use
-      ? date(localState.last_tool_use)
-      : 'worker activity';
-    const fingerprint = JSON.stringify([decisions, localState]);
+    el('#worker-state').textContent = workerLabel(workerStatus);
+    el('#worker-caption').textContent = workerStatus?.receipt
+      ? date(workerStatus.receipt.recorded_at)
+      : 'recording check';
+    if (firstLoad) {
+      if (!decisions.length) page(true);
+      firstLoad = false;
+    }
+    const fingerprint = JSON.stringify([decisions, localState, workerStatus]);
     if (force || fingerprint !== previousFingerprint) {
       previousFingerprint = fingerprint;
       renderConnection();

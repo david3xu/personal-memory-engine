@@ -15,7 +15,8 @@
     "desktop:build": "bash scripts/development/desktop.sh build",
     "contracts:generate": "bash scripts/development/generate-contracts.sh",
     "contracts:check": "node web/owner/scripts/generate-validator.mjs --check",
-    "test:package": "node --test tests/desktop/*.test.mjs"
+    "test:package": "node --test tests/desktop/*.test.mjs",
+    "desktop:package": "bash scripts/distribution/macos-preview.sh"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",

@@ -2,7 +2,7 @@
 
 ## Project state
 
-Stage 01 implementation is active. Rust owns decision contracts and operations; SQLite, MCP, and Tauri are separate adapters. Plain TypeScript/Vite is the initial interface implementation. The desktop installs/opens on the maintainer’s Mac and displays a real decision captured through a direct stdio MCP client. The local worker plugin installs/enables and discovers tools. Real ChatGPT Work capture, clean-machine installation, recovery, and snapshot hosting still need end-to-end evidence.
+Stage 01 implementation is active. Rust owns decision contracts and operations; SQLite, MCP, and Tauri are separate adapters. Plain TypeScript/Vite is the initial interface implementation. The desktop installs/opens on the maintainer’s Mac and displays a real decision captured through a direct stdio MCP client. The app bundles the local connector, opens its plugin page and an unsent test chat, and verifies a fresh persisted synthetic choice. Durable pause blocks worker access without changing cards. Real ChatGPT Work capture, clean-machine installation, recovery, and snapshot hosting still need end-to-end evidence.
 
 ## Canonical records
 
@@ -33,9 +33,11 @@ The repository uses Apache License 2.0. Follow the stage workflow and maintain t
 
 ## Desktop and worker verification
 
-- `pnpm desktop:build` builds the app and bundles its independent MCP helper.
+- `pnpm desktop:build` builds the app with its independent MCP helper and connector resources.
+- `pnpm desktop:package` also produces a drag-to-Applications DMG.
+- `MEMORY_PACKAGE_SOURCE="<app>/Contents/Resources/plugin-source" MEMORY_PACKAGE_HELPER="<app>/Contents/MacOS/memory-mcp" cargo test -p memory-local-runtime --test worker_package --locked` verifies installed connector preparation and recording without developer runtimes.
 - `MCP_HELPER="<app>/Contents/MacOS/memory-mcp" pnpm test:package` checks the packaged protocol flow in isolated synthetic storage.
-- Local plugin manifests/launcher are under `plugins/personal-memory-engine`; host installation commands are in the [user guide](docs/user-guides/install-and-connect.md).
+- Local plugin manifests/launcher are under `plugins/personal-memory-engine`; graphical owner setup is in the [user guide](docs/user-guides/install-and-connect.md).
 - End-to-end evidence and remaining release checks are recorded in [implementation status](docs/implementation-status.md). Computer controls cannot operate the ChatGPT app in this session; the real Work conversation test needs the user.
 
 The early app has no publication control or backup/recovery UI yet. Those are separate Stage 01 checkpoints; do not label this first recording checkpoint a complete Stage 01 release.

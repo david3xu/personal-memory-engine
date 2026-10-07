@@ -1,14 +1,17 @@
-// Read-only desktop delivery around the reusable engine and local adapters.
+// Deliver the owner desktop around reusable decision operations and separate adapters.
+mod worker_setup;
 use memory_engine::{DecisionVersion, Engine};
 use memory_local_runtime::{SqliteStore, paths::default_data_dir};
 use serde::Serialize;
 use std::path::PathBuf;
 use tauri::Manager;
 use tauri_plugin_opener::OpenerExt;
+use worker_setup::{connect_chatgpt, connection_status, pause_recording, start_connection_test};
 struct DesktopState {
     store: SqliteStore,
     data_dir: PathBuf,
     helper: PathBuf,
+    plugin_source: PathBuf,
 }
 #[derive(Serialize)]
 struct LocalStatus {
@@ -91,6 +94,9 @@ fn main() {
                 store,
                 data_dir,
                 helper,
+                plugin_source: app
+                    .path()
+                    .resolve("plugin-source", tauri::path::BaseDirectory::Resource)?,
             });
             Ok(())
         })
@@ -98,7 +104,11 @@ fn main() {
             local_status,
             list_decisions,
             decision_history,
-            open_connection_docs
+            open_connection_docs,
+            connection_status,
+            connect_chatgpt,
+            start_connection_test,
+            pause_recording
         ])
         .run(tauri::generate_context!())
         .expect("Personal Memory Engine could not open; check local storage access");

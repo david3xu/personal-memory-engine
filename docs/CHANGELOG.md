@@ -37,3 +37,11 @@
 - Recorded approved Tauri owner delivery, embedded SQLite storage, and selected read-only public snapshots as linked decision revisions; updated current scope, layout, and staged work.
 
 The first local recording checkpoint is published on the active Stage 01 branch; no complete Stage 01 release or public snapshot demo is published yet.
+
+### App-led onboarding
+
+- Bundle the existing local worker plugin inside the desktop app and prepare an isolated app-owned catalog.
+- Open the plugin page and a prefilled, unsent test chat through supported desktop links.
+- Verify a fresh persisted setup choice; keep tool activity distinct from recording evidence.
+- Add durable worker pause, preserving append-only decisions and owner access.
+- Provide drag-to-Applications preview packaging and a graphical user guide. Signing and real Work/fresh-machine checks remain outstanding.

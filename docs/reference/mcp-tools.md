@@ -21,3 +21,9 @@ Takes `{decision_id: "..."}`. Returns every preserved version of that decision, 
 ## Boundary
 
 No tool publishes records, deletes prior versions, reads external chats, or calls a model. The tools cannot independently verify the worker's attribution or invent source evidence. Use synthetic real-conversation checks before claiming reliable worker behavior.
+
+## Owner access controls
+
+**Pause worker access** blocks all three memory tools, including helper processes already running. Protocol initialization and tool-schema discovery remain possible; they do not expose stored decisions or verify recording. Resume through the owner app. Saved cards and owner history access are unaffected. Invalid/future connection metadata fails closed.
+
+Setup uses a fresh synthetic request ID and a successful new blue-notebook choice to produce a historical receipt. Tool reads, rejected inputs and retries from an earlier test cannot verify the current test. The receipt is not a live heartbeat or independent worker authentication. These controls belong to the local adapter, not the decision contract.

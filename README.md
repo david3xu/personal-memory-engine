@@ -58,3 +58,9 @@ The app can validate structure and preserve versions, but cannot independently p
 ## License
 
 Licensed under [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for project attribution. The source-code license does not authorize publication of private user memory.
+
+## Try the desktop preview
+
+The macOS Apple Silicon preview includes the app, recording helper and local connector. Install the DMG, open the app, choose **Connect ChatGPT**, install its plugin, then send the prepared test choice. No terminal or development runtime is required. See the [install and connect guide](docs/user-guides/install-and-connect.md).
+
+This remains an unsigned testing preview. Developer ID signing/notarization, a real ChatGPT Work walkthrough and a fresh-machine installation are pending. Public snapshot publishing and backup/restore are later Stage 01 checkpoints.

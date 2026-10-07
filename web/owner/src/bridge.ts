@@ -37,3 +37,31 @@ export async function getHistory(id: string): Promise<DecisionVersion[]> {
 export async function openConnectionDocs(): Promise<void> {
   await invoke('open_connection_docs');
 }
+
+const connectionSchema = z
+  .object({
+    schema_version: z.literal(1),
+    enabled: z.boolean(),
+    test_request_id: z.string().nullable(),
+    receipt: z
+      .object({ version_id: z.string(), recorded_at: z.string(), worker: z.string() })
+      .strict()
+      .nullable(),
+    package_available: z.boolean(),
+    catalog_prepared: z.boolean(),
+    test_prompt: z.string().nullable(),
+  })
+  .strict();
+export type WorkerStatus = z.infer<typeof connectionSchema>;
+export async function getWorkerStatus(): Promise<WorkerStatus> {
+  return connectionSchema.parse(await invoke<unknown>('connection_status'));
+}
+export async function connectChatGPT(): Promise<void> {
+  await invoke('connect_chatgpt');
+}
+export async function startConnectionTest(): Promise<void> {
+  await invoke('start_connection_test');
+}
+export async function pauseRecording(): Promise<void> {
+  await invoke('pause_recording');
+}

@@ -658,3 +658,41 @@ pre {
     font-size: 29px;
   }
 }
+
+.setup-progress {
+  max-width: 800px;
+  padding: 18px 24px;
+  margin-bottom: 20px;
+  border-radius: 9px;
+  background: #eaf1e3;
+  color: #355c41;
+}
+.setup-progress strong {
+  font-size: 16px;
+}
+.setup-progress p {
+  font-size: 12px;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+.setup-card .button {
+  margin: 4px 10px 4px 0;
+}
+.button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #587b48;
+  outline-offset: 3px;
+}
+summary {
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #4f6145;
+}
+.setup-card details {
+  margin-top: 18px;
+}
