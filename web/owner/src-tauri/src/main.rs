@@ -1,6 +1,95 @@
-// Launch the desktop shell around the local memory runtime.
+// Read-only desktop delivery around the reusable engine and local adapters.
+use memory_engine::{DecisionVersion, Engine};
+use memory_local_runtime::{SqliteStore, paths::default_data_dir};
+use serde::Serialize;
+use std::path::PathBuf;
+use tauri::Manager;
+struct DesktopState {
+    store: SqliteStore,
+    data_dir: PathBuf,
+    helper: PathBuf,
+}
+#[derive(Serialize)]
+struct LocalStatus {
+    data_dir: String,
+    database_path: String,
+    helper_path: String,
+    helper_available: bool,
+    last_tool_use: Option<String>,
+    app_version: &'static str,
+}
+#[tauri::command]
+async fn local_status(state: tauri::State<'_, DesktopState>) -> Result<LocalStatus, String> {
+    let store = state.store.clone();
+    let data_dir = state.data_dir.clone();
+    let helper = state.helper.clone();
+    tauri::async_runtime::spawn_blocking(move || {
+        Ok(LocalStatus {
+            database_path: data_dir
+                .join("memory.sqlite3")
+                .to_string_lossy()
+                .into_owned(),
+            data_dir: data_dir.to_string_lossy().into_owned(),
+            helper_available: helper.is_file(),
+            helper_path: helper.to_string_lossy().into_owned(),
+            last_tool_use: store.last_mcp_use().map_err(|error| error.to_string())?,
+            app_version: env!("CARGO_PKG_VERSION"),
+        })
+    })
+    .await
+    .map_err(|_| "Local status could not be read".to_string())?
+}
+#[tauri::command]
+async fn list_decisions(
+    state: tauri::State<'_, DesktopState>,
+) -> Result<Vec<DecisionVersion>, String> {
+    let store = state.store.clone();
+    tauri::async_runtime::spawn_blocking(move || {
+        Engine::new(store).list().map_err(|error| error.to_string())
+    })
+    .await
+    .map_err(|_| "Decisions could not be read".to_string())?
+}
+#[tauri::command]
+async fn decision_history(
+    decision_id: String,
+    state: tauri::State<'_, DesktopState>,
+) -> Result<Vec<DecisionVersion>, String> {
+    let store = state.store.clone();
+    tauri::async_runtime::spawn_blocking(move || {
+        Engine::new(store)
+            .history(&decision_id)
+            .map_err(|error| error.to_string())
+    })
+    .await
+    .map_err(|_| "History could not be read".to_string())?
+}
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            // An explicit override is only for isolated development/testing; installs use OS storage.
+            let data_dir = match std::env::var_os("PERSONAL_MEMORY_DATA_DIR") {
+                Some(path) => PathBuf::from(path),
+                None => default_data_dir()?,
+            };
+            let store = SqliteStore::open(&data_dir.join("memory.sqlite3"))?;
+            let helper = std::env::current_exe()?.with_file_name(if cfg!(windows) {
+                "memory-mcp.exe"
+            } else {
+                "memory-mcp"
+            });
+            app.manage(DesktopState {
+                store,
+                data_dir,
+                helper,
+            });
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![
+            local_status,
+            list_decisions,
+            decision_history
+        ])
         .run(tauri::generate_context!())
-        .expect("desktop runtime failed");
+        .expect("Personal Memory Engine could not open; check local storage access");
 }

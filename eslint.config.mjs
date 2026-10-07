@@ -3,7 +3,14 @@ import js from '@eslint/js';
 import ts from 'typescript-eslint';
 import globals from 'globals';
 export default ts.config(
-  { ignores: ['**/dist/**', 'target/**', 'contracts/generated/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      'target/**',
+      'contracts/generated/**',
+      'web/owner/src/generated/validate-record.mjs',
+    ],
+  },
   js.configs.recommended,
   ...ts.configs.recommended,
   {

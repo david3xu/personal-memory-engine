@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-There is no released or runnable application yet. This repository contains a pre-implementation design and documentation foundation; it has not undergone a security audit. There are no supported production versions.
+A development desktop prototype now builds, with an append-only local store and stdio recording helper. It has not undergone a security audit, signing/notarization, or complete release acceptance. There are no supported production versions.
 
 ## Report a vulnerability privately
 
@@ -25,4 +25,4 @@ The source-code license does not authorize publishing users' memory. Public exam
 
 ## Current implementation status
 
-Authentication, access rules, persistence, safe rendering, and deployment security still need implementation and verification. A simple viewer passcode must not be described as sufficient protection for private memory.
+The current recording boundary is a local stdio process launched by an installed worker; no public recording listener exists. New local storage directories/files are restricted to the current OS user on Unix. Record validation, persistence, and safe text rendering are implemented. Remote authentication, public snapshot access, recovery, and wider distribution still need verification. A simple viewer passcode must not be described as sufficient protection for private memory.

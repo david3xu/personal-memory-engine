@@ -14,6 +14,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -26,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -33,3 +35,10 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm desktop:build
+      - name: Archive unsigned development app
+        run: ditto -c -k --sequesterRsrc --keepParent "target/release/bundle/macos/Personal Memory Engine.app" "Personal-Memory-Engine-macos.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-development-app
+          path: Personal-Memory-Engine-macos.zip
+          retention-days: 14

@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: draft for scope review. Confirmed product requirements are identified below; the proposed implementation boundary and acceptance checks await selection. Application implementation remains paused. No new stage branch or application code is created by this document.
+Status: active Stage 01 implementation authorized in D029. Core/storage and real-process MCP checks pass; the first macOS Apple Silicon desktop bundle builds. This engineering target is not a user decision excluding future platforms. Actual Work recording, selected public hosting, recovery, and a complete integrated release still require evidence.
 
 ## Target
 

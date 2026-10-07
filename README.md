@@ -6,7 +6,7 @@ A local-first, user-owned personal decision memory engine that records explicit 
 
 ## Project status
 
-Stage 01 implementation is active on `stage/01-working-prototype`, authorized in D029. The first tested foundation includes a portable Rust decision contract, generated TypeScript/JSON schemas, and an append-only SQLite adapter. Desktop wiring and actual worker connectivity are in progress; there is no stable release or published demo URL yet. The project uses Apache License 2.0, and its selected GitHub owner is `david3xu`.
+Stage 01 implementation is active on `stage/01-working-prototype`, authorized in D029. The first tested foundation includes a portable Rust decision contract, generated TypeScript/JSON schemas, and an append-only SQLite adapter. A macOS Apple Silicon desktop package and real-process MCP tests are available; actual ChatGPT Work connectivity is still being verified. there is no stable release or published demo URL yet. The project uses Apache License 2.0, and its selected GitHub owner is `david3xu`.
 
 ## What it aims to do
 
@@ -45,7 +45,7 @@ Start with the [documentation index](docs/README.md).
 
 ## Development and contributions
 
-Install Rust stable, Node.js 24 or later, and pnpm 10.32.1, then run `pnpm install --frozen-lockfile` and `pnpm check`. The verified checks cover formatting, lint, TypeScript, dependency boundaries, frontend compilation, Rust warnings, persistence/integrity tests, and generated-contract drift. Desktop setup is being completed. Contributions may include tests, synthetic examples, adapters, documentation, and interface improvements.
+Install Rust stable, Node.js 24 or later, and pnpm 10.32.1, then run `pnpm install --frozen-lockfile` and `pnpm check`. The verified checks cover formatting, lint, TypeScript, dependency boundaries, frontend compilation, Rust warnings, persistence/integrity tests, and generated-contract drift. Run `pnpm desktop:dev` for the desktop or `pnpm desktop:build` for the app bundle (macOS needs Xcode command-line tools). The bundle includes its MCP helper. Initial builds are unsigned development packages, not a notarized public release. Contributions may include tests, synthetic examples, adapters, documentation, and interface improvements.
 
 Changes to decision semantics, record compatibility, data ownership, or security boundaries should be discussed before implementation. Read the [contribution guide](.github/CONTRIBUTING.md) and [code of conduct](.github/CODE_OF_CONDUCT.md). Use issues and pull requests for focused proposals and improvements; vulnerabilities follow the [security policy](.github/SECURITY.md).
 

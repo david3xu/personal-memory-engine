@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: `main` and `stage/00-repository-foundation` are published. Future implementation-stage names and scope remain proposals. Application implementation remains paused. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
+Status: `main` and `stage/00-repository-foundation` are published. `stage/01-working-prototype` is active with focused implementation checkpoints and draft PR #8. Later implementation-stage names and scope remain proposals. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
 
 ## Branch responsibilities
 

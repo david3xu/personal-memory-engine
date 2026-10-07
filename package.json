@@ -10,9 +10,11 @@
     "type-check": "pnpm --dir web/owner type-check",
     "test": "node --test tests/contracts/*.test.ts",
     "build": "pnpm --dir web/owner build",
-    "check": "pnpm format:check && pnpm lint && pnpm type-check && pnpm test && pnpm build && bash scripts/development/check-rust.sh",
+    "check": "pnpm format:check && pnpm lint && pnpm contracts:check && pnpm type-check && pnpm test && pnpm build && bash scripts/development/check-rust.sh",
     "desktop:dev": "bash scripts/development/desktop.sh dev",
-    "desktop:build": "bash scripts/development/desktop.sh build"
+    "desktop:build": "bash scripts/development/desktop.sh build",
+    "contracts:generate": "bash scripts/development/generate-contracts.sh",
+    "contracts:check": "node web/owner/scripts/generate-validator.mjs --check"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",

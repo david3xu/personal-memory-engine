@@ -7,3 +7,5 @@ contracts/generated/
 
 # Preserve separately checked historical/canonical Markdown formatting
 **/*.md
+
+web/owner/src/generated/validate-record.mjs

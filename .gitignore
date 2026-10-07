@@ -36,3 +36,7 @@ __pycache__/
 
 # Rust build outputs
 /target/
+
+/web/owner/src-tauri/binaries/
+
+/web/owner/src-tauri/gen/

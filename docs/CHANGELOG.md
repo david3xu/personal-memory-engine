@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added the Tauri owner app with private cards, stated context, preserved version timeline, worker setup, and local activity/status.
+- Built a macOS Apple Silicon app bundle containing its independent MCP helper.
+- Generated a static browser validator to preserve the desktop content security policy without runtime evaluation.
+
 - Added a standalone stdio MCP helper and real-process protocol checks for recording, retry, linked revision, reading, and restart.
 - Restricted newly created local storage directories and SQLite files/sidecars to the current user on Unix.
 
