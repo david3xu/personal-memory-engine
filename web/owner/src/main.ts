@@ -69,8 +69,13 @@ function showError(error: unknown): void {
   target.textContent = error instanceof Error ? error.message : String(error);
   target.classList.remove('hidden');
 }
+let noticeTimer: number | undefined;
 function notify(message: string): void {
+  window.clearTimeout(noticeTimer);
   el('#notice').textContent = message;
+  noticeTimer = window.setTimeout(() => {
+    el('#notice').textContent = '';
+  }, 5000);
 }
 async function copy(value: string): Promise<void> {
   try {
