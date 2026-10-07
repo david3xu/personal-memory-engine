@@ -2,8 +2,10 @@
 
 ## Unreleased
 
+- Completed an owner-confirmed ChatGPT Work recording test and checked its persisted receipt; the current chat also saved real design choices through MCP without a plugin mention.
+
 - Replaced per-chat plugin setup with direct, one-time desktop MCP registration using the host's bundled connection manager. Added normal-chat explicit-choice guidance and a plain synthetic test prompt.
-- Verified real desktop-host tool discovery in isolated configuration, preserving unrelated settings and refusing name conflicts. Work capture remains a separate acceptance check.
+- Verified real desktop-host tool discovery in isolated configuration, preserving unrelated settings and refusing name conflicts. The owner subsequently confirmed successful Work recording, with its local receipt checked.
 - Moved connection controls into Settings and removed repeated status summaries and empty optional context from decision cards.
 - Corrected optional plugin MCP schema metadata and bumped its package to 0.1.2.
 

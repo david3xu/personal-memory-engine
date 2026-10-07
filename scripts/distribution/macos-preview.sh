@@ -30,8 +30,9 @@ The app reports Recording verified after that choice is saved locally.
 Requires macOS Apple Silicon for the arm64 package and a desktop host/account
 with a compatible local Codex host and bundled MCP connection manager. No developer runtime is required.
 
-This package is not signed or notarized. Normal public installation and actual
-ChatGPT Work capture still need verification. Do not disable system security.
+This package is not signed or notarized. Normal public installation still needs
+verification. The owner’s Work recording test passed on the maintainer setup;
+compatibility with other accounts/modes is not guaranteed. Do not disable system security.
 Public sharing and backup/restore are not included in this early preview.
 
 Guide: https://github.com/david3xu/personal-memory-engine/blob/stage/01-working-prototype/docs/user-guides/install-and-connect.md

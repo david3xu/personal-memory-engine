@@ -2,7 +2,7 @@
 
 This preview supports macOS Apple Silicon. Download the app, install it, and use its setup buttons. Rust, Node.js, a source checkout and terminal commands are not required.
 
-**Preview limitation:** the current package is unsigned and not notarized. macOS may block downloaded builds; normal public installation still needs Developer ID signing, notarization and a fresh-machine test. Real ChatGPT Work capture is also awaiting a user walkthrough. This is a testing preview, not the complete Stage 01 release.
+**Preview limitation:** the current package is unsigned and not notarized. macOS may block downloaded builds; normal public installation still needs Developer ID signing, notarization and a fresh-machine test. The owner’s ChatGPT Work recording test passed and its saved receipt was checked; this does not establish compatibility with every account or chat mode. This is a testing preview, not the complete Stage 01 release.
 
 ## Install
 
