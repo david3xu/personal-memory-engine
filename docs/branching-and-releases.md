@@ -10,11 +10,13 @@ Status: `main` and `stage/00-repository-foundation` are published. Future implem
 | --- | --- | --- |
 | `main` | Reviewed project baseline; initially documentation, later the latest accepted working prototype | Accurately represents the completed work; implementation changes pass actual checks before merging |
 | `stage/00-repository-foundation` | Prepare license, contributor policies, build brief, and repository automation | Required owner, attribution, license, and reporting choices are settled; documentation reflects actual project state |
-| `stage/01-working-prototype` | Build the smallest approved complete recording-and-viewing path | Selected real worker records a decision through MCP; durable records and linked versions work; viewer is available at a verified external URL |
+| `stage/01-working-prototype` | Build the smallest approved installable recording, history, and sharing path | Selected package installs and launches; real worker capture and linked versions persist locally; readers can open the verified demonstration URL |
 | `stage/02-tested-improvement` | Improve the first prototype after actual use | The user observes a concrete problem, requests a change, and verifies it; updated published prototype works |
 | `stage/03-next-capability` | Placeholder naming pattern for a later approved enhancement | Specific scope and checks are defined when this stage starts; maps, additional adapters, or extraction into a library are possibilities, not approved features |
 
 `main` and `stage/00-repository-foundation` exist. The later stage branches remain proposals and will be created when their work starts. The first prototype's final feature list remains governed by the approved build brief.
+
+The [user-first implementation plan](implementation-plan.md) maps installation, recording, history, sharing, recovery, and tested improvement to these stages and proposes the Actions checks to implement later. No application workflow or future stage branch is created by the plan.
 
 ## Branch lifecycle
 

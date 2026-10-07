@@ -25,6 +25,41 @@ Keep one repository and one application deployment for the first prototype. Orga
 
 Prefer explicit dependency boundaries over separate services or separately published packages at this stage. Use a versioned record contract so future viewers and adapters can recognize compatible data. Choose one authoritative schema representation after selecting the implementation stack; avoid hand-maintaining contradictory schemas across layers.
 
+## Long-term product and growth proposal
+
+This is a future design proposal, not approved implementation scope. The user has asked that architecture consider a useful mature product as well as the first prototype. Local authoritative storage remains governed by D003-v2, and the application format remains under review.
+
+The proposed product is a personal decision memory engine usable across AI workers: capture explicit choices, retrieve their stated rationale, examine changes, and deliberately share selected records. Future retrieval could help a worker consult earlier choices with the owner's permission. No passive chat monitoring or automatic conversion of AI advice into user decisions is introduced.
+
+### Interface and deployment choices
+
+A local engine should own the decision rules and persistence. Its operations should be callable without requiring a network connection between internal modules. A local browser viewer could call a loopback API; a desktop package could embed the same engine and viewer. A future mobile client would require its own storage and synchronization design. A browser prototype therefore need not determine the mature application's packaging, but reusing a UI or core across platforms requires deliberate boundaries and verification.
+
+A mature product could offer a simple installed application that starts and stops its local service and helps configure worker connections. This is a candidate user experience, not a selected framework or a commitment to full desktop packaging now. Public viewers should consume an explicitly selected published representation, not obtain unrestricted access to the local memory store or recording tools.
+
+### Different meanings of scale
+
+| Growth dimension | Proposed response | Unresolved design work |
+| --- | --- | --- |
+| More users | Independent local instances keep each person's authoritative memory on their own machine | Distribution, updates, support, and any optional user-controlled shared infrastructure |
+| More decisions per user | Indexed queries, pagination, and derived views over preserved versions | Measure actual volume, query cost, and storage limits before changing databases |
+| More AI workers | Reuse the decision contract through MCP and scoped adapters | Worker-specific connection support, attribution checks, and permissions |
+| Multiple devices | Optional synchronization or replication of version records | Device identities, encryption and key recovery, backup, deletion, and concurrent revision handling |
+| Shared projects | Explicitly owned shared collections distinct from personal memory | Access rules, authorship, revocation limits, and deciding who can resolve competing choices |
+| More public readers | Host deliberately published snapshots independently of the local engine, or use an owner-controlled live gateway | Published data exists outside the machine for snapshots; live access depends on the owner's machine and connectivity |
+
+The number of users alone does not require a project-operated central memory database. Any future hosted sync service, even one carrying encrypted records, would need a separate ownership decision; it is not approved under the current no-operated-memory-service boundary.
+
+### Foundations to consider before coding
+
+Use stable decision and version identifiers, explicit predecessor references, a versioned portable record format, source attribution, and clear recording-versus-decision timestamps. Keep missing reasons absent. Retries should not duplicate a decision. Preserve competing revisions rather than deciding semantic precedence from timestamps alone; an append-only history does not by itself solve synchronization conflicts.
+
+Keep the core independent of storage drivers, worker transports, user interfaces, and publication. Plan schema migration, export/import, backup/restore, and deliberate deletion so users can retain and move their records as the app evolves. These details need selection in the build brief or later capability briefs; synchronization and team collaboration are not first-stage requirements.
+
+The [build brief](prototype-brief.md) defines candidate scope, while the [implementation plan](implementation-plan.md) organizes its user journeys and verification. The local engine operation contract, durable record format, interface packaging, and publication boundary still need selection before coding.
+
+Reference: [Ink & Switch's local-first software research](https://www.inkandswitch.com/essay/local-first/) discusses ownership, local storage, multiple devices, and collaboration. It informs this proposal; no specific synchronization algorithm or library is selected.
+
 ## Proposed layout
 
 This is a target layout, not a list of existing files. Create source and workflow files when their implementation is authorized; do not add empty folders just to match this diagram.

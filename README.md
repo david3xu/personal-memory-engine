@@ -1,6 +1,6 @@
 # Personal Memory Engine
 
-A user-owned decision memory engine that records explicit choices, stated reasoning, and evolving history through MCP.
+A local-first, user-owned personal decision memory engine that records explicit choices, stated reasoning, and evolving history through MCP.
 
 [Public GitHub repository](https://github.com/david3xu/personal-memory-engine)
 
@@ -14,11 +14,15 @@ An existing AI worker submits a structured record when a user explicitly makes a
 
 When the user changes a choice, a new version links to the earlier record instead of silently overwriting it. A visual interface shows decision cards and preserved history. Related user-stated reasoning stays distinguishable from an actual changed choice.
 
-The app does not scrape or monitor conversations and does not treat AI suggestions as user decisions. The project does not operate a central service holding users' personal memory; the precise user-controlled storage and deployment arrangement is still being designed.
+The app does not scrape or monitor conversations and does not treat AI suggestions as user decisions. The project does not operate a central service holding users' personal memory. The user's authoritative memory is to be stored on their local machine; the storage format and connection arrangement remain undecided. See D003-v2 in the [decision ledger](docs/design-decisions.md).
 
 ## First prototype direction
 
-The proposed minimum is one user-controlled instance, one real worker connection, durable records, decision cards with a version timeline, and a shareable demonstration URL. The public demonstration is proposed to use sample decisions. This scope, the implementation stack, storage, access rules, and hosting are not yet finalized.
+The confirmed direction is a minimum local-first personal decision memory engine that can expand into more capable and mature stages later. See D021 in the [decision ledger](docs/design-decisions.md). Easy installation and public-link sharing are also confirmed usability goals under D022; the installation and publishing mechanisms remain open.
+
+The earlier first-stage direction was a browser-based web app with visual decision cards and history, plus public links for other people to visit. The interface format is now under review following the explicit local storage requirement. See D020 and the subsequent format discussion in the [decision ledger](docs/design-decisions.md).
+
+The proposed minimum implementation is one user-controlled instance, one real worker connection, durable records, and a version timeline. A sample-data demonstration and read-only sharing of owner-selected records are proposals. The exact sharing scope, implementation stack, storage, access rules, and hosting are not yet finalized.
 
 The supplied project brief requires a working public URL, the promised core behavior, and at least one verified improvement after the first version. Its build workflow specifies one ChatGPT Work conversation.
 
@@ -29,6 +33,8 @@ The proposed architecture separates decision rules from MCP, persistence, the vi
 ## Design records
 
 - [Decision ledger](docs/design-decisions.md): user decisions, available supporting statements, proposals, and open questions.
+- [First-stage build brief](docs/prototype-brief.md): draft target, implementation boundary, acceptance checks, roadmap, and choices still open.
+- [User-first implementation plan](docs/implementation-plan.md): installation-to-sharing milestones, evidence, and proposed GitHub Actions/stage integration.
 - [Repository foundation](docs/repository-foundation.md): proposed module boundaries and contributor documentation.
 - [Branches and remote preparation](docs/branching-and-releases.md): proposed implementation-stage branches and publication workflow.
 
