@@ -48,7 +48,7 @@ const connectionSchema = z
       .strict()
       .nullable(),
     package_available: z.boolean(),
-    catalog_prepared: z.boolean(),
+    host_state: z.enum(['unavailable', 'missing', 'registered', 'disabled', 'conflict']),
     test_prompt: z.string().nullable(),
   })
   .strict();

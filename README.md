@@ -61,6 +61,6 @@ Licensed under [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for project a
 
 ## Try the desktop preview
 
-The macOS Apple Silicon preview includes the app, recording helper and local connector. Install the DMG, open the app, choose **Connect ChatGPT**, install its plugin, then send the prepared test choice. No terminal or development runtime is required. See the [install and connect guide](docs/user-guides/install-and-connect.md).
+The macOS Apple Silicon preview includes the app, recording helper and local connector. Install the DMG, open the app, choose **Settings → Connect once**, restart ChatGPT once, then send the prepared local test choice. Normal chats need no per-choice plugin mention; supported host access must be verified. No terminal or development runtime is required. See the [install and connect guide](docs/user-guides/install-and-connect.md).
 
 This remains an unsigned testing preview. Developer ID signing/notarization, a real ChatGPT Work walkthrough and a fresh-machine installation are pending. Public snapshot publishing and backup/restore are later Stage 01 checkpoints.

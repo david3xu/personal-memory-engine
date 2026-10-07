@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Replaced per-chat plugin setup with direct, one-time desktop MCP registration using the host's bundled connection manager. Added normal-chat explicit-choice guidance and a plain synthetic test prompt.
+- Verified real desktop-host tool discovery in isolated configuration, preserving unrelated settings and refusing name conflicts. Work capture remains a separate acceptance check.
+- Moved connection controls into Settings and removed repeated status summaries and empty optional context from decision cards.
+- Corrected optional plugin MCP schema metadata and bumped its package to 0.1.2.
+
 - Applied the user-approved required Linux/macOS CI checks on main and verified administrator enforcement.
 
 - Added visible desktop plugin installation guidance and a fixed destination for browser help.

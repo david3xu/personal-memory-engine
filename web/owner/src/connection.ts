@@ -20,10 +20,11 @@ function node(tag: string, text = '', className = ''): HTMLElement {
   return result;
 }
 export function workerLabel(state?: WorkerStatus): string {
-  if (!state) return desktopAvailable ? 'Checking setup' : 'Desktop needed';
+  if (!state) return desktopAvailable ? 'Checking connection' : 'Desktop needed';
   if (!state.enabled) return 'Paused';
+  if (state.host_state !== 'registered') return 'Connection needed';
   if (state.receipt) return 'Recording verified';
-  return state.test_request_id ? 'Waiting for test' : 'Not verified';
+  return state.test_request_id ? 'Waiting for test' : 'Connected · not tested';
 }
 export function renderSetup(
   target: HTMLElement,
@@ -46,152 +47,115 @@ export function renderSetup(
     button.addEventListener('click', action);
     container.append(button);
   };
-  const progress = node('div', '', 'setup-progress');
-  progress.setAttribute('role', 'status');
-  progress.append(
-    node('strong', workerLabel(state)),
-    node(
-      'p',
-      state?.receipt && state.enabled
-        ? 'Your test choice was saved on this device. This confirms a completed recording, not a live connection.'
-        : state?.enabled === false
-          ? 'Workers cannot read or record decisions. Your saved cards are still available here.'
-          : 'No conversation is monitored. Only choices you ask your worker to record are saved.',
-    ),
-  );
-  target.append(progress);
-  const localCard = node('div', '', 'setup-card');
-  localCard.append(
-    node('h2', '1. Your memory stays here'),
-    node(
-      'p',
-      desktopAvailable
-        ? 'The app keeps your decisions on this Mac. There is no memory account or database to set up.'
-        : 'Open the installed desktop app to keep decisions on your device. This browser view is for development.',
-    ),
-  );
-  if (state?.package_available)
-    localCard.append(node('p', 'The recording helper and connector are included.', 'success'));
-  else if (desktopAvailable && state)
-    localCard.append(
-      node('p', 'This package is incomplete. Reinstall the app before connecting.', 'warning'),
-    );
-  target.append(localCard);
+  const connected = state?.host_state === 'registered';
   const connect = node('div', '', 'setup-card');
   connect.append(
-    node('h2', '2. Connect ChatGPT'),
+    node('h2', workerLabel(state)),
     node(
       'p',
-      'Open the bundled plugin page in ChatGPT desktop and choose Install. Then return here. Your account or workspace must allow local plugins in Work.',
+      'Your decisions stay on this Mac. Once connected, make explicit choices in a normal chat; the AI records them through the local engine. No plugin mention is needed.',
     ),
   );
-  addButton(
-    connect,
-    state?.enabled === false
-      ? 'Reconnect ChatGPT'
-      : state?.catalog_prepared
-        ? 'Open plugin page'
-        : 'Connect ChatGPT',
-    () =>
-      actions.run(connectChatGPT, 'In ChatGPT, install Personal Memory Engine, then return here.'),
-    !state?.package_available,
-    true,
-  );
-  if (state?.catalog_prepared)
+  if (!connected || !state?.enabled) {
     connect.append(
       node(
         'p',
-        'The connector is prepared. Opening its page does not confirm installation. If tools are missing after installing, restart ChatGPT and try the test.',
+        'Connect enables recording for supported chats on this desktop host. It does not monitor conversations. You can pause access here.',
+      ),
+    );
+    if (state?.host_state === 'unavailable')
+      connect.append(node('p', 'Install or update ChatGPT desktop before connecting.', 'warning'));
+    if (state?.host_state === 'conflict')
+      connect.append(
+        node(
+          'p',
+          'A different server uses this connection name. Resolve it in ChatGPT’s MCP settings; it has not been replaced.',
+          'warning',
+        ),
+      );
+    if (state?.host_state === 'disabled')
+      connect.append(
+        node(
+          'p',
+          'Enable Personal Memory Engine and its tools in ChatGPT’s MCP settings.',
+          'warning',
+        ),
+      );
+    addButton(
+      connect,
+      state?.enabled === false ? 'Resume recording' : 'Connect once',
+      () =>
+        actions.run(connectChatGPT, 'Connection saved. Restart ChatGPT once, then use a new chat.'),
+      !state?.package_available || state.host_state === 'unavailable',
+      true,
+    );
+  } else {
+    connect.append(
+      node(
+        'p',
+        state.receipt
+          ? `A test choice was saved ${new Date(state.receipt.recorded_at).toLocaleString()}. This confirms that recording completed; it is not a live connection check.`
+          : 'Connection saved. Restart ChatGPT once to load the tools, then send the test choice in a new chat.',
         'muted',
       ),
     );
-  addButton(connect, 'Setup help', () =>
-    actions.run(openConnectionDocs, 'Opened the desktop plugin guide.'),
-  );
-  target.append(connect);
-  const test = node('div', '', 'setup-card');
-  test.append(
-    node('h2', '3. Send a test choice'),
-    node(
-      'p',
-      'Open a test chat with a clearly labeled sample choice already in the message box. Review it and press Send in ChatGPT. Return here to see the saved card.',
-    ),
-  );
-  addButton(
-    test,
-    state?.receipt
-      ? 'Run another test'
-      : state?.test_request_id
-        ? 'Start a new test chat'
-        : 'Open test chat',
-    () =>
-      actions.run(
-        startConnectionTest,
-        'Review the sample choice and press Send in ChatGPT. This app is waiting for its saved card.',
-      ),
-    !state?.catalog_prepared || !state.enabled,
-    true,
-  );
-  if (state?.receipt && state.enabled) {
-    test.append(
-      node(
-        'p',
-        `Test saved ${new Date(state.receipt.recorded_at).toLocaleString()}. Reported worker: ${state.receipt.worker}.`,
-        'success',
-      ),
-    );
-    test.append(
-      node(
-        'p',
-        'Worker names are supplied by the worker. Next, ask it to record your explicit choices in a normal conversation. Changes preserve earlier versions.',
-        'muted',
-      ),
-    );
-  } else if (state?.test_request_id && state.enabled) {
-    test.append(
-      node(
-        'p',
-        'Waiting for this test choice. If the chat did not open, copy the message below into a new Work chat with the plugin enabled.',
-        'warning',
-      ),
-    );
-  }
-  if (state?.test_prompt && state.enabled) {
-    const fallback = document.createElement('details');
-    fallback.append(
-      node('summary', 'Test message / chat did not open'),
-      node('blockquote', state.test_prompt),
-    );
-    addButton(fallback, 'Copy test message', () => actions.copy(state.test_prompt ?? ''));
-    fallback.append(
-      node(
-        'p',
-        'Check that the plugin is enabled and the worker reports a successful record_decision call. A tool error or tool listing will not pass this test.',
-        'muted',
-      ),
-    );
-    test.append(fallback);
-  }
-  target.append(test);
-  if (state?.enabled && state.catalog_prepared) {
-    const pause = node('div', '', 'setup-card');
-    pause.append(
-      node('h2', 'You control worker access'),
-      node(
-        'p',
-        'Pause stops worker reads and recordings, including running helpers. Your existing cards stay intact. Use the plugin page in ChatGPT to disable or uninstall the connector there.',
-      ),
-    );
-    addButton(pause, 'Pause worker access', () =>
+    addButton(connect, 'Pause recording', () =>
       actions.run(pauseRecording, 'Worker access is paused. Saved decisions remain available.'),
     );
-    target.append(pause);
+  }
+  target.append(connect);
+  if (connected && state?.enabled) {
+    const test = document.createElement('details');
+    test.className = 'setup-card';
+    test.open = !state.receipt;
+    test.append(node('summary', state.receipt ? 'Test recording again' : 'Check recording once'));
+    test.append(
+      node(
+        'p',
+        'Open a local desktop test chat, review the sample choice and press Send. The saved card will appear here. This test does not establish support in cloud ChatGPT or Work.',
+      ),
+    );
+    addButton(
+      test,
+      state.test_request_id ? 'Open a new test chat' : 'Open test chat',
+      () =>
+        actions.run(
+          startConnectionTest,
+          'Send the sample choice in the new local chat, then return to Decisions.',
+        ),
+      false,
+      true,
+    );
+    if (state.test_request_id && !state.receipt)
+      test.append(node('p', 'Waiting for the sample choice to be saved.', 'warning'));
+    if (state.test_prompt) {
+      const fallback = document.createElement('details');
+      fallback.append(node('summary', 'Chat did not open?'), node('blockquote', state.test_prompt));
+      addButton(fallback, 'Copy sample choice', () => actions.copy(state.test_prompt ?? ''));
+      test.append(fallback);
+    }
+    target.append(test);
   }
   const advanced = document.createElement('details');
   advanced.className = 'setup-card';
-  advanced.append(node('summary', 'Advanced: other local workers and storage'));
+  advanced.append(node('summary', 'Connection help and other workers'));
+  advanced.append(
+    node(
+      'p',
+      'Local MCP availability depends on the chat mode and host. ChatGPT Work needs a separate successful test. If the AI reports tools unavailable, open ChatGPT’s MCP settings and check Personal Memory Engine, then restart.',
+    ),
+  );
+  addButton(advanced, 'Connection guide', () =>
+    actions.run(openConnectionDocs, 'Opened the connection guide.'),
+  );
+  if (connected)
+    addButton(advanced, 'Repair connection', () =>
+      actions.run(
+        connectChatGPT,
+        'Connection repaired. Restart ChatGPT if its tools were unavailable.',
+      ),
+    );
   if (local) {
-    advanced.append(node('p', 'Private database'), node('code', local.database_path, 'path'));
     const config = JSON.stringify(
       {
         mcpServers: {
@@ -201,14 +165,9 @@ export function renderSetup(
       null,
       2,
     );
-    advanced.append(
-      node(
-        'p',
-        'A compatible local MCP worker can use this configuration. No local address is exposed to cloud ChatGPT by this setup.',
-      ),
-      node('pre', config),
-    );
+    advanced.append(node('p', 'For another compatible local MCP worker:'), node('pre', config));
     addButton(advanced, 'Copy worker configuration', () => actions.copy(config));
+    advanced.append(node('p', 'Private database'), node('code', local.database_path, 'path'));
   }
   target.append(advanced);
 }

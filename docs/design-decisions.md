@@ -792,3 +792,24 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Related decisions:** D028 (ease of use and ChatGPT Work), D029 (incremental implementation).
 - **Previous version:** None.
 - **Status:** Implementation authorized. Signing, a fresh-machine installation and a real Work capture remain evidence requirements; this approval does not establish those outcomes or public directory acceptance.
+
+
+### D032 / D032-v1 — Connect once and record explicit choices in normal chats
+
+- **Chosen direction:** Complete the install/connect-once flow. In supported connected chats, the AI calls the local MCP when the user makes an explicit choice, without a per-chat plugin mention or per-choice recording command. Preserve revisions and omit missing rationale/evidence.
+- **Stated rationale:** The user asks whether requiring plugin selection is easy to use. No additional reason supplied.
+- **Rejected alternatives and reasons:** The user says the engine should not require managing an `@personal-memory-engine` mention. No separate rejection reason supplied.
+- **Source:** “the engine should work for any chat, dont' need user manage click '@personal-momoery-engine' ?”; “in the chat, ai should call engine as mcp , use the tools to record data ?”; “ok. finish this, Our intended experience is **install/connect once → chat normally → AI calls MCP → decisions are saved locally**.”
+- **Related decisions:** D031 (graphical setup), D028 (ChatGPT Work), D006 (preserved versions).
+- **Previous version:** None.
+- **Status:** Implementation authorized. Host availability limits must be stated; installation does not prove tool availability in every ChatGPT mode. The user's setup test failed with the recording tool unavailable. The existing test link opened a local Codex chat, which does not establish Work support.
+
+### D033 / D033-v1 — Keep the decision view focused
+
+- **Chosen direction:** Remove redundant setup and technical details from the decision visualization. Keep cards and relevant history central; put connection and troubleshooting in settings.
+- **Stated rationale:** The user asks not to pollute the app visualization.
+- **Rejected alternatives and reasons:** None explicitly stated.
+- **Source:** “thinking about any redundant features, dont' pollute hte app visualizaition.”
+- **Related decisions:** D028 (ease of use), D032 (ordinary chat capture).
+- **Previous version:** None.
+- **Status:** Confirmed interface constraint.

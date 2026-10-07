@@ -27,3 +27,12 @@ No Developer ID Application identity is available on this Mac. An Apple Developm
 - [OpenAI desktop command links](https://learn.chatgpt.com/docs/reference/commands): local plugin pages and a new chat with an unsent prefilled prompt.
 - [Local plugin catalogs](https://developers.openai.com/plugins/build/plugins): repository-root-relative plugin paths and cached installation.
 - [Tauri bundled resources](https://v2.tauri.app/develop/resources/): preserve the source directory as a resource.
+
+
+## Connection correction — D032/D033
+
+Preparing a plugin catalog was insufficient: the user's synthetic chat reported `record_decision` unavailable. The main setup will register a dedicated global MCP through the desktop application's bundled, supported CLI. This affects the same local Codex host, not all cloud ChatGPT modes. Registration uses only this app's fixed server name and launcher, rejects same-name conflicts, preserves unrelated host configuration, and is distinct from proof of recording. The owner opts in by choosing Connect. The MCP's initialization instructions guide automatic explicit-choice capture while enabled; no transcript watcher or hook is added.
+
+The plugin remains an optional distribution of instructions and MCP metadata. Fix its portable schema and update its version, but remove plugin installation and `@` selection from the primary user journey. The connection test uses an unsent, ordinary synthetic choice plus a nonce, with no tool-schema fields in the user-facing prompt. The supported deep link opens a local Codex chat; label it accurately. A separate Work test is required before claiming Work support.
+
+Verify registration against a temporary isolated host configuration using the real bundled CLI, and request MCP status/tool discovery through its app-server without creating a thread or calling a model. Never use a direct diagnostic write to satisfy the real owner's test receipt. On the decision page remove repeated status counters and empty optional sections; keep connection controls and diagnostic information in settings.

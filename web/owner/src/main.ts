@@ -9,7 +9,7 @@ import {
   type WorkerStatus,
   type LocalStatus,
 } from './bridge';
-import { renderSetup, workerLabel } from './connection';
+import { renderSetup } from './connection';
 import type { DecisionVersion } from '../../../contracts/generated/records';
 const root = document.querySelector<HTMLDivElement>('#app');
 if (!root) throw new Error('Application root is missing');
@@ -18,7 +18,7 @@ root.innerHTML = `
   <div class="brand"><span class="brand-mark">m</span><div>Personal Memory<span>YOUR DECISIONS, YOURS TO KEEP</span></div></div>
   <div class="nav-label">WORKSPACE</div>
   <button id="nav-decisions" class="nav-button active"><span>▦</span> Decisions <span id="nav-count" class="count">0</span></button>
-  <button id="nav-connection" class="nav-button"><span>↔</span> Connect ChatGPT</button>
+  <button id="nav-connection" class="nav-button"><span>⚙</span> Settings</button>
   <div class="sidebar-note"><span class="local-dot"></span> Private by default<p>Your memory lives on this device.<br>You choose what to share.</p></div>
   <div class="sidebar-footer">Personal Memory Engine <span>Early prototype · 0.1.0</span></div>
 </aside>
@@ -27,11 +27,11 @@ root.innerHTML = `
   <div id="error" class="error hidden" role="alert"></div>
   <section id="decisions-page" class="page">
     <div class="page-heading"><div><div class="eyebrow">A LITTLE CONTEXT GOES A LONG WAY</div><h1>Your decisions</h1><p>The choices you made, the reasons you gave, and how they changed.</p></div><button id="refresh" class="button secondary">↻ Refresh</button></div>
-    <div class="summary-strip"><div><strong id="decision-total">0</strong><span>decisions kept</span></div><div><strong>Preserved</strong><span>earlier versions</span></div><div><strong id="worker-state">Not verified</strong><span id="worker-caption">worker activity</span></div></div>
+
     <div class="content-layout"><section id="cards" aria-label="Decision cards"></section><section id="detail" class="detail-panel" aria-label="Selected decision"></section></div>
   </section>
   <section id="connection-page" class="page hidden">
-    <div class="page-heading"><div><div class="eyebrow">KEEP YOUR NORMAL CONVERSATION</div><h1>Connect ChatGPT</h1><p>Your worker records a choice. This app keeps it on your device.</p></div></div>
+    <div class="page-heading"><div><div class="eyebrow">KEEP YOUR NORMAL CONVERSATION</div><h1>Settings</h1><p>Your worker records a choice. This app keeps it on your device.</p></div></div>
     <div id="connection-content"></div>
   </section>
   <div id="notice" role="status" aria-live="polite"></div>
@@ -85,7 +85,7 @@ function page(connection: boolean): void {
   el('#connection-page').classList.toggle('hidden', !connection);
   el('#nav-decisions').classList.toggle('active', !connection);
   el('#nav-connection').classList.toggle('active', connection);
-  el('#breadcrumb-page').textContent = connection ? 'Connect ChatGPT' : 'Decisions';
+  el('#breadcrumb-page').textContent = connection ? 'Settings' : 'Decisions';
 }
 let decisions: DecisionVersion[] = [];
 let localState: LocalStatus | undefined;
@@ -174,13 +174,14 @@ function renderCards(): void {
     card.append(footer);
     target.append(card);
   }
-  target.append(
-    node(
-      'p',
-      'Showing the most recent 200 decisions. Earlier records remain in local storage.',
-      'list-footnote',
-    ),
-  );
+  if (decisions.length === 200)
+    target.append(
+      node(
+        'p',
+        'Showing the most recent 200 decisions. Earlier records remain in local storage.',
+        'list-footnote',
+      ),
+    );
 }
 function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
   const record = versions[versionIndex];
@@ -198,7 +199,8 @@ function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
     node('p', `Recorded ${date(record.recorded_at)}`, 'muted'),
   );
   block('Stated rationale', record.submission.rationale, target);
-  block('User statement', record.submission.user_statement, target);
+  if (record.submission.user_statement)
+    block('User statement', record.submission.user_statement, target);
   const alternatives = node('section', '', 'record-section');
   alternatives.append(node('h3', 'Rejected alternatives'));
   if (!record.submission.alternatives.length)
@@ -211,7 +213,7 @@ function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
     );
     alternatives.append(item);
   }
-  target.append(alternatives);
+  if (record.submission.alternatives.length) target.append(alternatives);
   const evidence = node('section', '', 'record-section');
   evidence.append(node('h3', 'Available evidence'));
   if (!record.submission.evidence.length) evidence.append(node('p', 'None supplied', 'unstated'));
@@ -219,7 +221,7 @@ function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
     evidence.append(node('p', item.content));
     if (item.reference) evidence.append(node('p', item.reference, 'reference'));
   }
-  target.append(evidence);
+  if (record.submission.evidence.length) target.append(evidence);
   const timeline = node('section', '', 'timeline record-section');
   timeline.append(
     node('h3', `Version history · ${versions.length}`),
@@ -242,13 +244,16 @@ function renderDetail(versions: DecisionVersion[], versionIndex = 0): void {
     );
     timeline.append(item);
   });
-  target.append(timeline);
+  if (versions.length > 1) target.append(timeline);
   const attribution = node('div', '', 'attribution');
   attribution.append(
     node('span', `Submitted by ${record.submission.worker}`),
     node('small', 'Worker attribution is not independent verification of the user’s statement.'),
   );
-  target.append(attribution);
+  const metadata = document.createElement('details');
+  metadata.className = 'record-section';
+  metadata.append(node('summary', 'Record details'), attribution);
+  target.append(metadata);
 }
 async function connectionAction(action: () => Promise<void>, message: string): Promise<void> {
   if (connectionBusy) return;
@@ -296,12 +301,7 @@ async function refresh(force = false): Promise<void> {
     localState = nextStatus;
     decisions = nextDecisions;
     if (!actionError) el('#error').classList.add('hidden');
-    el('#decision-total').textContent = String(decisions.length);
     el('#nav-count').textContent = String(decisions.length);
-    el('#worker-state').textContent = workerLabel(workerStatus);
-    el('#worker-caption').textContent = workerStatus?.receipt
-      ? date(workerStatus.receipt.recorded_at)
-      : 'recording check';
     if (firstLoad) {
       if (!decisions.length) page(true);
       firstLoad = false;
@@ -333,6 +333,4 @@ if (desktopAvailable) {
   window.setInterval(() => {
     void refresh();
   }, 3000);
-} else {
-  el('#worker-state').textContent = 'Desktop needed';
 }

@@ -23,12 +23,12 @@ cat > "$image_stage/INSTALL.txt" <<'GUIDE'
 Personal Memory Engine — unsigned testing preview
 
 Drag Personal Memory Engine.app onto Applications, then open it.
-Choose Connect ChatGPT, install its plugin, return and open the test chat.
+Choose Settings, Connect once, restart ChatGPT once, then open a local test chat.
 Review the sample choice and press Send in ChatGPT.
 The app reports Recording verified after that choice is saved locally.
 
 Requires macOS Apple Silicon for the arm64 package and a desktop host/account
-with Work and local plugin support. No developer runtime is required.
+with a compatible local Codex host and bundled MCP connection manager. No developer runtime is required.
 
 This package is not signed or notarized. Normal public installation and actual
 ChatGPT Work capture still need verification. Do not disable system security.

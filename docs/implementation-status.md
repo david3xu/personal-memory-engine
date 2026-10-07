@@ -21,3 +21,9 @@ D031 replaces the primary terminal setup with a bundled local catalog and graphi
 Local adapter tests cover the real stdio executable, installed launcher with spaces/apostrophes, link round-trips, resource completeness, restart/pause and fresh-test verification. The desktop build is separately checked for bundled resources; actual ChatGPT Work navigation and recording still require the user because computer controls cannot operate that app. There is no Developer ID Application identity available for outside-App-Store distribution. An Apple Development identity is present; this package remains an unsigned, unnotarized preview.
 
 The preview disk image is built without Finder layout automation after the default Tauri DMG bundler failed on the maintainer machine. It includes the complete app, an Applications shortcut and installation instructions. A checksum is generated alongside it.
+
+## Connect-once correction
+
+The user's first graphical test failed: the AI reported `record_decision` unavailable. Preparing a plugin catalog had not registered a global MCP server, and the previous test link opened a local Codex chat rather than proving Work support. Release remains draft. D032 adds direct one-time registration using the desktop app's bundled CLI; D033 keeps cards/history central and connection controls in Settings.
+
+The real bundled CLI was tested with isolated configuration: register, inspect, repeat without changes, preserve unrelated settings, and refuse a conflicting same-name server. Its app-server discovered all three tools without starting a chat or model. Portable plugin metadata now includes its MCP schema, and the optional package is version 0.1.2. The MCP and skill instructions guide normal-chat explicit-choice recording without a mention. These checks prove configuration/tool discovery, not that an AI in ChatGPT Work has made a successful recording.

@@ -226,34 +226,6 @@ h1 {
 .button.primary:hover {
   background: #224535;
 }
-.summary-strip {
-  border: 1px solid #e0e6dc;
-  background: #fff;
-  border-radius: 9px;
-  display: flex;
-  padding: 18px 0;
-  margin-bottom: 28px;
-}
-.summary-strip > div {
-  flex: 1;
-  padding: 0 24px;
-  border-left: 1px solid #e8ece4;
-}
-.summary-strip > div:first-child {
-  border: 0;
-}
-.summary-strip strong {
-  font-size: 15px;
-  display: block;
-  font-weight: 550;
-  color: #3a5143;
-}
-.summary-strip span {
-  display: block;
-  margin-top: 6px;
-  font-size: 10px;
-  color: #879182;
-}
 .content-layout {
   display: grid;
   grid-template-columns: minmax(220px, 0.94fr) minmax(300px, 1.06fr);
@@ -646,9 +618,6 @@ pre {
     height: 60px;
     padding: 0 20px;
   }
-  .summary-strip > div {
-    padding: 0 12px;
-  }
   .empty-steps {
     flex-direction: column;
     align-items: center;
@@ -659,22 +628,6 @@ pre {
   }
 }
 
-.setup-progress {
-  max-width: 800px;
-  padding: 18px 24px;
-  margin-bottom: 20px;
-  border-radius: 9px;
-  background: #eaf1e3;
-  color: #355c41;
-}
-.setup-progress strong {
-  font-size: 16px;
-}
-.setup-progress p {
-  font-size: 12px;
-  line-height: 1.8;
-  margin-bottom: 0;
-}
 .setup-card .button {
   margin: 4px 10px 4px 0;
 }

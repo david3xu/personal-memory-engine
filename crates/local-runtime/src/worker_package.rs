@@ -4,7 +4,7 @@ use serde_json::json;
 use std::path::{Path, PathBuf};
 pub const PLUGIN_NAME: &str = "personal-memory-engine";
 pub const MARKETPLACE_NAME: &str = "personal-memory-engine-desktop";
-pub const PACKAGE_VERSION: &str = "0.1.1";
+pub const PACKAGE_VERSION: &str = "0.1.2";
 const PACKAGE_FILES: &[&str] = &[
     "plugin.json",
     "mcp.json",
@@ -85,9 +85,16 @@ pub fn prepare(source: &Path, helper: &Path, data_dir: &Path) -> Result<PathBuf,
     );
     private_write(&launcher, script.as_bytes())?;
     let server = json!({"mcpServers":{"personal-memory":{"type":"stdio","command":"/bin/bash","args":[launcher]}}});
-    let bytes = serde_json::to_vec_pretty(&server).map_err(|error| error.to_string())?;
-    private_write(&plugin.join("mcp.json"), &bytes)?;
-    private_write(&plugin.join(".mcp.json"), &bytes)?;
+    let mut portable = server.clone();
+    portable["$schema"] = json!("https://agent-plugins.org/schemas/1.0.0/mcp.schema.json");
+    private_write(
+        &plugin.join("mcp.json"),
+        &serde_json::to_vec_pretty(&portable).map_err(|error| error.to_string())?,
+    )?;
+    private_write(
+        &plugin.join(".mcp.json"),
+        &serde_json::to_vec_pretty(&server).map_err(|error| error.to_string())?,
+    )?;
     private_directory(catalog.parent().ok_or("Catalog directory is missing")?)?;
     let marketplace = json!({"name":MARKETPLACE_NAME,"interface":{"displayName":"Personal Memory Engine · installed app"},"plugins":[{"name":PLUGIN_NAME,"source":{"source":"local","path":"./plugins/personal-memory-engine"},"policy":{"installation":"AVAILABLE","authentication":"ON_INSTALL"},"category":"Productivity"}]});
     private_write(
@@ -108,7 +115,7 @@ pub fn plugin_link(catalog: &Path) -> Result<String, String> {
 }
 pub fn test_prompt(request_id: &str) -> String {
     format!(
-        "[@Personal Memory Engine](plugin://{PLUGIN_NAME}@{MARKETPLACE_NAME})\n\nThis is an explicit synthetic setup decision: I choose a blue cover for my demo notebook because I prefer blue. Please record this one choice using record_decision with request_id \"{request_id}\", user_confirmed true, chosen_option \"{TEST_CHOICE}\", and rationale \"{TEST_REASON}\". Use your actual worker name. I have not stated any rejected alternatives or source evidence; omit them. This is a new decision, not a revision. Confirm only after the tool succeeds. Do not record any other content from this setup chat."
+        "For this synthetic setup example, my new choice is \"{TEST_CHOICE}\" because \"{TEST_REASON}\". Setup reference: {request_id}."
     )
 }
 pub fn test_link(request_id: &str) -> String {

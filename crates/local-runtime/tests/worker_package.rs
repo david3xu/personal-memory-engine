@@ -50,7 +50,11 @@ async fn installed_catalog_records_without_developer_runtime() {
         serde_json::from_slice(&std::fs::read(plugin.join("mcp.json")).unwrap()).unwrap();
     let legacy: Value =
         serde_json::from_slice(&std::fs::read(plugin.join(".mcp.json")).unwrap()).unwrap();
-    assert_eq!(portable, legacy);
+    assert_eq!(portable["mcpServers"], legacy["mcpServers"]);
+    assert_eq!(
+        portable["$schema"],
+        "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+    );
     let server = &portable["mcpServers"]["personal-memory"];
     let args: Vec<&str> = server["args"]
         .as_array()
@@ -81,7 +85,9 @@ async fn installed_catalog_records_without_developer_runtime() {
         .into_owned();
     assert_eq!(prompt, worker_package::test_prompt(&request));
     assert!(prompt.contains(&request));
-    assert!(prompt.contains("plugin://personal-memory-engine@personal-memory-engine-desktop"));
+    assert!(!prompt.contains("plugin://"));
+    assert!(!prompt.contains("record_decision"));
+    assert!(!prompt.contains("user_confirmed"));
     let result = client.call_tool(CallToolRequestParams::new("record_decision").with_arguments(json!({"request_id":request,"user_confirmed":true,"chosen_option":"A blue cover for my demo notebook","rationale":"I prefer blue","worker":"Isolated bundled connector test"}).as_object().unwrap().clone())).await.unwrap();
     assert_eq!(result.is_error, Some(false));
     assert!(

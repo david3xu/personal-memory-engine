@@ -24,6 +24,10 @@ No tool publishes records, deletes prior versions, reads external chats, or call
 
 ## Owner access controls
 
-**Pause worker access** blocks all three memory tools, including helper processes already running. Protocol initialization and tool-schema discovery remain possible; they do not expose stored decisions or verify recording. Resume through the owner app. Saved cards and owner history access are unaffected. Invalid/future connection metadata fails closed.
+**Pause recording** blocks all three memory tools, including helper processes already running. Protocol initialization and tool-schema discovery remain possible; they do not expose stored decisions or verify recording. Resume through the owner app. Saved cards and owner history access are unaffected. Invalid/future connection metadata fails closed.
 
 Setup uses a fresh synthetic request ID and a successful new blue-notebook choice to produce a historical receipt. Tool reads, rejected inputs and retries from an earlier test cannot verify the current test. The receipt is not a live heartbeat or independent worker authentication. These controls belong to the local adapter, not the decision contract.
+
+## Normal-chat guidance
+
+Initialization instructions guide the AI to record explicit user choices while owner recording is enabled, without a per-choice mention or save command. Questions, brainstorming and unaccepted AI suggestions are excluded; requests not to save are respected. This is model guidance, not a chat observer or a guarantee of every invocation. Host setup is a separate adapter using the installed desktop connection manager; cloud Work support is not established by local registration.

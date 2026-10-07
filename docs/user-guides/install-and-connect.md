@@ -6,47 +6,48 @@ This preview supports macOS Apple Silicon. Download the app, install it, and use
 
 ## Install
 
-1. Download the macOS Apple Silicon DMG from the project's preview release.
+1. Obtain the macOS Apple Silicon preview DMG. No public release is published yet.
 2. Open it and drag **Personal Memory Engine** to **Applications**.
 3. Open **Personal Memory Engine**. Keep it in Applications; the recording helper and connector are inside the app.
 
 If macOS blocks the preview, follow Apple's [instructions for opening a trusted app](https://support.apple.com/en-us/102445) only if you trust this project and understand it is an unsigned preview. Do not disable your Mac's security protections globally.
 
-## Connect ChatGPT
+## Connect once
 
-1. Open **Connect ChatGPT** in the app.
-2. Choose **Connect ChatGPT**. It prepares the bundled connector and opens its local plugin page in ChatGPT desktop.
-3. Review **Personal Memory Engine** and choose **Install** in ChatGPT. Your account/workspace must support local desktop plugins in Work.
-4. Return to Personal Memory Engine and choose **Open test chat**.
-5. Review the synthetic blue-notebook choice in ChatGPT's message box and press **Send**. The app does not send it for you.
-6. Return to Personal Memory Engine. **Recording verified** appears only after that fresh test choice is successfully saved in this local store. Its card appears under **Decisions**.
+1. Open **Settings** in Personal Memory Engine and choose **Connect once**. This opts in to recording explicit decisions in supported chats on this desktop host.
+2. Restart ChatGPT once to load the newly registered MCP tools. No plugin selection is required in each chat.
+3. Return to Settings, expand **Check recording once**, and choose **Open test chat**.
+4. Review the synthetic blue-notebook choice and press **Send**. The app does not send it for you.
+5. Return to **Decisions** to see the saved card. Settings reports **Recording verified** only after that fresh test choice is saved locally.
 
-The app prepares its own local plugin catalog; it does not modify unrelated marketplaces or install a development runtime. Opening the plugin page does not prove installation. The supported links are documented in OpenAI's [desktop commands](https://learn.chatgpt.com/docs/reference/commands).
+Connect uses ChatGPT desktop's bundled connection manager to register this app's MCP; no separate CLI or developer runtime is needed. It preserves unrelated servers and refuses to replace a different server using the same name. You can inspect **personal-memory-engine** in ChatGPT's MCP settings. A registered configuration is not proof of successful recording.
 
-## Use it in a normal conversation
+The test link opens a **local Codex chat**. It does not select ChatGPT Work or verify cloud-mode access. Local host configuration is shared by supported desktop/Codex clients; availability in Work, web, or another mode must be tested separately. See OpenAI's [MCP guidance](https://learn.chatgpt.com/docs/extend/mcp?surface=desktop) and [desktop commands](https://learn.chatgpt.com/docs/reference/commands).
 
-Enable or mention **Personal Memory Engine** in a desktop Work chat and ask it to record your explicit decisions. For example: “I choose the monthly plan because I want flexibility. Record this decision.” The worker should supply only your stated reasons, rejected alternatives and evidence. Suggestions you have not selected are not decisions.
+## Use a normal conversation
 
-When changing a choice, ask the worker to revise the saved decision. It reads the latest record and links the revision to that version. Open a card's history to inspect both choices. Missing reasons stay marked **Not stated**.
+For example: “I choose the monthly plan because I want flexibility.” With recording enabled and the tools available, the AI is instructed to save that explicit choice without an `@` mention or “record this” command. Questions, brainstorming, and unaccepted AI suggestions are excluded. Only stated reasons, rejected alternatives and available evidence belong in the record. You can ask it not to save a particular choice.
 
-The setup receipt confirms a completed record, not a live connection or authenticated worker identity. Worker names are supplied by the worker. Closing the owner app does not itself revoke an installed plugin's access to its bundled helper.
+For a changed choice, the AI reads the earlier record and appends a linked revision. Open a card to inspect its versions. The host and AI determine tool availability and invocation; MCP instructions alone cannot guarantee that every qualifying choice will be recorded. A successful tool result confirms the save.
 
-## Pause and reconnect
+The receipt confirms a completed record, not a live connection or authenticated worker identity. Closing the owner app does not revoke the helper's access.
 
-Choose **Pause worker access** to block all worker reads and recordings, including running helpers. Saved cards remain available in the owner app. Choose **Reconnect ChatGPT** to resume and run a fresh test. To disable or uninstall the plugin in ChatGPT, open its plugin page there.
+## Pause and resume
+
+In **Settings**, choose **Pause recording** to block all worker reads and writes, including running helpers. Cards remain available. Choose **Resume recording** to resume. To remove the host connection, remove **personal-memory-engine** in ChatGPT's MCP settings. An independently installed plugin is optional and can be managed separately; the primary flow does not need it.
 
 ## If setup does not complete
 
-- **ChatGPT did not open:** install/update ChatGPT desktop with Work and local-plugin support, then try Connect again. A plain cloud chat cannot start this local stdio helper.
-- **Plugin page unavailable:** check host/workspace policy. The app remains usable as a local card viewer; this host route cannot be declared verified until a real test succeeds.
-- **Tools missing after installation:** restart ChatGPT, then open a new test chat with the plugin enabled.
-- **Test chat did not open:** expand **Test message / chat did not open**, copy the message, and send it in a new desktop Work chat with the plugin enabled.
-- **Still waiting:** check that the worker called `record_decision` successfully. A failed save or a tool listing cannot pass. Starting another test replaces the pending verification request; send the newest message.
-- **Moved or replaced the app:** choose Connect again. This updates the app-owned launcher used by installed copies.
-- **Connector missing:** reinstall the complete app package.
+- **Host unavailable:** install/update ChatGPT desktop. Its bundled connection manager must be available.
+- **Connection conflict:** another server uses the same name. Rename that server in the host settings before reconnecting; the app has not replaced it.
+- **Tools disabled:** enable this server and its recording tools in ChatGPT's MCP settings.
+- **Tools unavailable:** restart ChatGPT and use a new supported local chat. A cloud chat cannot automatically launch the local helper.
+- **Test chat did not open:** expand **Chat did not open?**, copy the choice, and send it in a new supported desktop chat.
+- **Still waiting:** a successful `record_decision` call is required. Tool discovery, a failed save, or a receipt from an earlier test cannot pass. Send the newest test if you started another.
+- **Moved the app:** choose Connect again to repair the app-owned helper launcher.
 
 ## Other workers and local data
 
-Expand **Advanced: other local workers and storage** for a compatible local MCP configuration and the private database location. Default macOS storage is `~/Library/Application Support/org.personalmemory.engine/memory.sqlite3`. Private memory is never included in the connector catalog or installer. Uninstalling the app does not automatically delete that separate storage directory.
+Expand **Connection help and other workers** for a compatible local MCP configuration and the private database location. Default macOS storage is `~/Library/Application Support/org.personalmemory.engine/memory.sqlite3`. Private memory is never included in the connector catalog or installer. Uninstalling the app does not automatically delete that separate storage directory.
 
 Do not move only the SQLite file while a helper is using it; WAL files can contain committed decisions. Backup/restore and owner-selected public snapshots are later Stage 01 checkpoints. Public sharing is not in this preview.

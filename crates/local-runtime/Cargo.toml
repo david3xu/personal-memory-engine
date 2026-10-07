@@ -16,7 +16,7 @@ rusqlite = { version = "0.40.2", features = ["bundled"] }
 uuid = { version = "1", features = ["v4"] }
 chrono = { version = "0.4", features = ["serde"] }
 rmcp = { version = "3.5.1", features = ["server", "client", "transport-io", "schemars"] }
-tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-std", "process", "signal"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "io-std", "process", "signal", "time"] }
 clap = { version = "4", features = ["derive"] }
 dirs = "6"
 url = "2"
