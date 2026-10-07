@@ -7,6 +7,7 @@ Personal Memory Engine is in design and repository preparation. Application impl
 ## Canonical records
 
 - Product choices and their history: [design decision ledger](docs/design-decisions.md).
+- Candidate first-stage scope and checks: [draft build brief](docs/prototype-brief.md).
 - Proposed module boundaries and community foundation: [repository foundation](docs/repository-foundation.md).
 - Stage workflow and remote settings: [branching and releases](docs/branching-and-releases.md).
 - Contributor process: [contribution guide](.github/CONTRIBUTING.md).

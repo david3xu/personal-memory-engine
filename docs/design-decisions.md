@@ -423,3 +423,142 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Main protection:** Pull requests and resolved review conversations required; administrator enforcement enabled; force pushes and deletion disabled. No nonexistent CI checks or second-reviewer requirement configured.
 - **Security reporting:** Private vulnerability reporting verified enabled. A dedicated confidential conduct-reporting contact remains open.
 - **Working stage:** Repository foundation and the still-pending first-stage build brief; application implementation remains paused.
+
+
+## First-stage application format — 2026-10-07
+
+### D020 / D020-v1 — Browser-based app, visual history, and public sharing
+
+- **Chosen direction:** The first stage is a web app accessed through a browser, with a visual interface for historical decision cards and decision history. The interface can generate a public URL for other people to visit.
+- **Stated rationale:** Other people should be able to visit through a public URL. No separate reason for excluding a desktop format was stated.
+- **Explicitly excluded first-stage formats:** A desktop app or another application format installed on the user's laptop or machine.
+- **Reasons for exclusion:** Not stated.
+- **Source:** “at the first stage, we shouldn't be use desktop app or any other format exist in the laptop or machine”; “a visualized interface”; “visualize the history decisions for the history card”; “this interface can generate a public URL for other people to visit”.
+- **Source interpretation:** The format exclusion concerns an installed end-user application; it does not select where the backend or memory storage runs.
+- **Related decisions:** D007 (history and relationship views), D012 (external URL), D013 (backend, MCP, and viewer), D003 (user ownership).
+- **Previous version:** None. This specifies the earlier viewer and URL direction; it does not replace those decisions.
+- **Status:** Confirmed first-stage format and sharing requirement. Hosting, storage, sharing scope, access rules, and exact history visualization remain undecided. Application implementation remains paused under D008.
+
+### Assistant proposal — not approved sharing design
+
+- **P024 — Deliberate sharing:** Keep recording access separate from public viewing. Let the owner explicitly publish a selected decision with its history or a selected collection; public links provide read-only access to the selected content. The exact scope, whether links show a snapshot or subsequent updates, and withdrawal behavior still need selection. This is a proposal, not authorization to publish personal memory.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D020 and a separate sharing proposal, preserving earlier entries. Updated the README to distinguish the confirmed browser format from unselected implementation details.
+- **Implementation state:** Documentation only. No application code, public app URL, or verified worker connection exists.
+
+
+## Local storage clarification and format review — 2026-10-07
+
+### D003 / D003-v2 — Store the user's memory on their local machine
+
+- **Chosen direction:** Keep the user's authoritative decision memory on their local machine. Preserve the earlier boundary that the project does not operate a service holding users' memory.
+- **Stated rationale:** Not stated separately; the user explicitly requires local data.
+- **Rejected alternatives and reasons:** None explicitly stated in this clarification.
+- **Source:** “Because we want the data exist in the local machine.”
+- **Previous version:** D003-v1.
+- **Related decisions:** D002 (MCP recording), D020 (earlier browser interface direction), D012 (external URL).
+- **Status:** Confirmed local storage requirement. Database format, worker connection, and public sharing mechanism remain undecided.
+
+### Related user discussion — application format remains under review
+
+- **Concern:** The user asks how a browser-based app connects to MCP and where it stores data, given the local storage requirement.
+- **Source:** “I think the local app is better for this choice. Local app is too complex. Why do you suggest a browser-based web app?”
+- **Interpretation:** The user is comparing local and browser interfaces and raising complexity concerns. This does not settle a native desktop framework or approve the assistant's proposed local service. D020-v1 remains a historical choice; the current interface format is under review.
+
+### Assistant proposal — not selected implementation
+
+- **P025 — Local service with browser viewer:** Run the MCP adapter and storage service on the user's machine, keep an authoritative database file there, and serve a browser viewer on a loopback address. SQLite is a candidate, not a selected database. This approach requires a local running process even though the interface uses a browser. Native desktop packaging remains an alternative.
+- **Connection evidence:** Official OpenAI documentation describes custom MCP server connections and Secure MCP Tunnel for private local servers. Account permissions and actual integration remain unverified. The documented custom-server setup uses ChatGPT on the web; installation of the ChatGPT desktop client alone does not establish direct local MCP access.
+- **Official references:** [Custom MCP server](https://developers.openai.com/api/docs/guides/custom-mcp-server) and [Secure MCP Tunnel](https://developers.openai.com/api/docs/guides/secure-mcp-tunnels).
+- **P026 — Public sharing choices:** A live public viewer backed by the local machine needs that machine and its connection to remain available. An exported, deliberately selected static snapshot can be hosted independently, but then the published content also exists outside the machine. Neither option is selected; the public URL requirement remains open alongside local storage.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D003-v2 and the user's format concern without overwriting prior decisions. Kept the local-service architecture and sharing options as proposals.
+- **Implementation state:** Documentation only. Application implementation remains paused.
+
+
+## Long-term scalability discussion — 2026-10-07
+
+### Related user instruction — consider the mature product before choosing its format
+
+- **Requested design consideration:** Evaluate future scalability and what the product could become if useful, alongside the first implementation stage. This reinforces D014's reusable broader-project direction.
+- **Source:** “this choice will determine the future scalability”; “not only consider about the stage one, but also think about the future”; “If this is become a very useful app, what's the idea for that?”
+- **Related decisions:** D014 (reuse), D003-v2 (local storage), D020 (earlier interface direction and subsequent review), D007 (history and relationships).
+- **Status:** Architecture discussion. No desktop framework, hosted memory service, synchronization system, team feature, or new implementation stage is selected by this request.
+
+### Assistant proposal — not approved roadmap
+
+- **P027 — Mature product and scale dimensions:** The [long-term product and growth proposal](repository-foundation.md#long-term-product-and-growth-proposal) considers a reusable local engine, replaceable interfaces, worker adapters, increasing record volume, optional multiple-device and shared-project capabilities, and a separate public publication boundary. Future synchronization and collaboration require explicit ownership, access, and conflict decisions; they are not added to the first prototype.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact discussion time not captured.
+- **Action:** Recorded the user's request for a longer-term architecture view and expanded the clearly marked repository foundation proposal. Preserved prior choices and kept future capabilities unapproved.
+- **Implementation state:** Documentation only. Application implementation remains paused.
+
+
+## Minimum local-first foundation — 2026-10-07
+
+### D021 / D021-v1 — Start with a minimum local-first personal decision memory engine
+
+- **Chosen direction:** Create a minimum local-first personal decision memory engine as the initial foundation, then expand the app with more features and more mature stages later.
+- **Stated rationale:** The user intends to expand the app over time. No additional reason or specific growth target was stated.
+- **Rejected alternatives and reasons:** None explicitly stated.
+- **Source:** “we create a minimum local first personal decision memory engine, and later we can expand this app to more features, more mature stages”; “Do you need to record this first before we have more discussion?”
+- **Related decisions:** D003-v2 (local authoritative memory), D011 (minimum tested and published release), D014 (reuse), D016 (stages), D020 (interface direction under review), D008 (discuss before implementation).
+- **Previous version:** None. This consolidates the minimum-release and local-storage directions without replacing their history.
+- **Status:** Confirmed product direction. It does not select a desktop or browser interface, database, framework, worker connection, synchronization system, sharing mechanism, or detailed future roadmap. This confirmation authorizes documentation; application implementation remains paused under D008.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D021 before further discussion and updated the README's current direction. Earlier decision versions and proposals remain intact.
+- **Implementation state:** Documentation only. No application code or hosted prototype created.
+
+
+## First-stage boundary and roadmap review — 2026-10-07
+
+### Related user request — clarify the implementation target
+
+- **Request:** Explain whether the first-stage implementation boundary is clear, its expected target, and the implementation roadmap.
+- **Source:** “is it clear, the first stage implementation boundary?”; “what is the expected target and what's the implementation roadmap?”
+- **Related decisions:** D021 (minimum local-first foundation), D003-v2 (local storage), D011 (minimum tested delivery), D012 (public URL), D014 (reuse), D016 (stages).
+- **Status:** Scope review, not application-build authorization. The question does not select an interface, stack, worker connection, or publication behavior.
+
+### Assistant proposal — draft build brief
+
+- **P028 — First-stage target and roadmap:** [First-stage build brief](prototype-brief.md) distinguishes confirmed requirements from the proposed one-owner local engine, one real MCP connection, card/history viewer, deliberately published synthetic demonstration, acceptance checks, and build/use/improve/publish milestones. It lists choices to close before coding and remains a draft pending selection.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact discussion time not captured.
+- **Action:** Created the draft build brief and linked it from the README and development guide, preserving earlier decisions and marking implementation details as proposals.
+- **Implementation state:** Documentation only. No application code, new stage branch, or deployment created.
+
+
+## Installation and sharing usability — 2026-10-07
+
+### D022 / D022-v1 — Easy installation and public-link sharing
+
+- **Chosen direction:** Make the app easy for users to install and make selected content easy to share through a public URL other people can view.
+- **Stated rationale:** Not stated separately. The user explicitly prioritizes ease of installation and sharing.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** “I'd like to use this app, easy to install for users, and easy to share for other users to visible with the public URL”.
+- **Related decisions:** D021 (minimum local-first engine), D003-v2 (local authoritative data), D012 (public URL), D020 (interface packaging under review), D014 (later reuse).
+- **Previous version:** None.
+- **Status:** Confirmed usability requirement. No particular installer, desktop framework, supported operating system, hosting provider, or publishing mechanism is selected. Application implementation remains paused.
+
+### Assistant proposal — installation and sharing implementation considerations
+
+- **P029 — Usability belongs in first-stage checks:** The [installation and sharing section of the draft brief](prototype-brief.md#installation-and-sharing-experience) proposes a packaged launch path for one selected platform, worker connection guidance, durable user-data storage, explicit publication preview, visible publish success/failure, and clean-environment installation and external-reader checks. Snapshot publication, bundled runtime, and the exact packaging remain proposals.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D022 and refined the draft build brief so a minimum release includes installation and sharing usability work, without approving a technology or starting application implementation.
+- **Implementation state:** Documentation only. Latest design changes remain local and have not been pushed to GitHub.
