@@ -591,3 +591,27 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
 - **Action:** Appended D023, preserved earlier entries, and created a separate user-first implementation plan with cross-links to the canonical scope and branch documents.
 - **Implementation state:** Documentation only. Future application branches, workflows, and runtime remain unimplemented.
+
+
+## Directory organization and foundation contribution boundaries — 2026-10-07
+
+### D024 / D024-v1 — Clear foundation boundary and stricter contribution requirements
+
+- **Chosen direction:** Design code and documentation directories for outside contributions, identify useful feature contribution areas, and keep core features/foundation behind a clear boundary with stricter contribution requirements.
+- **Stated rationale:** The user expects other developers may contribute code and wants a clear core/foundation boundary.
+- **Rejected alternatives and reasons:** None explicitly stated. The user asks about stricter requirements or prohibitions; no blanket ban on outside core contributions is selected.
+- **Source:** “organize the code directory structure , and the documentation directory strucutre”; “code will be maybe contributed by other developers”; “design the features and where developers cna contribute”; “keep the core features or foundation a clear boundary and more strictor requirements for developers to contribute or prehibit”.
+- **Related decisions:** D014 (reuse), D015 (open-source contributors), D021 (minimum engine), D022 (user friendliness), D023 (implementation planning).
+- **Previous version:** None.
+- **Status:** Confirmed directory and contribution-design requirement. Specific folder names, review tiers, CODEOWNERS rules, and automatic enforcement remain proposed. Application implementation remains paused.
+
+### Assistant proposal — structure and review tiers
+
+- **P031 — Directory and contribution boundaries:** [Repository structure](repository-structure.md) defines a target core/application/adapters/runtime layout, owner/public UI split, tests and scripts, a documentation audience map, extension opportunities, behavior-based review tiers, and changes incompatible with current requirements. It recommends controlled review of outside core proposals rather than a blanket prohibition.
+- **Verified review context:** Main requires the existing PR process and administrator enforcement, with zero required approving reviews, no required code-owner review, and no application checks. The proposed controls are not remotely enabled by this discussion.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D024, created the structure/contribution proposal and documentation index, and pointed existing foundation/planning/contribution documents to this canonical directory design. Historical decision content remains intact.
+- **Implementation state:** Documentation only. No application directory, CODEOWNERS configuration, CI workflow, or new application branch created.

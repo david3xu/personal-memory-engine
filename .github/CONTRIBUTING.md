@@ -12,6 +12,14 @@ Open an issue before changing decision semantics, record compatibility, storage 
 
 For small documentation corrections, a focused pull request is welcome.
 
+## Contribution areas and foundation review
+
+The [directory and contribution-boundary proposal](../docs/repository-structure.md) identifies interface, installation, worker integration, publication, tests, and documentation entry points. Code paths do not yet exist and the proposed review tiers are under design review; they are not a claim of automated enforcement. Start with a scoped issue for a new feature or integration.
+
+Changes to core decision rules, durable schemas, storage/migrations, access controls, publication selection, or checks that enforce those rules need the substantial-change discussion above. A change in an adapter or UI can still affect the foundation. Explain semantic and compatibility effects rather than assuming a folder makes a change low risk. Bug fixes and refactors preserving approved semantics may be proposed with relevant evidence.
+
+Do not silently change historical decisions, invent user approval or missing rationale, bypass revision rules, or publish personal memory by default. Treat changes to security policy, CI, ownership, and release configuration as project-control changes requiring maintainer agreement. Use private vulnerability reporting for sensitive security discussions.
+
 ## Contribution workflow
 
 1. Read the [README](../README.md), [decision ledger](../docs/design-decisions.md), and [branch plan](../docs/branching-and-releases.md).

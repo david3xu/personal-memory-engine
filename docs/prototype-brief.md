@@ -10,7 +10,7 @@ Deliver a minimum local-first personal decision memory engine: a real AI worker 
 
 A successful walkthrough should show one chosen option, its stated rationale and rejected alternatives when provided, a later changed choice linked to the original, both versions after restarting the local service, and an intentionally published view of synthetic example decisions. The synthetic public demonstration is a proposal, not approval to publish personal memory.
 
-The confirmed direction is D021; local authoritative storage is D003-v2. See the [decision ledger](design-decisions.md) for requirements, rationale, available evidence, and their history. This brief defines the candidate delivery boundary; the [repository foundation](repository-foundation.md) describes architecture and later growth proposals.
+The confirmed direction is D021; local authoritative storage is D003-v2. See the [decision ledger](design-decisions.md) for requirements, rationale, available evidence, and their history. This brief defines the candidate delivery boundary; the [repository foundation](repository-foundation.md) describes later growth rationale, and the [directory proposal](repository-structure.md) defines module and contribution boundaries.
 
 ## Confirmed requirements
 
