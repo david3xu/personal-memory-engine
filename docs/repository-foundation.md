@@ -137,4 +137,4 @@ Start with ordinary pull requests and a clear review process. Any additional con
 
 ## Current state
 
-The project contains design documentation and local repository configuration. Local Git is initialized with `main` as its initial branch; its verified public remote is being connected for the first documentation baseline. See [branching and remote preparation](branching-and-releases.md) for the proposed stage workflow. Apache License 2.0 and the owner `david3xu` are selected; the application stack remains open. No application code or deployment has been created.
+The project contains design documentation and local repository configuration. Local Git is initialized with `main` as its initial branch; the documentation baseline is published and `stage/00-repository-foundation` is the active preparation branch. See [branching and remote preparation](branching-and-releases.md) for the proposed stage workflow. Apache License 2.0 and the owner `david3xu` are selected; the application stack remains open. No application code or deployment has been created.
