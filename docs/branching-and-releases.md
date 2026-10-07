@@ -16,7 +16,7 @@ Status: `main` and `stage/00-repository-foundation` are published. Future implem
 
 `main` and `stage/00-repository-foundation` exist. The later stage branches remain proposals and will be created when their work starts. The first prototype's final feature list remains governed by the approved build brief.
 
-The [user-first implementation plan](implementation-plan.md) maps installation, recording, history, sharing, recovery, and tested improvement to these stages and proposes the Actions checks to implement later. No application workflow or future stage branch is created by the plan.
+The [user-first implementation plan](implementation-plan.md) maps installation, recording, history, sharing, recovery, and tested improvement to these stages and proposes the Actions checks to implement later. The [Stage 01 step plan](implementation-plan.md#stage-01-deliver-a-complete-minimum-in-small-steps) proposes checkpoints inside one active stage branch, with the complete minimum accepted before Stage 02. No application workflow or future stage branch is created by the plan.
 
 ## Branch lifecycle
 
