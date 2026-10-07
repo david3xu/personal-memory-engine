@@ -24,15 +24,22 @@ The proposed everyday owner flow is: open the app, connect if needed, continue c
 
 The public reader uses a separate read-only experience. Installing the app, authenticating a worker, and publishing a view are owner tasks, not requirements for the reader.
 
-## Before coding: close feasibility and scope
+## Close choices at the step that needs them
 
-1. Select the first supported operating system and distribution format. Prototype the user journey on paper before choosing a desktop shell or launcher.
-2. With Rust for the engine and TypeScript for the interface selected, choose the UI framework and local storage/recovery policy. Keep the authoritative store in durable per-user storage, separate from app binaries and development files.
-3. Select and verify one real worker connection, including transport, permissions, and authentication. Installation of the worker's desktop app alone does not establish local MCP access. Do this feasibility work before substantial UI polish.
-4. Select snapshot or live sharing, the publishing destination, publication/update/withdrawal semantics, and whether links must work while the owner's machine is off. A published snapshot stores the selected public copy elsewhere; a live local-backed view depends on local availability.
-5. Confirm the minimum visual scope and this plan against the build brief. Carry the approved scope into the single ChatGPT Work build conversation required by the supplied external brief.
+Ease of use comes first, and ChatGPT Work is the selected working context under D028. Keep the prescribed build/use/improve/publish evidence in the same Work conversation. Building through Work and using an MCP recording tool there are separate paths that both need verification.
 
-These are open choices, not excuses to expand the app. A minimal package for one platform and one publishing route is enough if they achieve the selected user journey. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
+Before implementing the first capture slice, establish repository access in that Work conversation, the first actual recording connection (transport, permissions, authentication), and the initial versioned record/local persistence contract. Rust and TypeScript are selected. A local browser viewer is the proposed simplest development path, with a clear launch action, connection status, empty state, and card view. Do not require the user to approve desktop packaging and public hosting together before starting engine/interface work.
+
+Select remaining choices when they become necessary:
+
+1. **01.1:** Verify the actual Work/worker MCP route; choose durable per-user local storage and portable record/operation contracts. Keep data separate from app binaries, the repository, and browser cache. Establish a recoverable development-data policy; complete end-user recovery controls in 01.4.
+2. **Before package work / 01.4:** Select the first supported operating system, distribution format, and launcher or desktop shell. Investigate packaging friction early where useful, while keeping it separate from capture-checkpoint completion. Complete clean installation, restart/reinstall retention, backup/restore, and deletion behavior before the minimum release.
+3. **Before 01.3:** Select snapshot or live sharing, publishing destination, publication/update/withdrawal semantics, and offline availability. A selected published copy exists elsewhere; a live local-backed view depends on local availability.
+4. **Before 01.5:** Reconcile the completed steps with the agreed full minimum build brief, user walkthrough, and actual checks. Do not claim the first complete release until those checks pass.
+
+Tauri, SQLite, platform support, UI framework, and snapshot publication remain choices or candidates, not implied approvals. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
+
+Official [Work setup](https://learn.chatgpt.com/docs/get-started-with-work) and [local projects](https://learn.chatgpt.com/docs/projects?surface=app) describe approved local folder access. A cloud conversation does not automatically inherit the local repository or running processes; verify actual access rather than assuming it from the product name.
 
 ## Stage 01: deliver a complete minimum in small steps
 
@@ -40,13 +47,13 @@ D027 confirms that the first stage should reach a complete basic delivery before
 
 | Step | What the user can do at its end | Completion evidence | Milestone mapping |
 | --- | --- | --- | --- |
-| 01.1 — Record one real choice | Open an early package, connect the selected worker, make an explicit synthetic choice, and see a locally saved card with supplied rationale/alternatives/evidence | Real MCP conversation to durable storage to UI; restart retains the card; missing fields remain absent; invalid/retried submissions behave correctly; connection and save failures are understandable | Close M0 choices, then combine M1 and M2 into the first working slice |
+| 01.1 — Record one real choice | Open the local viewer through a clear launch path, connect the selected worker, make an explicit synthetic choice, and see a locally saved card with supplied rationale/alternatives/evidence | Real MCP conversation to durable storage to UI; restart retains the card; missing fields remain absent; invalid/retried submissions behave correctly; connection and save failures are understandable | Close capture-related M0 choices; combine the M1 runtime/viewer foundation with M2; finish packaging in 01.4 |
 | 01.2 — Change a choice without losing history | Record a later choice and inspect both linked versions in a simple history view | Actual worker revision, old-content preservation, retry/reference checks, and unresolved concerns do not change the choice | M3 |
 | 01.3 — Share deliberately | Select synthetic content, preview it, publish, and give another person a read-only URL | Public page matches selection; an external/private-session reader can open it; recording and unselected memory remain inaccessible; selected update/withdrawal and availability behavior work | M4 |
-| 01.4 — Install and retain memory | Follow a short installation/connection guide, reopen or reinstall, and back up/restore the history | Clean-environment package test, new-user walkthrough, persistence and synthetic restore checks, documented data location and deletion behavior | M5; refine the early package rather than introducing a new application |
+| 01.4 — Install and retain memory | Follow a short installation/connection guide, reopen or reinstall, and back up/restore the history | Clean-environment package test, new-user walkthrough, persistence and synthetic restore checks, documented data location and deletion behavior | Complete M1 packaging and M5 recovery; retain the same engine and records |
 | 01.5 — Receive the complete minimum | Use installation, recording, revision, recovery, and sharing together in the same accepted version | Full build-brief acceptance review, meaningful checks, released-package walkthrough, real worker verification, and final external URL check against the exact accepted commit | Combined M1–M5 acceptance and first-prototype checkpoint |
 
-Start with a real vertical slice: Rust engine, local storage, MCP, and TypeScript card view connected in 01.1. An empty viewer or mocked worker can help development but does not complete that step. The early package tests launch/distribution feasibility; 01.4 finishes the supported installation and recovery experience.
+Start with a real vertical slice: Rust engine, local storage, MCP, and TypeScript card view connected in 01.1. An empty viewer or mocked worker can help development but does not complete that step. An early package may test launch/distribution feasibility, but is not required to complete 01.1. Step 01.4 finishes the supported installation and recovery experience. End users should not need developer tools or a persistent terminal for the completed minimum release.
 
 Define stable record identifiers, the versioned record contract, revision references, and validated operation boundaries from 01.1. Implement the user-visible revision path in 01.2 without rewriting the first records. Durable writes, intended recording access, missing-information handling, and safe rendering apply as soon as their paths exist. They are not optional polish to postpone until the last step.
 
@@ -79,12 +86,12 @@ No step branch, issue, package, workflow, or tag is created by this design updat
 - **Evidence:** Selected scope and a documented supported connection path. Record unsupported account access or an unavailable publishing path plainly; do not claim feasibility as a successful end-to-end app.
 - **Target alignment:** D003-v2 (local storage), D021 (minimum local-first engine), D022 (installation and sharing).
 
-### M1 — A new user can install and open a minimal package
+### M1 — Launch foundation and a supported installable package
 
-- **User outcome:** Download, install or unpack, and open without compiling source or leaving a terminal running.
-- **Work:** Establish the Rust and TypeScript scaffolds and lockfiles, initial record schema, local launcher/lifecycle, durable data location, and smallest viewer shell. Add Rust formatting, Clippy, meaningful tests, and builds; add TypeScript formatting, lint, strict type checks, meaningful tests, and builds. Provide one documented local check entry point, pre-commit checks, and matching CI before domain implementation. Verify generated contracts remain consistent and validate external inputs at runtime; TypeScript types alone are insufficient. Build an early package on the selected platform so packaging difficulties are discovered early.
+- **User outcome:** In 01.1, open a clear development launch path and viewer; by 01.4, download, install or unpack, and open without compiling source or leaving a terminal running.
+- **Work:** Establish the Rust and TypeScript scaffolds and lockfiles, initial record schema, local launcher/lifecycle, durable data location, and smallest viewer shell. Add Rust formatting, Clippy, meaningful tests, and builds; add TypeScript formatting, lint, strict type checks, meaningful tests, and builds. Provide one documented local check entry point, pre-commit checks, and matching CI before domain implementation. Verify generated contracts remain consistent and validate external inputs at runtime; TypeScript types alone are insufficient. Explore an early package when useful to expose packaging difficulties; complete the selected supported package by 01.4. Tauri or another desktop shell is not required for the 01.1 capture checkpoint.
 - **Experience details:** Show local app health and first-run guidance. Explain any unavoidable platform or account steps; do not call setup one-click if it is not. Prevent duplicate launches from unexpectedly starting independent stores or leaving orphaned services.
-- **Evidence:** A clean-environment package launch without the maintainer's developer tools, an understandable empty state, and working local checks. This early package is not the completed prototype.
+- **Evidence:** For 01.1, an understandable launch/empty state and working local checks. For 01.4, a clean-environment package launch without the maintainer's developer tools. A development launch or early package is not the completed prototype.
 - **Target alignment:** D022. Keep engine and viewer boundaries aligned with the foundation proposal.
 
 ### M2 — The owner connects a worker and records the first decision
@@ -178,4 +185,4 @@ Do not create a `prototype-v1` checkpoint until M1–M5 work together and the fi
 
 ## Immediate next step
 
-Rust for the engine and TypeScript for the interface are confirmed. Next select packaging and the first supported operating system, then close the remaining build-brief choices: UI framework, storage/recovery, real worker connection, publication behavior/destination, and build context. Tauri remains a packaging candidate. This plan is ready for that review, not a claim that those choices have been made. Application building starts only after the agreed scope and build authorization.
+Rust for the engine, TypeScript for the interface, ease of use, and ChatGPT Work as the working context are confirmed. Establish repository access and an actual recording route in the intended Work conversation, then settle the 01.1 storage/record contract. Close packaging and public-sharing choices at their respective steps. This plan does not establish an active Work build, working MCP connection, or approval of unselected technologies. Application building starts within the agreed scope and authorization.

@@ -13,5 +13,6 @@
 - Recorded Rust for the engine and TypeScript for the interface; desktop packaging and UI framework remain open.
 - Refined the proposed Rust/TypeScript directory boundary, portable contracts, and implementation checks.
 - Recorded minimum-first incremental delivery and split the proposed Stage 01 plan into five user-visible checkpoints with integrated release evidence.
+- Recorded ease-of-use priority and ChatGPT Work context; separated first-capture prerequisites from later packaging and public-sharing choices.
 
 No application release or working prototype has been published yet.

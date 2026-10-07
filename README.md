@@ -18,7 +18,7 @@ The app does not scrape or monitor conversations and does not treat AI suggestio
 
 ## First prototype direction
 
-Rust is selected for the memory engine (D025), and TypeScript for the interface (D026). Tauri is a candidate for desktop packaging; it has not been selected.
+Rust is selected for the memory engine (D025), and TypeScript for the interface (D026). Ease of use comes first, with ChatGPT Work as the selected working context (D028); actual repository access and MCP recording remain to be verified. Tauri is a candidate for desktop packaging; it has not been selected.
 
 The confirmed direction is a minimum local-first personal decision memory engine that can expand into more capable and mature stages later. See D021 in the [decision ledger](docs/design-decisions.md). Easy installation and public-link sharing are also confirmed usability goals under D022; the installation and publishing mechanisms remain open.
 
