@@ -32,14 +32,16 @@ crates/
     src/
       adapters/
         mcp/              # Worker transport, input validation, and attribution metadata
-        storage/          # Selected local store and its migrations
-        publication/      # Selected publishing destination and read-only projection
+        storage/          # Embedded SQLite adapter and its migrations
+        publication/      # Hosted snapshot destination and approved read-only projection
       runtime/            # Local lifecycle, API transport, and instance configuration
     tests/                # Runtime and adapter integration with synthetic data
 contracts/                # Derived portable schemas/types; generation method not selected
 web/
   owner/                  # TypeScript owner interface
-    features/             # First run, cards, history, sharing preview, and recovery UI
+    src/
+      features/           # First run, cards, history, sharing preview, and recovery UI
+    src-tauri/            # Tauri host: lifecycle and narrow validated engine operations
   public-view/            # TypeScript read-only published cards/history
   shared/                 # Browser-safe visual components only
 tests/
@@ -63,7 +65,7 @@ scripts/
 
 Rust is selected for the engine and TypeScript for the interface. This physical layout remains proposed: an engine crate holds the core/application layers, while a local-runtime crate composes adapters and process lifecycle. Keep these responsibilities in modules rather than creating a crate for each feature. Create TypeScript project manifests with implementation, not as empty placeholders.
 
-Directory names do not select a database, UI framework, MCP transport, or native desktop shell. If Tauri is selected, its Rust integration should call the engine/application operations; placement of that shell is settled with packaging. The owner interface and a launcher call the same operations rather than duplicate decision rules.
+Tauri owner delivery, embedded SQLite, and selected public snapshots are now approved. The proposed Tauri host lives under `web/owner/src-tauri` and calls the reusable engine/application operations through the local runtime; exact manifests and wiring are implementation work. Keep Tauri and SQLite dependencies out of the pure engine. UI framework, MCP transport, first platform, SQLite driver/schema, and snapshot destination remain open. A development browser viewer calls the same validated operations rather than duplicating decision rules.
 
 ## Allowed dependency direction
 

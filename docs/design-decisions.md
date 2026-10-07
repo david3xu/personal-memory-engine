@@ -713,3 +713,47 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
 - **Action:** Appended D028 and the question/clarification; refined first-step prerequisites and user-facing acceptance without silently selecting the earlier bundle.
 - **Implementation state:** Documentation and a prepared Work starter prompt only. No new Work conversation, connection, implementation branch, source, or application release created.
+
+
+## Approved desktop, storage, and sharing choices — 2026-10-07
+
+### D020 / D020-v2 — Tauri desktop application for the owner
+
+- **Chosen direction:** Deliver the owner interface as a Tauri desktop application around the selected Rust engine and TypeScript interface. A local browser viewer may be used during development; public readers still visit a browser URL.
+- **Stated rationale:** No new selection rationale supplied. The existing ease-of-use priority in D022/D028 provides context for the assistant recommendation the user approved.
+- **Rejected alternatives and reasons:** No explicit rejection or rejection reason supplied for Electron or a packaged browser launcher.
+- **Source:** User: “approve, update md files ,” immediately following the assistant recommendation “For your priority—easy installation and everyday use—I recommend Tauri + SQLite”, with public sharing added in its planned step.
+- **Previous version:** D020-v1 (browser-based first-stage owner app). This revision replaces the earlier exclusion of installed owner applications; it preserves browser access for public readers.
+- **Related decisions:** D003-v3 (SQLite), D012-v2 (public snapshots), D025/D026 (Rust/TypeScript), D027 (incremental delivery), D028 (ease of use and ChatGPT Work).
+- **Status:** Confirmed owner delivery framework. First supported operating system, distribution/signing details, and frontend UI framework remain open. This is approval of design choices and documentation updates, not a completed application or blanket approval of the remaining build brief.
+
+### D003 / D003-v3 — Embedded SQLite for authoritative local memory
+
+- **Chosen direction:** Use embedded SQLite for the authoritative local decision store. The packaged app manages persistence; users do not install or administer a separate database server. Preserve earlier local ownership and no project-operated memory-service requirements.
+- **Stated rationale:** No new selection rationale supplied; existing ease-of-use requirements provide context.
+- **Rejected alternatives and reasons:** None explicitly stated.
+- **Source:** User: “approve, update md files ,” approving the immediately preceding Tauri + SQLite recommendation.
+- **Previous version:** D003-v2 (authoritative memory on the user's local machine); this specifies its persistence technology without removing the ownership boundary.
+- **Related decisions:** D006 (preserved linked versions), D020-v2 (desktop delivery), D022/D028 (ease of use).
+- **Status:** Confirmed storage technology. SQLite alone does not enforce append-only semantics: validated operations, atomic writes, migrations, backup/restore, and deletion behavior still need design and verification. Driver and record schema remain implementation choices.
+
+### D012 / D012-v2 — Owner-selected read-only public snapshots
+
+- **Chosen direction:** Let the owner preview selected cards/versions, publish a read-only snapshot to a hosting destination, and copy a public URL. The hosted snapshot remains readable without the owner's local app running, subject to hosting availability. The authoritative private store stays local.
+- **Stated rationale:** No new selection rationale supplied; existing easy-sharing requirements provide context.
+- **Rejected alternatives and reasons:** No explicit rejection or rejection reason supplied for live local-backed sharing.
+- **Source:** User: “approve, update md files ,” following the assistant recommendation “owner-selected public snapshots” and its described preview/publish/copy-link flow.
+- **Previous version:** D012-v1 (visible, shareable URL); this selects its publication mechanism and intended availability.
+- **Related decisions:** D003-v3 (local private store), D020-v2 (owner desktop/public browser split), D022/D028 (ease of use).
+- **Status:** Confirmed sharing mechanism. Hosting provider, setup/authentication, selection controls, update/withdrawal semantics, and whether old snapshot links remain available still need design. This does not authorize publishing actual personal records, creating hosting accounts, or operating a central private-memory service.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended three linked revisions, preserving earlier versions and their original evidence. Updated current design documents and the prepared Work starter prompt to distinguish approved technologies from remaining implementation details.
+- **Implementation state:** Documentation only. Tauri source, SQLite database, hosting, MCP connection, implementation-stage branch, and application release have not been created by this approval update.
+
+### Related implementation-sequence question
+
+- **User question:** “so, you will implement code, then install , then conenct to chatgpt work ?”
+- **Assistant clarification:** The planned product sequence is implementation, installation/launch, connection of the running app's MCP server to ChatGPT Work, and an actual conversation-to-card test. Check the route/account prerequisites early. The question is not a new technology choice, a claim of working connectivity, or a separate instruction to start coding during the requested Markdown update.

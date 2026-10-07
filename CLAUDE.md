@@ -2,7 +2,7 @@
 
 ## Project state
 
-Personal Memory Engine is in design and repository preparation. Application implementation is paused until the first-stage build brief is approved. Rust is selected for the engine and TypeScript for the interface. Desktop packaging, UI framework, storage, and connection/publishing mechanisms remain open. No runtime implementation, verified MCP integration, application build, or hosted prototype exists yet.
+Personal Memory Engine is in design and repository preparation. Application implementation is paused until the first-stage build brief is approved. Rust is selected for the engine and TypeScript for the interface. Tauri owner delivery, embedded SQLite storage, and owner-selected read-only public snapshots are approved. First supported platform, UI framework, SQLite driver/schema/recovery policy, actual MCP route, hosting, and publication lifecycle remain open. No runtime implementation, verified MCP integration, application build, or hosted prototype exists yet.
 
 ## Canonical records
 
@@ -24,7 +24,7 @@ For documentation changes, run `git diff --check` and verify local Markdown link
 
 Use synthetic public examples. Never commit private memory, raw source conversations, credentials, runtime exports, backups, or sensitive logs. Respect the ignore rules and inspect every staged file before publication.
 
-The core decision rules should stay independent of MCP, storage drivers, UI, and hosting. Version handling and missing-information behavior need meaningful tests when implementation begins.
+The core decision rules should stay independent of MCP, storage drivers, UI, and hosting. Implement SQLite through the storage adapter, Tauri through the owner host, and snapshot publication through an approved projection; do not put these dependencies or decision rules in the wrong layer. Version handling and missing-information behavior need meaningful tests when implementation begins.
 
 ## License and release
 
