@@ -33,3 +33,6 @@ __pycache__/
 /work/
 /tmp/
 .DS_Store
+
+# Rust build outputs
+/target/

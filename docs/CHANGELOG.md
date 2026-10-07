@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Started Stage 01 following explicit implementation authorization (D029).
+- Added a dependency-isolated Rust engine, generated portable contracts, and append-only SQLite adapter.
+- Verified explicit-choice validation, absent reasons, restart persistence, linked revisions, retry/concurrency handling, and database overwrite prevention.
+- Added workspace formatting/lint/type/build checks, contract drift verification, CODEOWNERS, and implementation CI.
+
 - Added the design decision ledger and repository foundation proposals.
 - Prepared a documentation-only repository under Apache License 2.0.
 - Added contribution and security guidelines, community expectations, and issue and pull-request templates.

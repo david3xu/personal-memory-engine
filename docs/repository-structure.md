@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: proposed directory and review design. The user requests a clear foundation boundary and stricter contribution requirements. Detailed module names, review tiers, and CI enforcement remain proposals. Application building is paused; the source, test, runtime, and workflow directories shown below are not created by this document.
+Status: Stage 01 foundation implemented in `crates/engine`, `crates/local-runtime`, `contracts/generated`, `web/owner`, `tests/contracts`, and `.github/workflows`. The engine dependency boundary is checked automatically; CODEOWNERS routes review to the maintainer. Broader extension directories and additional review requirements remain proposals. CODEOWNERS does not by itself require an approving review.
 
 ## Purpose
 
@@ -160,7 +160,7 @@ Initially the verified maintainer is `@david3xu`; no other code owner or team is
 
 ## Proposed enforcement and its limits
 
-Current remote review settings are verified and recorded in the [branching document](branching-and-releases.md#review-and-protection-settings), the canonical protection-status source. The review-tier enforcement below is planned, not remotely configured. No `CODEOWNERS` or application workflows exist yet.
+Current remote review settings are verified and recorded in the [branching document](branching-and-releases.md#review-and-protection-settings), the canonical protection-status source. The review-tier enforcement below is planned, not remotely configured. `CODEOWNERS` and implementation workflows now exist on the Stage 01 branch; mandatory code-owner approval and required status checks are not configured yet.
 
 Propose review routing with `.github/CODEOWNERS` when the layout is implemented. Include core, application operations, storage/migrations, access/publication selection, relevant invariant tests, CI/release scripts, and CODEOWNERS itself. Code ownership routes review; mandatory approval requires the corresponding branch protection/ruleset setting. Protect the base branch used for contributor PRs, including an active stage where applicable, and ensure its ownership/check configuration is present there.
 

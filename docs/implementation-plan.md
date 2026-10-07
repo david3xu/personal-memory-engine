@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: proposed execution plan. The user requested this document and a stage/automation design; application building remains paused. No implementation-stage branch, Actions workflow, installed app, real MCP connection, or public demo is created by this plan.
+Status: active Stage 01 execution following D029. Branch `stage/01-working-prototype` and implementation CI are created. The core/SQLite foundation passes local checks; MCP and desktop integration are next. Installed delivery, real ChatGPT Work recording, and public snapshot hosting remain unverified.
 
 ## Purpose and sources of truth
 

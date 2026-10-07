@@ -1,0 +1,6 @@
+{
+  "identifier": "main",
+  "description": "The owner window can use only registered memory commands.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

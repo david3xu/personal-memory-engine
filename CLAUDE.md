@@ -2,7 +2,7 @@
 
 ## Project state
 
-Personal Memory Engine is in design and repository preparation. Application implementation is paused until the first-stage build brief is approved. Rust is selected for the engine and TypeScript for the interface. Tauri owner delivery, embedded SQLite storage, and owner-selected read-only public snapshots are approved. First supported platform, UI framework, SQLite driver/schema/recovery policy, actual MCP route, hosting, and publication lifecycle remain open. No runtime implementation, verified MCP integration, application build, or hosted prototype exists yet.
+Stage 01 implementation is active. Rust owns decision contracts and operations; SQLite, MCP, and Tauri are separate adapters. Plain TypeScript/Vite is the initial interface implementation. Real worker connectivity, complete installation, recovery, and snapshot hosting still need end-to-end evidence.
 
 ## Canonical records
 
@@ -18,7 +18,7 @@ Keep historical decision entries intact. Append revisions or corrections and dis
 
 ## Current checks
 
-For documentation changes, run `git diff --check` and verify local Markdown links. Rust and TypeScript formatting, lint, type, test, and build commands must be added when implementation establishes the toolchains; do not invent setup instructions or claim nonexistent CI.
+For documentation changes, run `git diff --check` and verify local Markdown links. Run `pnpm install --frozen-lockfile`, then `pnpm check`. This runs formatting, lint, TypeScript, architecture boundaries, web compilation, Clippy, integrity/persistence tests, and generated-contract drift. Generate contracts with `cargo run -p memory-engine --example export_contracts`; do not edit generated files. Local Rust discovery is handled in `scripts/development/rust-env.sh`. CI repeats checks and separately builds the desktop on macOS.
 
 ## Data rules
 

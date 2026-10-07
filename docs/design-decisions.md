@@ -757,3 +757,16 @@ The following entries are appended to the initial ledger. Earlier entries remain
 
 - **User question:** “so, you will implement code, then install , then conenct to chatgpt work ?”
 - **Assistant clarification:** The planned product sequence is implementation, installation/launch, connection of the running app's MCP server to ChatGPT Work, and an actual conversation-to-card test. Check the route/account prerequisites early. The question is not a new technology choice, a claim of working connectivity, or a separate instruction to start coding during the requested Markdown update.
+
+
+## Implementation authorization — 2026-10-07
+
+### D029 / D029-v1 — Start incremental implementation with regular publication
+
+- **Chosen direction:** Begin implementation, make regular focused commits and pushes, and organize core features separately from plugin/adapter features.
+- **Stated rationale:** The user requests clear logic and organization; no additional rationale was stated.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** “ok. implementation now. remember do regular commit and push , a clear logic , distingusih core features and plugin level features, organize well. go”.
+- **Related decisions:** D025/D026 (Rust/TypeScript), D027 (incremental delivery), D020-v2/D003-v3/D012-v2 (approved delivery/storage/sharing).
+- **Previous version:** None.
+- **Status:** Confirmed implementation authorization. This is not evidence of an actual ChatGPT Work connection, installed release, or public snapshot URL. Current implementation is being performed in Codex; the supplied brief's Work conversation evidence remains separate.

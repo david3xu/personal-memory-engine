@@ -1,0 +1,9 @@
+target/
+node_modules/
+web/owner/dist/
+Cargo.lock
+docs/design-decisions.md
+contracts/generated/
+
+# Preserve separately checked historical/canonical Markdown formatting
+**/*.md

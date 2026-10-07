@@ -1,6 +1,6 @@
 # Documentation index
 
-Personal Memory Engine is in design and repository preparation. Documents marked as proposals do not establish a working app or approved implementation details.
+Stage 01 implementation has started. Documents marked as proposals do not establish completed runtime behavior. Follow the implementation plan for checkpoint evidence and remaining work.
 
 ## Product and scope
 

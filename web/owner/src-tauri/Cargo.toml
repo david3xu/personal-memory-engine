@@ -1,0 +1,17 @@
+[package]
+name = "personal-memory-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+memory-local-runtime = { path = "../../../crates/local-runtime" }
+serde.workspace = true
+
+[lints]
+workspace = true

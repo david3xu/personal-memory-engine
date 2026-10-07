@@ -1,0 +1,6 @@
+# Route reviews; required code-owner approval is configured separately.
+* @david3xu
+/crates/engine/ @david3xu
+/crates/local-runtime/ @david3xu
+/contracts/ @david3xu
+/.github/ @david3xu

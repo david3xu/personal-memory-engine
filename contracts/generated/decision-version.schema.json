@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DecisionVersion",
+  "type": "object",
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "description": "Server recording time, not an invented time of the user's actual decision.",
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "maximum": 1,
+      "minimum": 1
+    },
+    "submission": {
+      "$ref": "#/$defs/CaptureDecision"
+    },
+    "version_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_id",
+    "version_id",
+    "recorded_at",
+    "submission"
+  ],
+  "$defs": {
+    "Alternative": {
+      "type": "object",
+      "properties": {
+        "option": {
+          "type": "string"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "option"
+      ]
+    },
+    "CaptureDecision": {
+      "type": "object",
+      "properties": {
+        "alternatives": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          }
+        },
+        "chosen_option": {
+          "type": "string"
+        },
+        "decision_id": {
+          "description": "Both revision references are absent for a new decision, or both supplied.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          }
+        },
+        "rationale": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "request_id": {
+          "description": "Reuse this exact key on retries; never reuse it for a different submission.",
+          "type": "string"
+        },
+        "supersedes_version_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_confirmed": {
+          "description": "Must be true only after an explicit user choice, never an AI suggestion.",
+          "type": "boolean"
+        },
+        "user_statement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "worker": {
+          "description": "Worker name is attribution metadata, not independent proof of user intent.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "request_id",
+        "user_confirmed",
+        "chosen_option",
+        "worker"
+      ]
+    },
+    "Evidence": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "description": "Supplied source text or description; never generated missing evidence.",
+          "type": "string"
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "content"
+      ]
+    }
+  }
+}
