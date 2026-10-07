@@ -27,7 +27,7 @@ The public reader uses a separate read-only experience. Installing the app, auth
 ## Before coding: close feasibility and scope
 
 1. Select the first supported operating system and distribution format. Prototype the user journey on paper before choosing a desktop shell or launcher.
-2. Select the candidate interface and local storage/recovery policy. Keep the authoritative store in durable per-user storage, separate from app binaries and development files.
+2. With Rust for the engine and TypeScript for the interface selected, choose the UI framework and local storage/recovery policy. Keep the authoritative store in durable per-user storage, separate from app binaries and development files.
 3. Select and verify one real worker connection, including transport, permissions, and authentication. Installation of the worker's desktop app alone does not establish local MCP access. Do this feasibility work before substantial UI polish.
 4. Select snapshot or live sharing, the publishing destination, publication/update/withdrawal semantics, and whether links must work while the owner's machine is off. A published snapshot stores the selected public copy elsewhere; a live local-backed view depends on local availability.
 5. Confirm the minimum visual scope and this plan against the build brief. Carry the approved scope into the single ChatGPT Work build conversation required by the supplied external brief.
@@ -46,7 +46,7 @@ These are open choices, not excuses to expand the app. A minimal package for one
 ### M1 — A new user can install and open a minimal package
 
 - **User outcome:** Download, install or unpack, and open without compiling source or leaving a terminal running.
-- **Work:** Establish the runtime scaffold, dependency lockfile, initial record schema, local launcher/lifecycle, durable data location, and smallest viewer shell. Add the actual formatter, linter, strict types, meaningful tests, build command, pre-commit check, and CI before domain implementation. Build an early package on the selected platform so packaging difficulties are discovered early.
+- **Work:** Establish the Rust and TypeScript scaffolds and lockfiles, initial record schema, local launcher/lifecycle, durable data location, and smallest viewer shell. Add Rust formatting, Clippy, meaningful tests, and builds; add TypeScript formatting, lint, strict type checks, meaningful tests, and builds. Provide one documented local check entry point, pre-commit checks, and matching CI before domain implementation. Verify generated contracts remain consistent and validate external inputs at runtime; TypeScript types alone are insufficient. Build an early package on the selected platform so packaging difficulties are discovered early.
 - **Experience details:** Show local app health and first-run guidance. Explain any unavoidable platform or account steps; do not call setup one-click if it is not. Prevent duplicate launches from unexpectedly starting independent stores or leaving orphaned services.
 - **Evidence:** A clean-environment package launch without the maintainer's developer tools, an understandable empty state, and working local checks. This early package is not the completed prototype.
 - **Target alignment:** D022. Keep engine and viewer boundaries aligned with the foundation proposal.
@@ -105,7 +105,7 @@ No Actions workflows currently exist for this application. Add workflows only wh
 | Automation | Proposed trigger and scope | What it verifies | What it cannot establish |
 | --- | --- | --- | --- |
 | Documentation check | PRs targeting `main` or the active stage; changes to project documents | Markdown consistency, local links, whitespace, and documented status | Approval of product choices or actual app usability |
-| Application CI | PRs targeting `main` or `stage/**`, plus accepted stage/main pushes | Reproducible install, formatter, lint, strict types, meaningful tests, and build; one local check command mirrors CI | Correct capture in an actual external worker or account access |
+| Application CI | PRs targeting `main` or `stage/**`, plus accepted stage/main pushes | Reproducible Rust/TypeScript setup, formatting, Clippy/lint, strict TypeScript checks, contract consistency, meaningful tests, and builds; one local check command mirrors CI | Correct capture in an actual external worker or account access |
 | Package smoke test | Candidate implementation PRs and stage checkpoints, on the selected supported OS | Build/install/start the user package, isolated synthetic storage, restart persistence, and package contents | Desktop trust prompts and all human first-run friction |
 | UI and publication-contract checks | Implementation PRs with synthetic fixtures and a local test publishing destination | Cards/history rendering, preview contents, failure handling, and read-only published representation | Real provider credentials, internet availability, or a working public URL |
 | Demo publication | Explicit maintainer dispatch for an accepted commit and selected hosting route | Publish synthetic demonstration assets and verify the resulting URL | Authorization to publish a user's personal memory |
@@ -142,4 +142,4 @@ Do not create a `prototype-v1` checkpoint until M1–M5 work together and the fi
 
 ## Immediate next step
 
-Review the remaining choices in the build brief: supported platform/distribution, interface, storage/recovery, real worker connection, publication behavior/destination, and build context. This plan is ready for that review, not a claim that those choices have been made. Application building starts only after the agreed scope and build authorization.
+Rust for the engine and TypeScript for the interface are confirmed. Next select packaging and the first supported operating system, then close the remaining build-brief choices: UI framework, storage/recovery, real worker connection, publication behavior/destination, and build context. Tauri remains a packaging candidate. This plan is ready for that review, not a claim that those choices have been made. Application building starts only after the agreed scope and build authorization.

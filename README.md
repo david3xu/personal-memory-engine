@@ -18,11 +18,13 @@ The app does not scrape or monitor conversations and does not treat AI suggestio
 
 ## First prototype direction
 
+Rust is selected for the memory engine (D025), and TypeScript for the interface (D026). Tauri is a candidate for desktop packaging; it has not been selected.
+
 The confirmed direction is a minimum local-first personal decision memory engine that can expand into more capable and mature stages later. See D021 in the [decision ledger](docs/design-decisions.md). Easy installation and public-link sharing are also confirmed usability goals under D022; the installation and publishing mechanisms remain open.
 
 The earlier first-stage direction was a browser-based web app with visual decision cards and history, plus public links for other people to visit. The interface format is now under review following the explicit local storage requirement. See D020 and the subsequent format discussion in the [decision ledger](docs/design-decisions.md).
 
-The proposed minimum implementation is one user-controlled instance, one real worker connection, durable records, and a version timeline. A sample-data demonstration and read-only sharing of owner-selected records are proposals. The exact sharing scope, implementation stack, storage, access rules, and hosting are not yet finalized.
+The proposed minimum implementation is one user-controlled instance, one real worker connection, durable records, and a version timeline. A sample-data demonstration and read-only sharing of owner-selected records are proposals. The exact sharing scope, remaining framework/runtime choices, storage, access rules, and hosting are not yet finalized.
 
 The supplied project brief requires a working public URL, the promised core behavior, and at least one verified improvement after the first version. Its build workflow specifies one ChatGPT Work conversation.
 

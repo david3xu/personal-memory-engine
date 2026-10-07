@@ -20,6 +20,7 @@ The confirmed direction is D021; local authoritative storage is D003-v2. See the
 - Store authoritative user memory on the user's local machine; the project does not operate a service holding users' memory.
 - Provide a visual decision and history interface, plus a public URL other people can visit. Exact interface packaging and publication scope remain open.
 - Start small while allowing later mature stages and reuse in a broader project.
+- Use Rust for the memory engine (D025) and TypeScript for the interface (D026); UI framework, runtime adapters, and desktop packaging are not yet selected.
 - Make installation easy for users and make public-link sharing easy for readers (D022). Packaging and hosting are still choices to close.
 - The supplied external brief requires one working promised capability, a reachable public URL, and a verified software change after the first version, with its build workflow in one ChatGPT Work conversation. These are separate from the user's application decisions.
 
