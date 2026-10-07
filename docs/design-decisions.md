@@ -770,3 +770,14 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Related decisions:** D025/D026 (Rust/TypeScript), D027 (incremental delivery), D020-v2/D003-v3/D012-v2 (approved delivery/storage/sharing).
 - **Previous version:** None.
 - **Status:** Confirmed implementation authorization. This is not evidence of an actual ChatGPT Work connection, installed release, or public snapshot URL. Current implementation is being performed in Codex; the supplied brief's Work conversation evidence remains separate.
+
+
+### D030 / D030-v1 — Require verified CI before main merges
+
+- **Chosen direction:** Require the verified `checks` and `desktop` CI jobs before merging into `main`, including administrator merges. Require the branch to be up to date; failed checks or an outdated branch block merging.
+- **Stated rationale:** None stated in the approval.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** The user answered “Approve required CI checks” to the explicit question proposing those two jobs, the main branch, and administrator enforcement.
+- **Related decisions:** D024 (contribution boundaries), D029 (incremental implementation and publication).
+- **Previous version:** None.
+- **Status:** Confirmed. The rules were applied and verified on GitHub. Existing PR/conversation-resolution protections remain; no second-person approving review was introduced for the sole maintainer.

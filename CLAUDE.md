@@ -18,7 +18,7 @@ Keep historical decision entries intact. Append revisions or corrections and dis
 
 ## Current checks
 
-For documentation changes, run `git diff --check` and verify local Markdown links. Run `pnpm install --frozen-lockfile`, then `pnpm check`. This runs formatting, lint, TypeScript, architecture boundaries, web compilation, Clippy, integrity/persistence tests, and generated-contract drift. Generate contracts and the static web validator with `pnpm contracts:generate`; do not edit generated files. Local Rust discovery is handled in `scripts/development/rust-env.sh`. CI repeats checks and separately builds the desktop on macOS.
+For documentation changes, run `git diff --check` and verify local Markdown links. Run `pnpm install --frozen-lockfile`, then `pnpm check`. This runs formatting, lint, TypeScript, architecture boundaries, web compilation, Clippy, integrity/persistence tests, and generated-contract drift. Generate contracts and the static web validator with `pnpm contracts:generate`; do not edit generated files. Local Rust discovery is handled in `scripts/development/rust-env.sh`. CI repeats checks and separately builds the desktop on macOS. The verified `checks` and `desktop` jobs are required on `main`, including administrator merges; branches must be up to date. See the branching guide for the complete protection settings.
 
 ## Data rules
 

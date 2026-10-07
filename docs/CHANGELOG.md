@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Applied the user-approved required Linux/macOS CI checks on main and verified administrator enforcement.
+
 - Added visible desktop plugin installation guidance and a fixed destination for browser help.
 
 - Added a separate desktop worker plugin, portable/compatibility manifests, local launcher, and explicit-choice recording skill.
