@@ -687,3 +687,29 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
 - **Action:** Appended D027 and refined the canonical plan, with brief/branch/index links to avoid a separate competing roadmap.
 - **Implementation state:** Documentation only. No application code, workflow, release, or new implementation-stage branch created.
+
+
+## Ease of use and ChatGPT Work — 2026-10-07
+
+### D028 / D028-v1 — Prioritize ease of use and work in ChatGPT Work
+
+- **Chosen direction:** Prioritize ease of use and use ChatGPT Work as the initial working context.
+- **Stated rationale:** The user explicitly prioritizes “user easy use first”; no separate reason for choosing ChatGPT Work was stated.
+- **Rejected alternatives and reasons:** None explicitly stated. Tauri, macOS-only support, SQLite, and public snapshots were not selected by this statement.
+- **Source:** “ok. user easy use first, and working on chatgpt work”.
+- **Related decisions:** D022 (easy installation/sharing), D027 (incremental minimum delivery), D025/D026 (Rust/TypeScript); supplied project brief's single ChatGPT Work build conversation.
+- **Previous version:** None; this reinforces D022 and identifies the working context.
+- **Status:** Confirmed priorities/context. Local project access and the recording MCP route must be verified in the actual Work conversation; neither capability is claimed by this record. Exact first recording-client configuration remains to be established.
+
+### Discussion and revised assistant proposal
+
+- **User question:** “in the first step , do we need Whether to use Tauri + macOS + SQLite + selected public snapshots ... because we already have rust and typscript, what do you mean”. This challenges grouping all choices into the first step, not an explicit rejection of those technologies.
+- **Assistant clarification:** Rust and TypeScript are languages; packaging, storage, and publication are separate implementation choices. The earlier bundled setup question has no approved answer and is not authorization for those technologies.
+- **P035 — Scope choices by delivery step:** Focus 01.1 on an actual worker-to-engine-to-local-store-to-card path with understandable launch/connection/save states. A local browser viewer is a proposed development path; early desktop packaging can be explored but is not required for the capture checkpoint. Complete end-user installation/recovery in 01.4 and selected public sharing in 01.3. Ease of use remains a release requirement, not an optional later feature.
+- **Work distinction:** Use the intended Work conversation for building, testing, actual use/improvement, and publishing. That conversation must separately demonstrate decision recording through the configured MCP server. Access to repository files is not evidence of a working recording connection. Official [Work setup](https://learn.chatgpt.com/docs/get-started-with-work) and [local project guidance](https://learn.chatgpt.com/docs/projects?surface=app) describe the available paths; this account's access is unverified.
+
+### Recording event
+
+- **Date:** 2026-10-07 (Australia/Perth); exact decision time not captured.
+- **Action:** Appended D028 and the question/clarification; refined first-step prerequisites and user-facing acceptance without silently selecting the earlier bundle.
+- **Implementation state:** Documentation and a prepared Work starter prompt only. No new Work conversation, connection, implementation branch, source, or application release created.
