@@ -781,3 +781,14 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Related decisions:** D024 (contribution boundaries), D029 (incremental implementation and publication).
 - **Previous version:** None.
 - **Status:** Confirmed. The rules were applied and verified on GitHub. Existing PR/conversation-resolution protections remain; no second-person approving review was introduced for the sole maintainer.
+
+
+### D031 / D031-v1 — App-led setup without terminal commands
+
+- **Chosen direction:** Implement the proposed one-download setup: bundle the connector, provide a Connect ChatGPT button, open a test chat for the user to send, and show successful recording only after the test decision is persisted. Keep the decision engine separate from onboarding and host integration.
+- **Stated rationale:** The user said the earlier installation flow was not the expected user-friendly experience and asked how to make it easy to use. No additional rationale supplied with approval.
+- **Rejected alternatives and reasons:** No specific alternative explicitly rejected.
+- **Source:** User: “go”, following the assistant proposal for bundled connector, graphical connection and recording verification.
+- **Related decisions:** D028 (ease of use and ChatGPT Work), D029 (incremental implementation).
+- **Previous version:** None.
+- **Status:** Implementation authorized. Signing, a fresh-machine installation and a real Work capture remain evidence requirements; this approval does not establish those outcomes or public directory acceptance.

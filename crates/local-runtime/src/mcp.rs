@@ -51,12 +51,15 @@ impl MemoryMcp {
     ) -> Result<Json<DecisionVersion>, String> {
         let store = self.store.clone();
         tokio::task::spawn_blocking(move || {
+            let mut access = store.connection_control().worker_access()?;
             // Activity metadata must not make an already-committed decision appear to have failed.
             let _ = store.note_mcp_use();
-            Engine::new(store)
+            let record = Engine::new(store)
                 .record(input)
-                .map(Json)
-                .map_err(|error| error.to_string())
+                .map_err(|error| error.to_string())?;
+            // A receipt failure must never turn a committed save into a reported recording failure.
+            let _ = access.note_record(&record);
+            Ok(Json(record))
         })
         .await
         .map_err(|_| "Local recording task could not complete".to_string())?
@@ -68,6 +71,7 @@ impl MemoryMcp {
     async fn list_decisions(&self) -> Result<Json<DecisionList>, String> {
         let store = self.store.clone();
         tokio::task::spawn_blocking(move || {
+            let _access = store.connection_control().worker_access()?;
             let _ = store.note_mcp_use();
             Engine::new(store)
                 .list()
@@ -87,6 +91,7 @@ impl MemoryMcp {
     ) -> Result<Json<DecisionList>, String> {
         let store = self.store.clone();
         tokio::task::spawn_blocking(move || {
+            let _access = store.connection_control().worker_access()?;
             let _ = store.note_mcp_use();
             Engine::new(store)
                 .history(&input.decision_id)

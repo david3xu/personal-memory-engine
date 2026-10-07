@@ -105,3 +105,123 @@ async fn stdio_contract_retries_history_and_restart() {
         .unwrap()
         .unwrap();
 }
+
+#[tokio::test]
+async fn onboarding_requires_fresh_saved_choice_and_pause_blocks_running_helpers() {
+    use memory_local_runtime::{
+        SqliteStore,
+        connection::{TEST_CHOICE, TEST_REASON},
+    };
+    let dir = tempfile::tempdir().unwrap();
+    let store = SqliteStore::open(&dir.path().join("memory.sqlite3")).unwrap();
+    let control = store.connection_control();
+    let (client, mut child) = connect(dir.path()).await;
+    let request = control.begin_test().unwrap();
+    assert!(
+        !call(&client, "list_decisions", json!({}))
+            .await
+            .is_error
+            .unwrap()
+    );
+    assert!(control.status().unwrap().receipt.is_none());
+    let mut input = json!({"request_id":request,"user_confirmed":false,"chosen_option":TEST_CHOICE,"rationale":TEST_REASON,"worker":"synthetic protocol test"});
+    assert!(
+        call(&client, "record_decision", input.clone())
+            .await
+            .is_error
+            .unwrap()
+    );
+    assert!(control.status().unwrap().receipt.is_none());
+    input["user_confirmed"] = json!(true);
+    let first = call(&client, "record_decision", input.clone())
+        .await
+        .structured_content
+        .unwrap();
+    assert_eq!(
+        control.status().unwrap().receipt.unwrap().version_id,
+        first["version_id"].as_str().unwrap()
+    );
+    let fresh_request = control.begin_test().unwrap();
+    call(&client, "record_decision", input.clone()).await;
+    assert!(
+        control.status().unwrap().receipt.is_none(),
+        "A prior exact retry cannot verify a fresh test"
+    );
+    input["request_id"] = json!(fresh_request);
+    let fresh = call(&client, "record_decision", input.clone())
+        .await
+        .structured_content
+        .unwrap();
+    assert_eq!(
+        control.status().unwrap().receipt.unwrap().version_id,
+        fresh["version_id"].as_str().unwrap()
+    );
+    assert_eq!(
+        call(&client, "record_decision", input.clone())
+            .await
+            .structured_content
+            .unwrap(),
+        fresh
+    );
+    control.pause().unwrap();
+    assert!(
+        call(&client, "list_decisions", json!({}))
+            .await
+            .is_error
+            .unwrap()
+    );
+    assert!(
+        call(
+            &client,
+            "decision_history",
+            json!({"decision_id":first["decision_id"]})
+        )
+        .await
+        .is_error
+        .unwrap()
+    );
+    input["request_id"] = json!("paused-new-choice");
+    assert!(
+        call(&client, "record_decision", input)
+            .await
+            .is_error
+            .unwrap()
+    );
+    assert_eq!(
+        memory_engine::Engine::new(store.clone())
+            .list()
+            .unwrap()
+            .len(),
+        2,
+        "Owner access and saved decisions survive pause"
+    );
+    client.cancel().await.unwrap();
+    tokio::time::timeout(std::time::Duration::from_secs(5), child.wait())
+        .await
+        .unwrap()
+        .unwrap();
+    let (restarted, mut child) = connect(dir.path()).await;
+    assert!(
+        call(&restarted, "list_decisions", json!({}))
+            .await
+            .is_error
+            .unwrap()
+    );
+    control.resume().unwrap();
+    assert_eq!(
+        call(&restarted, "list_decisions", json!({}))
+            .await
+            .structured_content
+            .unwrap()["records"]
+            .as_array()
+            .unwrap()
+            .len(),
+        2
+    );
+    assert!(control.status().unwrap().receipt.is_none());
+    restarted.cancel().await.unwrap();
+    tokio::time::timeout(std::time::Duration::from_secs(5), child.wait())
+        .await
+        .unwrap()
+        .unwrap();
+}

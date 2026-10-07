@@ -12,6 +12,7 @@ use uuid::Uuid;
 #[derive(Clone)]
 pub struct SqliteStore {
     connection: Arc<Mutex<Connection>>,
+    control: crate::connection::ConnectionControl,
 }
 impl SqliteStore {
     pub fn open(path: &Path) -> Result<Self, EngineError> {
@@ -62,7 +63,11 @@ impl SqliteStore {
         PRAGMA user_version=1;").map_err(|_| EngineError::Storage)?;
         Ok(Self {
             connection: Arc::new(Mutex::new(connection)),
+            control: crate::connection::ConnectionControl::for_database(path),
         })
+    }
+    pub fn connection_control(&self) -> &crate::connection::ConnectionControl {
+        &self.control
     }
     pub fn note_mcp_use(&self) -> Result<(), EngineError> {
         self.connection.lock().map_err(|_|EngineError::Storage)?.execute("INSERT INTO mcp_activity VALUES (1,?1) ON CONFLICT(singleton) DO UPDATE SET last_used_at=excluded.last_used_at",[Utc::now().to_rfc3339()]).map_err(|_|EngineError::Storage)?;
