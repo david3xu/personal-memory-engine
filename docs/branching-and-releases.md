@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: `main` and `stage/00-repository-foundation` are published. `stage/01-working-prototype` is active with focused implementation checkpoints and draft PR #8. Later implementation-stage names and scope remain proposals. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
+Status: PR #8 merged the working prototype into `main`. The original stage branches remain published; `stage/01-submission-showcase` carries the separate showcase checkpoint. Later implementation stages remain proposals. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
 
 ## Branch responsibilities
 
@@ -14,7 +14,7 @@ Status: `main` and `stage/00-repository-foundation` are published. `stage/01-wor
 | `stage/02-tested-improvement` | Improve the first prototype after actual use | The user observes a concrete problem, requests a change, and verifies it; updated published prototype works |
 | `stage/03-next-capability` | Placeholder naming pattern for a later approved enhancement | Specific scope and checks are defined when this stage starts; maps, additional adapters, or extraction into a library are possibilities, not approved features |
 
-`main`, `stage/00-repository-foundation`, and `stage/01-working-prototype` exist. Stage 02 and later branches remain proposals and will be created when their work starts. The first prototype's final feature list remains governed by the approved build brief.
+`main` contains the accepted prototype. The foundation and working-prototype branches are retained. The showcase task branches from this baseline; Stage 02 and later capability branches remain proposals. The first prototype's final feature list remains governed by the approved build brief.
 
 The [user-first implementation plan](implementation-plan.md) maps installation, recording, history, sharing, recovery, and tested improvement to these stages and defines the implemented recording checks and later sharing/recovery acceptance checks. The [Stage 01 step plan](implementation-plan.md#stage-01-deliver-a-complete-minimum-in-small-steps) proposes checkpoints inside one active stage branch, with the complete minimum accepted before Stage 02. No application workflow or future stage branch is created by the plan.
 
@@ -56,7 +56,7 @@ Do not require a second person's approval while the project has only one maintai
 - **Attribution:** the verified owner identifier `david3xu`, recorded in [NOTICE](../NOTICE). Private vulnerability reporting is enabled. A dedicated confidential conduct-reporting contact remains open.
 - **Verified remote repository:** [https://github.com/david3xu/personal-memory-engine](https://github.com/david3xu/personal-memory-engine).
 
-Local Git was initialized with `main` as its initial branch. The documentation foundation has been reviewed for credentials, private absolute paths, valid YAML, and local links. The initial documentation baseline is published on `main`, and the foundation stage branch is published. The first local recording checkpoint is available on the active Stage 01 branch; a complete Stage 01 release is not yet claimed.
+Local Git was initialized with `main` as its initial branch. The documentation foundation has been reviewed for credentials, private absolute paths, valid YAML, and local links. The initial documentation baseline is published on `main`, and the foundation stage branch is published. The working recording, history and sharing source is available on main; a complete signed Stage 01 release is not yet claimed.
 
 The owner, public visibility, and license are selected. The initial documentation commit is published, `origin` points to the verified GitHub repository, private vulnerability reporting is enabled, and `main` protection is configured. Future updates follow the branch-and-pull-request workflow. Avoid independently initializing a remote README or license if the local repository already supplies those files, so the histories start consistently.
 
@@ -72,7 +72,7 @@ The owner, public visibility, and license are selected. The initial documentatio
 
 The brief requires one working prototype at a shareable URL and a real change after its first version. Stage 01 and Stage 02 represent those separate software checkpoints. A user changing a decision stored in memory tests version handling; it does not satisfy the required software improvement by itself.
 
-The required build, use, improvement, and publication workflow still needs to happen in one ChatGPT Work conversation. Git history and tags provide additional traceability, not a replacement for that workflow.
+The owner confirmed that the full build/use/improve workflow happened in one ChatGPT Work conversation. This is an owner report; Git history and local receipts do not independently authenticate the client mode.
 
 ## References
 
@@ -84,3 +84,9 @@ The required build, use, improvement, and publication workflow still needs to ha
 ## Independent public-demo check
 
 The optional `public-demo` job checks the deliberately published synthetic notebook snapshot from a GitHub-hosted runner without credentials. Set the repository's nonsecret `PUBLIC_DEMO_URL` variable to that selected snapshot URL to enable it. Forks can leave it unset. This diagnostic is separate from required `checks` and `desktop`; a hosting outage does not change the approved main protection settings. If the demo is intentionally withdrawn or replaced, update/remove the variable and documentation link together. It never uploads private memory.
+
+## Separate showcase publication
+
+The static project entry point is under `showcase/` on the existing Pages branch; individual owner-selected snapshots remain under `shares/`. The maintainer showcase script has an explicit asset allowlist and preservation checks rather than using the owner app's publication ledger. See the [showcase plan](submission-improvements.md) for this checkpoint.
+
+The optional `public-showcase` job uses the nonsecret `PUBLIC_SHOWCASE_URL` variable to check all approved static assets and the synthetic two-version example anonymously. It is separate from the required main checks and can be disabled on forks by leaving the variable unset.

@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: Stage 01 foundation implemented in `crates/engine`, `crates/local-runtime`, `contracts/generated`, `web/owner`, `tests/contracts`, and `.github/workflows`. The engine dependency boundary is checked automatically; CODEOWNERS routes review to the maintainer. Broader extension directories and additional review requirements remain proposals. CODEOWNERS does not by itself require an approving review.
+Status: the working prototype is on main. The implemented modules and contribution areas are listed below; deeper splits remain growth proposals. CI enforces pure engine/projection dependencies and public showcase assets. CODEOWNERS routes review to the maintainer; it does not independently require approval.
 
 ## Purpose
 
@@ -12,7 +12,25 @@ This document owns the target directory layout, dependency boundaries, contribut
 
 A folder marks responsibility, not a security sandbox or permission to bypass the engine. Changes outside the core can still change core behavior and therefore need elevated review.
 
-## Proposed code directory
+## Implemented feature distribution
+
+| Directory | Owns | Contribution boundary |
+| --- | --- | --- |
+| `crates/engine` | Portable decision contracts and validated capture/revision operations | Foundation review: semantics, compatibility and preserved history |
+| `crates/local-runtime` | SQLite, stdio MCP, owner connection and private publication metadata | Foundation review: persistence, access and lifecycle |
+| `crates/public-snapshot` | Positive public projection and escaped static card/history HTML | Foundation review: disclosure rules; presentation may not widen fields |
+| `crates/github-publication` | Owner-account GitHub publication and live verification | Adapter review: permissions, destination ownership and preservation |
+| `web/owner` | TypeScript cards/settings/sharing dialog and narrow Tauri commands | Usability contributions; no duplicated decision rules |
+| `web/showcase` | Separate static project story, synthetic scenario and reviewed app images | Presentation contributions; no local-store access, recording or analytics |
+| `plugins/personal-memory-engine` | Optional worker instructions and installed-helper launcher | Connection adapter; no independent decision semantics |
+| `contracts/generated` | Rust-derived read types and schemas | Regenerate from the authoritative engine |
+| `scripts/development` | Developer checks and isolated synthetic demonstration | Never fall back to owner storage for demo recording |
+| `scripts/distribution` | Packaging and allowlisted showcase publication | Maintainer operations; preserve existing Pages content |
+| `tests/contracts`, `tests/showcase`, crate tests | Compatibility, disclosure/preservation and runtime behavior | Keep invariant checks at least as strict as their implementation |
+
+The showcase is a project entry point, not another owner interface or worker plugin. It is published under `showcase/`; the existing public root and `shares/` pages remain owned by the snapshot adapter. The [showcase plan](submission-improvements.md) owns this checkpoint's work and evidence.
+
+## Proposed growth directory
 
 Keep one repository and one application instance initially. Create modules only when approved implementation needs them; do not scaffold empty directories for future capabilities.
 
@@ -162,7 +180,7 @@ Initially the verified maintainer is `@david3xu`; no other code owner or team is
 
 ## Proposed enforcement and its limits
 
-Current remote review settings are verified and recorded in the [branching document](branching-and-releases.md#review-and-protection-settings), the canonical protection-status source. The review-tier enforcement below is planned, not remotely configured. `CODEOWNERS` and implementation workflows now exist on the Stage 01 branch; mandatory code-owner approval and required status checks are not configured yet.
+Current remote review settings are verified and recorded in the [branching document](branching-and-releases.md#review-and-protection-settings), the canonical protection-status source. The review-tier enforcement below is planned, not remotely configured. `CODEOWNERS` and implementation workflows are present on main. Required `checks` and `desktop` statuses are configured; mandatory code-owner approval remains unconfigured while there is one maintainer.
 
 Propose review routing with `.github/CODEOWNERS` when the layout is implemented. Include core, application operations, storage/migrations, access/publication selection, relevant invariant tests, CI/release scripts, and CODEOWNERS itself. Code ownership routes review; mandatory approval requires the corresponding branch protection/ruleset setting. Protect the base branch used for contributor PRs, including an active stage where applicable, and ensure its ownership/check configuration is present there.
 
