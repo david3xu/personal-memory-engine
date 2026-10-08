@@ -1,66 +1,28 @@
 # Personal Memory Engine
 
-A local-first, user-owned personal decision memory engine that records explicit choices, stated reasoning, and evolving history through MCP.
+A user-owned app for remembering your decisions: what you chose, why, and how your thinking changed. Your memory stays on your device.
 
-[Public GitHub repository](https://github.com/david3xu/personal-memory-engine) · [Read-only synthetic demo](https://david3xu.github.io/personal-memory-engine/shares/95609636-32d5-47b9-bc15-fa5aa56d7485/)
+[View the public demo](https://david3xu.github.io/personal-memory-engine/shares/95609636-32d5-47b9-bc15-fa5aa56d7485/) · [Get started](docs/user-guides/install-and-connect.md) · [Documentation](docs/README.md)
 
-## Project status
+## How it works
 
-Stage 01 implementation is active on `stage/01-working-prototype`, authorized in D029. The first working checkpoint records decisions through MCP, stores linked versions in local SQLite, and displays cards/history in a packaged Tauri app. The macOS Apple Silicon app and local worker plugin have been installed and checked on the maintainer’s Mac. The owner confirmed a successful ChatGPT Work recording test, and its persisted local receipt was checked; selected GitHub Pages sharing is now implemented and verified with a synthetic demo; recovery remains a later checkpoint. There is no stable release yet. Installed paths are generated per user; app relocation repairs the existing launcher, and host discovery supports additional installation locations. See the [implementation evidence](docs/implementation-status.md) and [install/connect guide](docs/user-guides/install-and-connect.md). The project uses Apache License 2.0, and its selected GitHub owner is `david3xu`.
+1. **Connect once.** Connect the local engine to a supported AI worker through MCP.
+2. **Chat normally.** The AI records your explicit choices, using only reasons and evidence you actually provide.
+3. **Review your decisions.** See cards and preserved versions when a choice changes.
+4. **Share deliberately.** Preview selected decisions and publish a read-only link. Your private memory stays local.
 
-## What it aims to do
+Only explicit user decisions are recorded. It does not scrape chats or save AI suggestions as your choices. Missing reasons remain missing, and revisions preserve earlier records.
 
-An existing AI worker submits a structured record when a user explicitly makes a decision. The record preserves the chosen option, stated rationale, rejected alternatives and their stated reasons, and available source evidence. Missing reasons and evidence remain absent.
+## Current prototype
 
-When the user changes a choice, a new version links to the earlier record instead of silently overwriting it. A visual interface shows decision cards and preserved history. Related user-stated reasoning stays distinguishable from an actual changed choice.
+Local recording, decision history and selected GitHub Pages sharing are working. The public demo shows a synthetic decision; readers can open it without installing the app.
 
-The app does not scrape or monitor conversations and does not treat AI suggestions as user decisions. The project does not operate a central service holding users' personal memory. The user's authoritative memory is to be stored on their local machine; embedded SQLite is selected for persistence, while the connection arrangement still needs verification. See D003-v3 in the [decision ledger](docs/design-decisions.md).
+The desktop preview targets macOS Apple Silicon. It remains unsigned; signing, fresh-user installation testing and backup/restore are still in progress. Connection support depends on the AI host. See [verified behavior and remaining work](docs/implementation-status.md).
 
-## First prototype direction
+## Build and contribute
 
-Rust is selected for the memory engine (D025), and TypeScript for the interface (D026). Ease of use comes first, with ChatGPT Work as the selected working context (D028); the recording checkpoint passed an owner-confirmed Work test with a checked local receipt. See the checkpoint evidence for the scope of verification. Tauri desktop delivery, embedded SQLite storage, and owner-selected read-only public snapshots are approved (D020-v2, D003-v3, D012-v2).
+The foundation uses **Rust** for the engine and **TypeScript** for the interface, with Tauri and local SQLite storage. Decision rules stay separate from worker connections, presentation and publishing.
 
-The confirmed direction is a minimum local-first personal decision memory engine that can expand into more capable and mature stages later. See D021 in the [decision ledger](docs/design-decisions.md). Easy installation and public-link sharing are also confirmed usability goals under D022; the current development package targets macOS Apple Silicon; clean-machine installation, signing and recovery remain open. GitHub Pages is selected (D034); published snapshots have new URLs and explicit withdrawal.
+Start with the [development guide](CLAUDE.md) and [contribution guide](.github/CONTRIBUTING.md). Use synthetic examples and discuss changes to decision integrity, storage or access boundaries before implementation. Report vulnerabilities through the [security policy](.github/SECURITY.md).
 
-The owner app will use Tauri; public readers use a browser URL showing deliberately published snapshots. A local browser viewer can support early development. D020-v2 replaces the earlier browser-only owner delivery direction while preserving that history in the [decision ledger](docs/design-decisions.md).
-
-The proposed minimum implementation is one user-controlled instance, one real worker connection, durable records, and a version timeline. Synthetic examples are proposed for the public demonstration. Snapshot sharing is selected; the initial interface uses plain TypeScript/Vite and generated Rust record contracts. Selected sharing uses a frozen public allowlist, an owner-only dialog and a separate GitHub Pages adapter. See the [sharing guide](docs/user-guides/share-decisions.md).
-
-The supplied project brief requires a working public URL, the promised core behavior, and at least one verified improvement after the first version. Its build workflow specifies one ChatGPT Work conversation.
-
-## Reuse
-
-The implemented recording architecture separates decision rules from MCP, persistence, the viewer, and deployment. This lets the small prototype later serve a broader project without tying decision semantics to one host or database. A separate published library is not being created at this stage.
-
-## Design records
-
-Start with the [documentation index](docs/README.md).
-
-- [Decision ledger](docs/design-decisions.md): user decisions, available supporting statements, proposals, and open questions.
-- [First-stage build brief](docs/prototype-brief.md): draft target, implementation boundary, acceptance checks, roadmap, and choices still open.
-- [User-first implementation plan](docs/implementation-plan.md): installation-to-sharing milestones, evidence, and proposed GitHub Actions/stage integration.
-- [Directory and contribution boundaries](docs/repository-structure.md): canonical target layout, extension areas, and stronger foundation review proposals.
-- [Repository foundation](docs/repository-foundation.md): reusable architecture rationale and open-source foundation.
-- [Branches and remote preparation](docs/branching-and-releases.md): proposed implementation-stage branches and publication workflow.
-
-## Development and contributions
-
-Install Rust stable, Node.js 24 or later, and pnpm 10.32.1, then run `pnpm install --frozen-lockfile` and `pnpm check`. The verified checks cover formatting, lint, TypeScript, dependency boundaries, frontend compilation, Rust warnings, persistence/integrity tests, and generated-contract drift. Run `pnpm desktop:dev` for the desktop or `pnpm desktop:build` for the app bundle (macOS needs Xcode command-line tools). The bundle includes its MCP helper. Initial builds are unsigned development packages, not a notarized public release. Contributions may include tests, synthetic examples, adapters, documentation, and interface improvements.
-
-Changes to decision semantics, record compatibility, data ownership, or security boundaries should be discussed before implementation. Read the [contribution guide](.github/CONTRIBUTING.md) and [code of conduct](.github/CODE_OF_CONDUCT.md). Use issues and pull requests for focused proposals and improvements; vulnerabilities follow the [security policy](.github/SECURITY.md).
-
-## Personal data and security
-
-Use synthetic data in public examples and tests. Do not commit personal memory databases, private source chat excerpts, exports, credentials, or runtime logs. The [security policy](.github/SECURITY.md) describes private vulnerability reporting and the current development-prototype status. A dedicated confidential conduct-reporting contact has not yet been established.
-
-The app can validate structure and preserve versions, but cannot independently prove that a worker accurately attributed a statement in an external chat. The prototype must test attribution behavior with real conversation examples.
-
-## License
-
-Licensed under [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for project attribution. The source-code license does not authorize publication of private user memory.
-
-## Try the desktop preview
-
-The macOS Apple Silicon preview includes the app, recording helper and local connector. Install the DMG, open the app, choose **Settings → Connect once**, restart ChatGPT once, then send the prepared local test choice. Normal chats need no per-choice plugin mention; supported host access must be verified. No terminal or development runtime is required. See the [install and connect guide](docs/user-guides/install-and-connect.md).
-
-This remains an unsigned testing preview. Developer ID signing/notarization and a fresh-machine installation are pending. The owner’s Work test passed on the maintainer setup; compatibility with other accounts/modes remains host-dependent. Selected public snapshot publishing is available in this preview; backup/restore remains a later Stage 01 checkpoint.
+Licensed under [Apache 2.0](LICENSE). See [NOTICE](NOTICE) for attribution.
