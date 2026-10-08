@@ -2,7 +2,7 @@
 
 A user-owned app for remembering your decisions: what you chose, why, and how your thinking changed. Your memory stays on your device.
 
-[View the public demo](https://david3xu.github.io/personal-memory-engine/shares/95609636-32d5-47b9-bc15-fa5aa56d7485/) · [Get started](docs/user-guides/install-and-connect.md) · [Documentation](docs/README.md)
+[Explore the prototype](https://david3xu.github.io/personal-memory-engine/showcase/) · [Get started](docs/user-guides/install-and-connect.md) · [Documentation](docs/README.md)
 
 ## How it works
 
@@ -15,7 +15,7 @@ Only explicit user decisions are recorded. It does not scrape chats or save AI s
 
 ## Current prototype
 
-Local recording, decision history and selected GitHub Pages sharing are working. The public demo shows a synthetic decision; readers can open it without installing the app.
+Local recording, decision history and selected GitHub Pages sharing are working. The showcase includes actual app views and a synthetic decision history; readers can explore it without installing the app.
 
 The desktop preview targets macOS Apple Silicon. It remains unsigned; signing, fresh-user installation testing and backup/restore are still in progress. Connection support depends on the AI host. See [verified behavior and remaining work](docs/implementation-status.md).
 

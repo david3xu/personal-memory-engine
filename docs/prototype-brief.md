@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: active Stage 01 implementation authorized in D029. Core/storage and real-process MCP checks pass; the first macOS Apple Silicon desktop bundle builds. This engineering target is not a user decision excluding future platforms. Actual Work recording, selected public hosting, recovery, and a complete integrated release still require evidence.
+Status: Stage 01 prototype source is merged into main. Local recording/history and selected public sharing are verified; the owner confirmed Work recording and the full Work build/use/improve workflow. See the implementation evidence for remaining signed installation, fresh-user and recovery acceptance. The current macOS Apple Silicon target does not exclude future platforms.
 
 ## Target
 

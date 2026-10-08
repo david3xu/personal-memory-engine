@@ -1,0 +1,39 @@
+{
+  "label": "Synthetic travel scenario — scripted fixture, not a personal decision or live AI transcript",
+  "initial": {
+    "chosen_option": "Take the train for the weekend trip",
+    "rationale": "It is direct and arrives before noon.",
+    "alternatives": [
+      {
+        "option": "Take the coach",
+        "reason": "It needs one change."
+      },
+      {
+        "option": "Drive",
+        "reason": "I do not want to drive for this trip."
+      }
+    ],
+    "user_statement": "Synthetic example: I choose the train for the weekend trip because it is direct and arrives before noon. I reject the coach because it needs one change, and driving because I do not want to drive for this trip."
+  },
+  "revision": {
+    "chosen_option": "Take the coach for the weekend trip",
+    "rationale": "The train now arrives too late. The coach still arrives before noon, so I accept the change.",
+    "alternatives": [
+      {
+        "option": "Take the train",
+        "reason": "The revised timetable arrives after 15:00."
+      },
+      {
+        "option": "Drive",
+        "reason": "I still do not want to drive for this trip."
+      }
+    ],
+    "evidence": [
+      {
+        "content": "Fictional timetable update: the train arrives at 15:20; the coach arrives at 11:40.",
+        "reference": "Synthetic scenario supplied with this demonstration"
+      }
+    ],
+    "user_statement": "Synthetic example revision: I now choose the coach for the same trip. The train now arrives too late. The coach still arrives before noon, so I accept the change. I reject the train because the revised timetable arrives after 15:00, and driving because I still do not want to drive. Fictional timetable update: train 15:20, coach 11:40."
+  }
+}

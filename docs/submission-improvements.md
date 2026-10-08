@@ -2,7 +2,7 @@
 
 Updated: 2026-10-08
 
-Status: implementation in progress on `stage/01-submission-showcase`, branched from the accepted main prototype. This is presentation and demonstration work within Stage 01, not a claim that the broader desktop release is complete.
+Status: implementation and verification in progress on `stage/01-submission-showcase`, branched from the accepted main prototype. This is presentation and demonstration work within Stage 01, not a claim that the broader desktop release is complete.
 
 ## Outcome
 
@@ -50,3 +50,7 @@ Signed/notarized distribution, fresh-user installation, backup/restore and broad
 ## Evidence
 
 Implementation and verification results will be appended here when observed.
+
+## Publication references
+
+The additive publisher uses GitHub's [base-tree API](https://docs.github.com/en/rest/git/trees) to retain existing content and [non-forced reference updates](https://docs.github.com/en/rest/git/refs) to refuse overwriting a concurrent publication. These are developer operations, separate from the owner's app sharing lifecycle.

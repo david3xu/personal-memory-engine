@@ -4,7 +4,7 @@ Thank you for helping develop a user-owned decision memory engine.
 
 ## Current stage
 
-Stage 01 is active. The checked Rust core and SQLite adapter are implemented, with MCP/desktop integration in progress. The owner-confirmed Work capture has a checked local receipt. Selected publication is implemented; live sharing and remaining distribution evidence are tracked in the [implementation status](../docs/implementation-status.md). Useful contributions include scoped adapter/interface work, integrity tests, documentation, and synthetic scenarios.
+The Stage 01 working prototype is merged into main. The Rust core, SQLite adapter, MCP recording, desktop viewer and selected sharing are implemented. The owner-confirmed Work capture has a checked local receipt. Selected publication is implemented; live sharing and remaining distribution evidence are tracked in the [implementation status](../docs/implementation-status.md). Useful contributions include scoped adapter/interface work, the separate static showcase, integrity tests, documentation, and synthetic scenarios. See the [implemented feature distribution](../docs/repository-structure.md#implemented-feature-distribution) before choosing an area.
 
 ## Discuss substantial changes first
 

@@ -61,3 +61,16 @@ jobs:
         run: node scripts/development/verify-public-demo.mjs
         env:
           PUBLIC_DEMO_URL: ${{ vars.PUBLIC_DEMO_URL }}
+
+  public-showcase:
+    if: ${{ vars.PUBLIC_SHOWCASE_URL != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Verify the complete synthetic showcase from an independent reader
+        run: node scripts/development/verify-public-showcase.mjs
+        env:
+          PUBLIC_SHOWCASE_URL: ${{ vars.PUBLIC_SHOWCASE_URL }}

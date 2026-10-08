@@ -1,6 +1,6 @@
 # Documentation index
 
-Stage 01 implementation has started. Documents marked as proposals do not establish completed runtime behavior. Follow the implementation plan for checkpoint evidence and remaining work.
+The working prototype is merged into main. Documents marked as proposals do not establish completed runtime behavior. See implementation evidence for verified behavior and remaining release work.
 
 ## Use and verification
 
@@ -30,10 +30,12 @@ Stage 01 implementation has started. Documents marked as proposals do not establ
 
 ## Project history and policies
 
-- [Changelog](CHANGELOG.md): actual changes; no application release exists yet.
+- [Changelog](CHANGELOG.md): actual changes; the desktop preview remains an unsigned draft.
 - [Security policy](../.github/SECURITY.md): verified private vulnerability-reporting route.
 - [Code of conduct](../.github/CODE_OF_CONDUCT.md): community expectations and reporting limitations.
 
 User guides, implemented architecture explanations, and MCP references now cover the recording checkpoint. Further guides and references will be added when their behavior exists. Their organization is defined in the directory proposal; empty documentation folders are not created in advance.
 
 - [Share selected decisions](user-guides/share-decisions.md): first-time GitHub setup, preview, verified URLs and withdrawal.
+
+- [Submission and showcase plan](submission-improvements.md): isolated synthetic walkthrough, separate presentation layer and additive Pages publishing.

@@ -1,6 +1,6 @@
 # Stage 01 implementation evidence
 
-Updated 2026-10-08. Work is being implemented in Codex under D029. This record distinguishes compiled/tested behavior from the supplied brief's separate ChatGPT Work conversation requirement.
+Updated 2026-10-08. The working prototype was merged into main through PR #8. The owner confirmed that the full build/use/improve workflow happened in one ChatGPT Work conversation. This record distinguishes observed runtime evidence from that owner-reported build context.
 
 | Checkpoint | Evidence | Remaining |
 | --- | --- | --- |
@@ -8,7 +8,7 @@ Updated 2026-10-08. Work is being implemented in Codex under D029. This record d
 | 01.2 history foundation | Atomic linked revisions, retry/concurrency/stale-reference checks, and desktop timeline implemented | Real worker revision walkthrough |
 | 01.3 selected sharing | Installed UI selection/preview, verified public demo, copy-link, separate synthetic withdrawal, preserved cards and app-closed browser access; projection/provider/lifecycle tests pass | Fresh-account browser sign-in; broader devices/accounts |
 | 01.4 installation/recovery | macOS Apple Silicon app bundle includes its helper; installation and launch on maintainer's Mac verified; bundled connector, graphical setup actions, fresh-test receipt and durable pause implemented; isolated catalog/launcher/recording tests pass | Backup/restore, clean-machine installation, Developer ID signing and notarization |
-| 01.5 integrated release | Draft PR #8, local checks, and Linux/macOS CI created | Complete acceptance, actual use/improvement, release and public demo evidence |
+| 01.5 integrated release | PR #8 merged into main after required Linux/macOS checks; live sharing and independent reader verified; unavailable-tool feedback led to connect-once correction; owner reports full Work workflow | Signed distribution, clean-machine/recovery acceptance and broader host coverage |
 
 The first local user card records the explicit D029 implementation instruction. Rationale, rejected alternatives, and outside source evidence were omitted because none were supplied for that choice. Its worker metadata says **Codex (direct stdio MCP client)**. This is a real MCP-to-local-store-to-card capture, not a claim that ChatGPT Work called the tool.
 
