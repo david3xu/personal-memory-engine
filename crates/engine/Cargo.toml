@@ -1,0 +1,16 @@
+[package]
+name = "memory-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+schemars.workspace = true
+thiserror.workspace = true
+ts-rs = { version = "12", features = ["serde-compat"] }
+
+[lints]
+workspace = true

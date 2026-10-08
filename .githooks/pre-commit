@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Reject commits whose project verification fails.
+set -euo pipefail
+pnpm check

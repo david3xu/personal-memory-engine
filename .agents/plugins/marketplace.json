@@ -1,0 +1,12 @@
+{
+  "name": "personal-memory-engine",
+  "interface": { "displayName": "Personal Memory Engine" },
+  "plugins": [
+    {
+      "name": "personal-memory-engine",
+      "source": { "source": "local", "path": "./plugins/personal-memory-engine" },
+      "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
+      "category": "Productivity"
+    }
+  ]
+}

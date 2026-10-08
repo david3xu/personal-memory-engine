@@ -4,7 +4,7 @@ Thank you for helping develop a user-owned decision memory engine.
 
 ## Current stage
 
-The repository currently contains design documentation. Application code, a verified MCP integration, and a deployed prototype do not exist yet. Useful contributions now include reviewing the data model, finding ambiguity in recording rules, improving documentation, and proposing synthetic scenarios for testing.
+Stage 01 is active. The checked Rust core and SQLite adapter are implemented, with MCP/desktop integration in progress. The owner-confirmed Work capture has a checked local receipt. Selected publication is implemented; live sharing and remaining distribution evidence are tracked in the [implementation status](../docs/implementation-status.md). Useful contributions include scoped adapter/interface work, integrity tests, documentation, and synthetic scenarios.
 
 ## Discuss substantial changes first
 
@@ -14,7 +14,7 @@ For small documentation corrections, a focused pull request is welcome.
 
 ## Contribution areas and foundation review
 
-The [directory and contribution-boundary proposal](../docs/repository-structure.md) identifies interface, installation, worker integration, publication, tests, and documentation entry points. Code paths do not yet exist and the proposed review tiers are under design review; they are not a claim of automated enforcement. Start with a scoped issue for a new feature or integration.
+The [directory and contribution-boundary proposal](../docs/repository-structure.md) identifies interface, installation, worker integration, publication, tests, and documentation entry points. The core, local runtime, generated contracts, and owner interface have separate paths. CI enforces dependency boundaries and contract consistency; stronger review tiers remain proposals. Start with a scoped issue for a new feature or integration.
 
 Changes to core decision rules, durable schemas, storage/migrations, access controls, publication selection, or checks that enforce those rules need the substantial-change discussion above. A change in an adapter or UI can still affect the foundation. Explain semantic and compatibility effects rather than assuming a folder makes a change low risk. Bug fixes and refactors preserving approved semantics may be proposed with relevant evidence.
 
@@ -28,7 +28,7 @@ Do not silently change historical decisions, invent user approval or missing rat
 4. Check changed documentation with `git diff --check` and verify its links.
 5. Open a pull request explaining the problem, resulting behavior, and verification performed. Identify any record-schema or compatibility implications.
 
-Runtime setup and automated application checks will be documented when the implementation stack has been selected and those commands actually work. Do not claim that unimplemented or unrun checks passed.
+Use `pnpm install --frozen-lockfile` and `pnpm check` before submitting implementation changes. Rust stable and Node.js 24+ are required. Do not claim that unimplemented or unrun checks passed.
 
 ## Data and attribution rules
 

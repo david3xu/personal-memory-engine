@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: proposed execution plan. The user requested this document and a stage/automation design; application building remains paused. No implementation-stage branch, Actions workflow, installed app, real MCP connection, or public demo is created by this plan.
+Status: active Stage 01 execution following D029. Branch `stage/01-working-prototype` and implementation CI are created. Core/SQLite and real-process MCP checks pass. The packaged desktop is installed and opens on the maintainer’s Mac; its local plugin is installed/enabled and starts the helper. The owner’s ChatGPT Work recording test passed, with its persisted local receipt checked. Full recovery/distribution remains unverified. Selected GitHub Pages sharing is implemented; live publication evidence is tracked in the checkpoint record. See [checkpoint evidence](implementation-status.md).
 
 ## Purpose and sources of truth
 
@@ -39,7 +39,7 @@ Select remaining choices when they become necessary:
 3. **Before 01.3:** Configure the approved hosted snapshot route: select the destination, selection controls, and publication/update/withdrawal semantics. Only the selected public copy is hosted; verify it remains readable with the local app stopped.
 4. **Before 01.5:** Reconcile the completed steps with the agreed full minimum build brief, user walkthrough, and actual checks. Do not claim the first complete release until those checks pass.
 
-Tauri, embedded SQLite, and owner-selected public snapshots are approved in D020-v2, D003-v3, and D012-v2. Platform support, UI framework, drivers, exact contracts, account access, and hosting/lifecycle details remain open. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
+Tauri, embedded SQLite, and owner-selected public snapshots are approved in D020-v2, D003-v3, and D012-v2. The recording checkpoint now uses plain TypeScript/Vite, rusqlite, generated Rust contracts, and a macOS Apple Silicon development build. Broader platform/account compatibility and public distribution remain open. GitHub Pages hosting and the frozen-copy/explicit-withdrawal lifecycle are implemented; the owner’s Work capture passed on the maintainer setup. A production hosted memory service, multi-device sync, team accounts, and multiple worker adapters remain outside the proposed first stage.
 
 Official [Work setup](https://learn.chatgpt.com/docs/get-started-with-work) and [local projects](https://learn.chatgpt.com/docs/projects?surface=app) describe approved local folder access. A cloud conversation does not automatically inherit the local repository or running processes; verify actual access rather than assuming it from the product name.
 

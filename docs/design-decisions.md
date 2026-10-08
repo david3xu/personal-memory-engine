@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Stage: product scope and conceptual design. Implementation is paused.
+Current stage: implementation authorized in D029; see [implementation evidence](implementation-status.md). Earlier entries below preserve the original design-stage pauses and approvals.
 
 This is the initial decision ledger for the project. It records user choices from the design conversation, keeps assistant proposals separate, and leaves missing rationale or evidence explicitly absent. The user authorized this first Markdown record after reviewing the proposed snapshot and recording approach.
 
@@ -757,3 +757,70 @@ The following entries are appended to the initial ledger. Earlier entries remain
 
 - **User question:** “so, you will implement code, then install , then conenct to chatgpt work ?”
 - **Assistant clarification:** The planned product sequence is implementation, installation/launch, connection of the running app's MCP server to ChatGPT Work, and an actual conversation-to-card test. Check the route/account prerequisites early. The question is not a new technology choice, a claim of working connectivity, or a separate instruction to start coding during the requested Markdown update.
+
+
+## Implementation authorization — 2026-10-07
+
+### D029 / D029-v1 — Start incremental implementation with regular publication
+
+- **Chosen direction:** Begin implementation, make regular focused commits and pushes, and organize core features separately from plugin/adapter features.
+- **Stated rationale:** The user requests clear logic and organization; no additional rationale was stated.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** “ok. implementation now. remember do regular commit and push , a clear logic , distingusih core features and plugin level features, organize well. go”.
+- **Related decisions:** D025/D026 (Rust/TypeScript), D027 (incremental delivery), D020-v2/D003-v3/D012-v2 (approved delivery/storage/sharing).
+- **Previous version:** None.
+- **Status:** Confirmed implementation authorization. This is not evidence of an actual ChatGPT Work connection, installed release, or public snapshot URL. Current implementation is being performed in Codex; the supplied brief's Work conversation evidence remains separate.
+
+
+### D030 / D030-v1 — Require verified CI before main merges
+
+- **Chosen direction:** Require the verified `checks` and `desktop` CI jobs before merging into `main`, including administrator merges. Require the branch to be up to date; failed checks or an outdated branch block merging.
+- **Stated rationale:** None stated in the approval.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** The user answered “Approve required CI checks” to the explicit question proposing those two jobs, the main branch, and administrator enforcement.
+- **Related decisions:** D024 (contribution boundaries), D029 (incremental implementation and publication).
+- **Previous version:** None.
+- **Status:** Confirmed. The rules were applied and verified on GitHub. Existing PR/conversation-resolution protections remain; no second-person approving review was introduced for the sole maintainer.
+
+
+### D031 / D031-v1 — App-led setup without terminal commands
+
+- **Chosen direction:** Implement the proposed one-download setup: bundle the connector, provide a Connect ChatGPT button, open a test chat for the user to send, and show successful recording only after the test decision is persisted. Keep the decision engine separate from onboarding and host integration.
+- **Stated rationale:** The user said the earlier installation flow was not the expected user-friendly experience and asked how to make it easy to use. No additional rationale supplied with approval.
+- **Rejected alternatives and reasons:** No specific alternative explicitly rejected.
+- **Source:** User: “go”, following the assistant proposal for bundled connector, graphical connection and recording verification.
+- **Related decisions:** D028 (ease of use and ChatGPT Work), D029 (incremental implementation).
+- **Previous version:** None.
+- **Status:** Implementation authorized. Signing, a fresh-machine installation and a real Work capture remain evidence requirements; this approval does not establish those outcomes or public directory acceptance.
+
+
+### D032 / D032-v1 — Connect once and record explicit choices in normal chats
+
+- **Chosen direction:** Complete the install/connect-once flow. In supported connected chats, the AI calls the local MCP when the user makes an explicit choice, without a per-chat plugin mention or per-choice recording command. Preserve revisions and omit missing rationale/evidence.
+- **Stated rationale:** The user asks whether requiring plugin selection is easy to use. No additional reason supplied.
+- **Rejected alternatives and reasons:** The user says the engine should not require managing an `@personal-memory-engine` mention. No separate rejection reason supplied.
+- **Source:** “the engine should work for any chat, dont' need user manage click '@personal-momoery-engine' ?”; “in the chat, ai should call engine as mcp , use the tools to record data ?”; “ok. finish this, Our intended experience is **install/connect once → chat normally → AI calls MCP → decisions are saved locally**.”
+- **Related decisions:** D031 (graphical setup), D028 (ChatGPT Work), D006 (preserved versions).
+- **Previous version:** None.
+- **Status:** Implementation authorized. Host availability limits must be stated; installation does not prove tool availability in every ChatGPT mode. The user's setup test failed with the recording tool unavailable. The existing test link opened a local Codex chat, which does not establish Work support.
+
+### D033 / D033-v1 — Keep the decision view focused
+
+- **Chosen direction:** Remove redundant setup and technical details from the decision visualization. Keep cards and relevant history central; put connection and troubleshooting in settings.
+- **Stated rationale:** The user asks not to pollute the app visualization.
+- **Rejected alternatives and reasons:** None explicitly stated.
+- **Source:** “thinking about any redundant features, dont' pollute hte app visualizaition.”
+- **Related decisions:** D028 (ease of use), D032 (ordinary chat capture).
+- **Previous version:** None.
+- **Status:** Confirmed interface constraint.
+
+
+### D034 / D034-v1 — GitHub Pages for the first shared URL
+
+- **Chosen direction:** Use GitHub Pages under the owner's GitHub account for the first public snapshot URL. The private memory remains local.
+- **Stated rationale:** None supplied in the answer; the question's explanation is assistant context, not an invented user reason.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** User answered “Use GitHub Pages (recommended)” to the question “For the first shared URL, should we use GitHub Pages under your GitHub account? It keeps the published snapshot in infrastructure you control; the private memory stays on your Mac.”
+- **Related decisions:** D012-v2 (selected read-only public snapshots), D003-v3 (local private store), D022/D028 (ease of use).
+- **Previous version:** None; this selects the provider without replacing the sharing or ownership boundaries.
+- **Status:** Confirmed provider. Implementation is authorized by the preceding “go”. Synthetic public demonstration is used for verification; this does not authorize disclosing private cards. This entry is recorded in Markdown; actual MCP decision tools are unavailable in this turn, so no engine capture is claimed.

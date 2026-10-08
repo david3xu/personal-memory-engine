@@ -1,12 +1,24 @@
 # Documentation index
 
-Personal Memory Engine is in design and repository preparation. Documents marked as proposals do not establish a working app or approved implementation details.
+Stage 01 implementation has started. Documents marked as proposals do not establish completed runtime behavior. Follow the implementation plan for checkpoint evidence and remaining work.
+
+## Use and verification
+
+- [Install and connect](user-guides/install-and-connect.md): current package, desktop plugin, and actual conversation checks.
+- [Implementation evidence](implementation-status.md): tested checkpoints and remaining acceptance.
+
+- [App-led onboarding plan](onboarding-plan.md): bundled connector, fresh-record verification and owner controls.
 
 ## Product and scope
 
 - [Decision ledger](design-decisions.md): confirmed user choices, preserved versions, discussion, and separate proposals.
 - [First-stage build brief](prototype-brief.md): candidate minimum scope, acceptance checks, and open implementation choices.
 - [User-first implementation plan](implementation-plan.md): incremental Stage 01 delivery, install/record/history/share/recovery milestones, and later improvement.
+
+## Implemented references
+
+- [Engine and adapters](architecture/engine-and-adapters.md): actual responsibilities and integrity limits.
+- [MCP tools](reference/mcp-tools.md): stdio process, arguments, retry/revision behavior, and attribution limits.
 
 ## Architecture and contributions
 
@@ -22,4 +34,6 @@ Personal Memory Engine is in design and repository preparation. Documents marked
 - [Security policy](../.github/SECURITY.md): verified private vulnerability-reporting route.
 - [Code of conduct](../.github/CODE_OF_CONDUCT.md): community expectations and reporting limitations.
 
-User task guides, implemented architecture explanations, and exact API/record references will be added in their proposed subdirectories when the corresponding behavior exists. Their organization is defined in the directory proposal; empty documentation folders are not created in advance.
+User guides, implemented architecture explanations, and MCP references now cover the recording checkpoint. Further guides and references will be added when their behavior exists. Their organization is defined in the directory proposal; empty documentation folders are not created in advance.
+
+- [Share selected decisions](user-guides/share-decisions.md): first-time GitHub setup, preview, verified URLs and withdrawal.

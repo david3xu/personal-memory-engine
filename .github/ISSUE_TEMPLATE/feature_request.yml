@@ -1,6 +1,6 @@
 name: Feature or design proposal
 description: Propose a focused improvement and its user need.
-title: "[Proposal]: "
+title: '[Proposal]: '
 body:
   - type: textarea
     id: need

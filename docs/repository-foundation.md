@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: proposed repository design. Application implementation remains paused. The [public repository](https://github.com/david3xu/personal-memory-engine) has been created under `david3xu`. Apache License 2.0 is selected, with attribution to the verified owner identifier. Selected languages and remaining implementation choices are recorded in the [build brief](prototype-brief.md); hosting remains open; confidential conduct-reporting contact details are not yet supplied.
+Status: reusable foundation design with Stage 01 implementation started under D029. The Rust core, local SQLite adapter, contracts, and checks are implemented; future extensions remain proposals. The [public repository](https://github.com/david3xu/personal-memory-engine) has been created under `david3xu`. Apache License 2.0 is selected, with attribution to the verified owner identifier. Selected languages and remaining implementation choices are recorded in the [build brief](prototype-brief.md); GitHub Pages is selected in D034; confidential conduct-reporting contact details are not yet supplied.
 
 ## Purpose and design boundary
 

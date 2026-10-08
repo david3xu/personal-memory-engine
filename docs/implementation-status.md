@@ -1,0 +1,54 @@
+# Stage 01 implementation evidence
+
+Updated 2026-10-08. Work is being implemented in Codex under D029. This record distinguishes compiled/tested behavior from the supplied brief's separate ChatGPT Work conversation requirement.
+
+| Checkpoint | Evidence | Remaining |
+| --- | --- | --- |
+| 01.1 recording foundation | Rust contracts/operations, SQLite, real-process MCP tests; packaged helper tool discovery and restart checks pass; installed macOS app displays cards; owner-confirmed ChatGPT Work synthetic test with a checked persisted receipt; this chat used actual MCP tools to save confirmed design choices without a mention | Broader host/account compatibility and attribution checks |
+| 01.2 history foundation | Atomic linked revisions, retry/concurrency/stale-reference checks, and desktop timeline implemented | Real worker revision walkthrough |
+| 01.3 selected sharing | Installed UI selection/preview, verified public demo, copy-link, separate synthetic withdrawal, preserved cards and app-closed browser access; projection/provider/lifecycle tests pass | Fresh-account browser sign-in; broader devices/accounts |
+| 01.4 installation/recovery | macOS Apple Silicon app bundle includes its helper; installation and launch on maintainer's Mac verified; bundled connector, graphical setup actions, fresh-test receipt and durable pause implemented; isolated catalog/launcher/recording tests pass | Backup/restore, clean-machine installation, Developer ID signing and notarization |
+| 01.5 integrated release | Draft PR #8, local checks, and Linux/macOS CI created | Complete acceptance, actual use/improvement, release and public demo evidence |
+
+The first local user card records the explicit D029 implementation instruction. Rationale, rejected alternatives, and outside source evidence were omitted because none were supplied for that choice. Its worker metadata says **Codex (direct stdio MCP client)**. This is a real MCP-to-local-store-to-card capture, not a claim that ChatGPT Work called the tool.
+
+Synthetic protocol tests use temporary isolated databases. Private runtime files and identifiers are excluded from Git; no local memory database is published.
+
+## App-led onboarding checkpoint
+
+D031 replaces the primary terminal setup with a bundled local catalog and graphical actions. Verification requires a fresh test request and successful synthetic record; reads, failures and previous retries cannot pass it. Pause persists across helper restarts and prevents tool reads/writes while owner card access remains available. Corrupt or future setup metadata fails closed. Mutable connection metadata is separate from append-only card history.
+
+Local adapter tests cover the real stdio executable, installed launcher with spaces/apostrophes, link round-trips, resource completeness, restart/pause and fresh-test verification. The desktop build is separately checked for bundled resources; the owner subsequently completed the Work recording test (see the confirmed result below). Computer controls cannot operate that app here. There is no Developer ID Application identity available for outside-App-Store distribution. An Apple Development identity is present; this package remains an unsigned, unnotarized preview.
+
+The preview disk image is built without Finder layout automation after the default Tauri DMG bundler failed on the maintainer machine. It includes the complete app, an Applications shortcut and installation instructions. A checksum is generated alongside it.
+
+## Connect-once correction
+
+The user's first graphical test failed: the AI reported `record_decision` unavailable. Preparing a plugin catalog had not registered a global MCP server, and the previous test link opened a local Codex chat rather than proving Work support. Release remains draft. D032 adds direct one-time registration using the desktop app's bundled CLI; D033 keeps cards/history central and connection controls in Settings.
+
+The real bundled CLI was tested with isolated configuration: register, inspect, repeat without changes, preserve unrelated settings, and refuse a conflicting same-name server. Its app-server discovered all three tools without starting a chat or model. Portable plugin metadata now includes its MCP schema, and the optional package is version 0.1.2. The MCP and skill instructions guide normal-chat explicit-choice recording without a mention. These checks prove configuration/tool discovery, not that an AI in ChatGPT Work has made a successful recording.
+
+The updated app was installed and opened on the maintainer's Mac. Its actual Connect once action registered the dedicated MCP; a separate read-only app-server probe then discovered `record_decision`, `list_decisions`, and `decision_history` in the owner's host configuration without creating a chat or calling a model. The two existing cards remain intact. Settings still awaits a real fresh chat recording; no diagnostic write was used to satisfy that receipt. The decision view was visually checked after removing setup summaries and empty optional sections.
+
+On 2026-10-08 (Australia/Perth), the owner reported “it works.” The app's fresh setup receipt was checked and confirmed a successfully persisted synthetic test submitted by worker `Codex`. The tools became available in this existing chat after reconnecting. The AI then used the actual MCP `record_decision` tool to save the confirmed D032 and D033 design choices without an `@` mention or a separate save request. Missing reasons, rejected alternatives and external evidence were omitted. This is evidence of real AI-to-MCP-to-local-store capture on the local desktop/Codex route. The owner then answered **ChatGPT Work** when asked which mode passed. The Work result is supported by that explicit report and the checked persisted receipt; the server does not independently authenticate the worker’s name or client mode.
+
+## Portability checkpoint
+
+The owner approved addressing installation portability after the source audit. Host discovery now supports standard system/per-user ChatGPT and Codex app locations and a bounded Spotlight fallback for the compatible host bundle identifier verified on the maintainer's installed host. An explicit absolute CLI override supports an otherwise located manager and fails closed when invalid. The known bundled CLI layout is still an integration dependency; this does not promise compatibility with arbitrary ChatGPT applications.
+
+The adapter refreshes an existing app-owned launcher using the running app's helper, preserving the fixed registered launcher location, pause state, receipt and separate database. Tests move the actual helper into a path with spaces/apostrophes, remove the original, and record/read through the same cached manifest; symlink launchers are refused. Tauri and the interface inherit the Cargo app version; Rust derives the plugin version from the portable manifest. Help destinations are pinned to an existing documentation commit so branch retirement does not break the preview guide. Fresh-machine distribution and signing remain pending.
+
+Verification on the maintainer setup: `pnpm check`, real isolated desktop discovery, `pnpm desktop:package`, packaged helper protocol tests and desktop Clippy passed. The installed app opens as the Cargo-derived version with the five existing cards visible. Relocation tests prove reads and new writes after the original helper is removed; paused access remains blocked. Spotlight resolution is tested with synthetic indexed paths; a real host in a nonstandard location and a fresh Mac remain unverified.
+
+
+## Selected GitHub Pages sharing checkpoint
+
+D034 selects the owner's GitHub Pages account. The installed app's actual owner dialog selected only the existing synthetic blue-notebook card, with earlier versions and source evidence off. The frozen preview contained the choice, stated rationale and recording date. Publication created an isolated orphan `pme-public` branch containing approved static pages only and enabled Pages on that branch. No private database, source statement, worker metadata or recording endpoint was uploaded.
+
+The app reported live only after anonymously fetching exactly the expected HTML, and its Copy URL action reported success. The [synthetic notebook demo](https://david3xu.github.io/personal-memory-engine/shares/95609636-32d5-47b9-bc15-fa5aa56d7485/) was opened in the browser and reloaded with the owner app closed. At a 390px viewport the content fit without horizontal overflow; it contains no scripts or external assets. Anonymous HTTPS checks also confirmed selection-only content. The web retrieval tool could not access this newly published URL; the browser and direct anonymous HTTPS checks succeeded.
+
+A second synthetic snapshot was published through the same dialog, then withdrawn through its confirmation action. The public page became a no-content withdrawal notice and the app verified it as withdrawn. The first demo remains live. Both publication entries survived in the private ledger; all five existing SQLite decision records remained intact. Withdrawal intentionally does not purge Git history or downloaded copies.
+
+`pnpm check`, native Clippy, `pnpm desktop:package`, installed app opening and packaged helper tests passed for this checkpoint. The preview bundles the checksum-verified official GitHub CLI and its MIT license; an existing authenticated account was reused. A fresh-account browser authorization, fresh-Mac installation, signed/notarized distribution and backup/recovery are not claimed. A separate optional `public-demo` CI job uses the repository's nonsecret `PUBLIC_DEMO_URL` variable for an independent reader check; it does not change the two required main checks.
+
+The independent GitHub-hosted `public-demo` job passed on source checkpoint `49609e0` in [run 37751791344](https://github.com/david3xu/personal-memory-engine/actions/runs/37751791344). It read the deployed synthetic page over anonymous HTTPS from outside the maintainer's Mac and checked its selected-content/static-only boundary. The required `checks` job also passed. The previous sharing implementation checkpoint's Linux/macOS jobs passed; final desktop CI is tracked in the PR. Reopening the final installed preview preserved both publication states and all five local cards, with nothing selected for a new share.

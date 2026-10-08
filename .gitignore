@@ -33,3 +33,13 @@ __pycache__/
 /work/
 /tmp/
 .DS_Store
+
+# Rust build outputs
+/target/
+
+/web/owner/src-tauri/binaries/
+
+/web/owner/src-tauri/gen/
+
+# Generated, verified third-party desktop connector
+web/owner/src-tauri/resources/

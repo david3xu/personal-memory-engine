@@ -2,7 +2,7 @@
 
 Recorded: 2026-10-07 (Australia/Perth)
 
-Status: `main` and `stage/00-repository-foundation` are published. Future implementation-stage names and scope remain proposals. Application implementation remains paused. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
+Status: `main` and `stage/00-repository-foundation` are published. `stage/01-working-prototype` is active with focused implementation checkpoints and draft PR #8. Later implementation-stage names and scope remain proposals. The [GitHub repository](https://github.com/david3xu/personal-memory-engine) is public under `david3xu`, with Apache License 2.0.
 
 ## Branch responsibilities
 
@@ -14,9 +14,9 @@ Status: `main` and `stage/00-repository-foundation` are published. Future implem
 | `stage/02-tested-improvement` | Improve the first prototype after actual use | The user observes a concrete problem, requests a change, and verifies it; updated published prototype works |
 | `stage/03-next-capability` | Placeholder naming pattern for a later approved enhancement | Specific scope and checks are defined when this stage starts; maps, additional adapters, or extraction into a library are possibilities, not approved features |
 
-`main` and `stage/00-repository-foundation` exist. The later stage branches remain proposals and will be created when their work starts. The first prototype's final feature list remains governed by the approved build brief.
+`main`, `stage/00-repository-foundation`, and `stage/01-working-prototype` exist. Stage 02 and later branches remain proposals and will be created when their work starts. The first prototype's final feature list remains governed by the approved build brief.
 
-The [user-first implementation plan](implementation-plan.md) maps installation, recording, history, sharing, recovery, and tested improvement to these stages and proposes the Actions checks to implement later. The [Stage 01 step plan](implementation-plan.md#stage-01-deliver-a-complete-minimum-in-small-steps) proposes checkpoints inside one active stage branch, with the complete minimum accepted before Stage 02. No application workflow or future stage branch is created by the plan.
+The [user-first implementation plan](implementation-plan.md) maps installation, recording, history, sharing, recovery, and tested improvement to these stages and defines the implemented recording checks and later sharing/recovery acceptance checks. The [Stage 01 step plan](implementation-plan.md#stage-01-deliver-a-complete-minimum-in-small-steps) proposes checkpoints inside one active stage branch, with the complete minimum accepted before Stage 02. No application workflow or future stage branch is created by the plan.
 
 ## Branch lifecycle
 
@@ -41,7 +41,7 @@ Tags will only be created when their checkpoints actually exist. Formal semantic
 
 ## Review and protection settings
 
-`main` is protected on GitHub: pull requests are required, review conversations must be resolved, force pushes and deletion are disabled, and the rules also apply to administrators. Required approving reviews are set to zero while there is one maintainer. Required code-owner review is disabled, and no CODEOWNERS file exists yet. No application CI checks exist yet, so no nonexistent status checks are required. Add actual verified checks and workable reviewer requirements when implemented. The [contribution-boundary proposal](repository-structure.md#proposed-enforcement-and-its-limits) describes planned foundation review and its limits.
+`main` is protected on GitHub: pull requests are required, review conversations must be resolved, force pushes and deletion are disabled, and the rules also apply to administrators. Required approving reviews are set to zero while there is one maintainer. Required code-owner review is disabled; the CODEOWNERS file routes reviews to the sole maintainer. Linux `checks` and macOS `desktop` jobs run for pushes and pull requests and have passed for the first recording checkpoint. After explicit user approval in D030, both `checks` and `desktop` are required on `main`, with up-to-date branches and administrator enforcement. GitHub binds these checks to GitHub Actions. The applied settings were verified through the API. The [contribution-boundary proposal](repository-structure.md#proposed-enforcement-and-its-limits) describes planned foundation review and its limits.
 
 Do not require a second person's approval while the project has only one maintainer; enable an appropriate review requirement when another reviewer is available. Do not configure nonexistent CI check names or claim that local documentation files provide remote branch protection. The active stage can receive similar protections as the contributor group grows.
 
@@ -56,7 +56,7 @@ Do not require a second person's approval while the project has only one maintai
 - **Attribution:** the verified owner identifier `david3xu`, recorded in [NOTICE](../NOTICE). Private vulnerability reporting is enabled. A dedicated confidential conduct-reporting contact remains open.
 - **Verified remote repository:** [https://github.com/david3xu/personal-memory-engine](https://github.com/david3xu/personal-memory-engine).
 
-Local Git was initialized with `main` as its initial branch. The documentation foundation has been reviewed for credentials, private absolute paths, valid YAML, and local links. The initial documentation baseline is published on `main`, and the foundation stage branch is published. No application checkpoint or release is being claimed.
+Local Git was initialized with `main` as its initial branch. The documentation foundation has been reviewed for credentials, private absolute paths, valid YAML, and local links. The initial documentation baseline is published on `main`, and the foundation stage branch is published. The first local recording checkpoint is available on the active Stage 01 branch; a complete Stage 01 release is not yet claimed.
 
 The owner, public visibility, and license are selected. The initial documentation commit is published, `origin` points to the verified GitHub repository, private vulnerability reporting is enabled, and `main` protection is configured. Future updates follow the branch-and-pull-request workflow. Avoid independently initializing a remote README or license if the local repository already supplies those files, so the histories start consistently.
 
@@ -79,3 +79,8 @@ The required build, use, improvement, and publication workflow still needs to ha
 - [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow): descriptive branches, pull requests, checks, and retiring completed branches.
 - [Protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches): remote settings for review, checks, force pushes, and deletion.
 - [Adding locally hosted code to GitHub](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github): local repository preparation, remote creation, and linking local history to a remote.
+
+
+## Independent public-demo check
+
+The optional `public-demo` job checks the deliberately published synthetic notebook snapshot from a GitHub-hosted runner without credentials. Set the repository's nonsecret `PUBLIC_DEMO_URL` variable to that selected snapshot URL to enable it. Forks can leave it unset. This diagnostic is separate from required `checks` and `desktop`; a hosting outage does not change the approved main protection settings. If the demo is intentionally withdrawn or replaced, update/remove the variable and documentation link together. It never uploads private memory.
