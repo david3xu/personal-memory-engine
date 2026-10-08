@@ -1,8 +1,13 @@
 // Deliver the owner desktop around reusable decision operations and separate adapters.
+mod sharing;
 mod worker_setup;
 use memory_engine::{DecisionVersion, Engine};
 use memory_local_runtime::{SqliteStore, paths::default_data_dir};
 use serde::Serialize;
+use sharing::{
+    connect_github, github_account, open_github_signin, open_snapshot, prepare_snapshot,
+    publish_snapshot, sharing_status, verify_snapshot, withdraw_snapshot,
+};
 use std::path::PathBuf;
 use tauri::Manager;
 use tauri_plugin_opener::OpenerExt;
@@ -12,6 +17,10 @@ struct DesktopState {
     data_dir: PathBuf,
     helper: PathBuf,
     plugin_source: PathBuf,
+    shares: memory_local_runtime::sharing::ShareStore,
+    github: memory_github_publication::GitHub,
+    github_login: std::sync::Arc<tokio::sync::Mutex<memory_github_publication::login::LoginState>>,
+    publication_busy: tokio::sync::Mutex<()>,
 }
 #[derive(Serialize)]
 struct LocalStatus {
@@ -90,7 +99,15 @@ fn main() {
             } else {
                 "memory-mcp"
             });
+            let shares = memory_local_runtime::sharing::ShareStore::new(&data_dir);
+            let github_cli = app
+                .path()
+                .resolve("github-cli/gh", tauri::path::BaseDirectory::Resource)?;
             app.manage(DesktopState {
+                shares,
+                github: memory_github_publication::GitHub::new(github_cli),
+                github_login: Default::default(),
+                publication_busy: Default::default(),
                 store,
                 data_dir,
                 helper,
@@ -105,6 +122,15 @@ fn main() {
             list_decisions,
             decision_history,
             open_connection_docs,
+            sharing_status,
+            github_account,
+            connect_github,
+            open_github_signin,
+            prepare_snapshot,
+            publish_snapshot,
+            verify_snapshot,
+            withdraw_snapshot,
+            open_snapshot,
             connection_status,
             connect_chatgpt,
             start_connection_test,

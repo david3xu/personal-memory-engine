@@ -3,6 +3,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 source scripts/development/rust-env.sh
+if [[ "$(uname -s)" == Darwin ]]; then bash scripts/distribution/prepare-github-cli.sh; fi
 profile=debug
 if [[ "${1:-}" == build ]] && [[ " $* " != *" --debug "* ]]; then
   profile=release

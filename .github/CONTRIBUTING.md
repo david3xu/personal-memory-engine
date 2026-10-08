@@ -4,7 +4,7 @@ Thank you for helping develop a user-owned decision memory engine.
 
 ## Current stage
 
-Stage 01 is active. The checked Rust core and SQLite adapter are implemented, with MCP/desktop integration in progress. Real ChatGPT Work recording and a hosted public prototype are not yet verified. Useful contributions include scoped adapter/interface work, integrity tests, documentation, and synthetic scenarios.
+Stage 01 is active. The checked Rust core and SQLite adapter are implemented, with MCP/desktop integration in progress. The owner-confirmed Work capture has a checked local receipt. Selected publication is implemented; live sharing and remaining distribution evidence are tracked in the [implementation status](../docs/implementation-status.md). Useful contributions include scoped adapter/interface work, integrity tests, documentation, and synthetic scenarios.
 
 ## Discuss substantial changes first
 

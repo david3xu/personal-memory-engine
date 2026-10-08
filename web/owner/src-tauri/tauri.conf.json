@@ -28,7 +28,8 @@
     "externalBin": ["binaries/memory-mcp"],
     "icon": ["icons/icon.png", "icons/icon.icns"],
     "resources": {
-      "../../../plugins/personal-memory-engine/": "plugin-source/"
+      "../../../plugins/personal-memory-engine/": "plugin-source/",
+      "resources/github-cli/": "github-cli/"
     }
   }
 }

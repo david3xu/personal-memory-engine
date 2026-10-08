@@ -2181,7 +2181,7 @@ dependencies = [
 
 [[package]]
 name = "memory-engine"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "schemars 1.2.2",
  "serde",
@@ -2191,13 +2191,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "memory-github-publication"
+version = "0.1.2"
+dependencies = [
+ "base64 0.22.1",
+ "memory-public-snapshot",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "url",
+]
+
+[[package]]
 name = "memory-local-runtime"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "chrono",
  "clap",
  "dirs 6.0.0",
  "memory-engine",
+ "memory-public-snapshot",
  "rmcp",
  "rusqlite",
  "schemars 1.2.2",
@@ -2208,6 +2222,15 @@ dependencies = [
  "tokio",
  "url",
  "uuid",
+]
+
+[[package]]
+name = "memory-public-snapshot"
+version = "0.1.2"
+dependencies = [
+ "memory-engine",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -2644,14 +2667,17 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
 name = "personal-memory-engine"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "memory-engine",
+ "memory-github-publication",
  "memory-local-runtime",
+ "memory-public-snapshot",
  "serde",
  "tauri",
  "tauri-build",
  "tauri-plugin-opener",
+ "tokio",
 ]
 
 [[package]]

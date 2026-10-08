@@ -35,3 +35,5 @@ Stage 01 implementation has started. Documents marked as proposals do not establ
 - [Code of conduct](../.github/CODE_OF_CONDUCT.md): community expectations and reporting limitations.
 
 User guides, implemented architecture explanations, and MCP references now cover the recording checkpoint. Further guides and references will be added when their behavior exists. Their organization is defined in the directory proposal; empty documentation folders are not created in advance.
+
+- [Share selected decisions](user-guides/share-decisions.md): first-time GitHub setup, preview, verified URLs and withdrawal.

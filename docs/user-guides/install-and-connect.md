@@ -50,4 +50,4 @@ In **Settings**, choose **Pause recording** to block all worker reads and writes
 
 Expand **Connection help and other workers** for a compatible local MCP configuration and the private database location. Default macOS storage is `~/Library/Application Support/org.personalmemory.engine/memory.sqlite3`. Private memory is never included in the connector catalog or installer. Uninstalling the app does not automatically delete that separate storage directory.
 
-Do not move only the SQLite file while a helper is using it; WAL files can contain committed decisions. Backup/restore and owner-selected public snapshots are later Stage 01 checkpoints. Public sharing is not in this preview.
+Do not move only the SQLite file while a helper is using it; WAL files can contain committed decisions. Backup/restore remains a later Stage 01 checkpoint. For deliberately selected public copies, use the [sharing guide](share-decisions.md).

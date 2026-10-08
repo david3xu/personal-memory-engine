@@ -7,3 +7,5 @@ pub mod paths;
 pub mod storage;
 pub use storage::SqliteStore;
 pub mod worker_package;
+
+pub mod sharing;

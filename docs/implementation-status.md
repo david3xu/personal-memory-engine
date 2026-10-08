@@ -6,7 +6,7 @@ Updated 2026-10-08. Work is being implemented in Codex under D029. This record d
 | --- | --- | --- |
 | 01.1 recording foundation | Rust contracts/operations, SQLite, real-process MCP tests; packaged helper tool discovery and restart checks pass; installed macOS app displays cards; owner-confirmed ChatGPT Work synthetic test with a checked persisted receipt; this chat used actual MCP tools to save confirmed design choices without a mention | Broader host/account compatibility and attribution checks |
 | 01.2 history foundation | Atomic linked revisions, retry/concurrency/stale-reference checks, and desktop timeline implemented | Real worker revision walkthrough |
-| 01.3 selected sharing | Approved design | Preview/projection, publication adapter, public URL and independent-reader checks |
+| 01.3 selected sharing | Frozen allowlist, selection/preview dialog, GitHub Pages adapter, pending/live/withdrawal tracking and synthetic boundary tests implemented | Installed UI publication, live URL and independent-reader/withdrawal checks |
 | 01.4 installation/recovery | macOS Apple Silicon app bundle includes its helper; installation and launch on maintainer's Mac verified; bundled connector, graphical setup actions, fresh-test receipt and durable pause implemented; isolated catalog/launcher/recording tests pass | Backup/restore, clean-machine installation, Developer ID signing and notarization |
 | 01.5 integrated release | Draft PR #8, local checks, and Linux/macOS CI created | Complete acceptance, actual use/improvement, release and public demo evidence |
 

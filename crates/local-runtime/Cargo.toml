@@ -6,6 +6,7 @@ license.workspace = true
 rust-version.workspace = true
 
 [dependencies]
+memory-public-snapshot = { path = "../public-snapshot" }
 memory-engine = { path = "../engine" }
 serde.workspace = true
 serde_json.workspace = true

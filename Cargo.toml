@@ -1,9 +1,9 @@
 [workspace]
-members = ["crates/engine", "crates/local-runtime", "web/owner/src-tauri"]
+members = ["crates/engine", "crates/local-runtime", "crates/public-snapshot", "crates/github-publication", "web/owner/src-tauri"]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 license = "Apache-2.0"
 rust-version = "1.93"

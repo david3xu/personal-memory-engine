@@ -9,6 +9,7 @@ import {
   type WorkerStatus,
   type LocalStatus,
 } from './bridge';
+import { openSharing } from './sharing';
 import { renderSetup } from './connection';
 import type { DecisionVersion } from '../../../contracts/generated/records';
 const root = document.querySelector<HTMLDivElement>('#app');
@@ -26,7 +27,7 @@ root.innerHTML = `
   <header><div class="breadcrumb">Your workspace <span>/</span> <strong id="breadcrumb-page">Decisions</strong></div><span class="privacy-chip"><span class="local-dot"></span> Local memory</span></header>
   <div id="error" class="error hidden" role="alert"></div>
   <section id="decisions-page" class="page">
-    <div class="page-heading"><div><div class="eyebrow">A LITTLE CONTEXT GOES A LONG WAY</div><h1>Your decisions</h1><p>The choices you made, the reasons you gave, and how they changed.</p></div><button id="refresh" class="button secondary">↻ Refresh</button></div>
+    <div class="page-heading"><div><div class="eyebrow">A LITTLE CONTEXT GOES A LONG WAY</div><h1>Your decisions</h1><p>The choices you made, the reasons you gave, and how they changed.</p></div><div class="share-actions"><button id="share" class="button primary">Share decisions</button><button id="refresh" class="button secondary">↻ Refresh</button></div></div>
 
     <div class="content-layout"><section id="cards" aria-label="Decision cards"></section><section id="detail" class="detail-panel" aria-label="Selected decision"></section></div>
   </section>
@@ -329,6 +330,7 @@ async function refresh(force = false): Promise<void> {
 }
 el('#nav-decisions').addEventListener('click', () => page(false));
 el('#nav-connection').addEventListener('click', () => page(true));
+el('#share').addEventListener('click', () => openSharing(decisions));
 el('#refresh').addEventListener('click', () => {
   void refresh(true);
 });

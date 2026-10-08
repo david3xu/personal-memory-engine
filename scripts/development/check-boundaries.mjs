@@ -19,3 +19,23 @@ for (const line of manifest.split('\n')) {
     );
   }
 }
+
+// The public projection can depend on portable decision types, never transport or storage.
+const projection = readFileSync(
+  new URL('../../crates/public-snapshot/Cargo.toml', import.meta.url),
+  'utf8',
+);
+const projectionAllowed = new Set(['memory-engine', 'serde', 'serde_json']);
+let projectionSection = false;
+for (const line of projection.split('\n')) {
+  const header = line.match(/^\[([^\]]+)\]/);
+  if (header) {
+    projectionSection = /(^|\.)(dependencies|dev-dependencies|build-dependencies)$/.test(header[1]);
+    if (/dependencies\./.test(header[1]))
+      throw new Error('Projection dependency subtables need foundation review.');
+    continue;
+  }
+  const dependency = line.match(/^([a-zA-Z0-9_-]+)(?:\.workspace)?\s*=/)?.[1];
+  if (projectionSection && dependency && !projectionAllowed.has(dependency))
+    throw new Error(`Public projection dependency ${dependency} needs foundation review.`);
+}

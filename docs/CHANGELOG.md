@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added owner-selected frozen public previews and GitHub Pages publication, verified live links, retryable pending operations and explicit withdrawal.
+- Kept private identifiers, worker/source statements and unselected content outside the public projection; history and source evidence require opt-in.
+- Bundled the checksum-verified official GitHub CLI and its license, separate from the memory engine and MCP recording tools.
+
+
 - Improved compatible desktop host discovery and automatic existing-launcher repair after app relocation; preserved separate storage, pause and history.
 - Consolidated desktop/connector versions around their package metadata and pinned preview help to immutable documentation.
 
@@ -47,7 +52,7 @@
 - Recorded ease-of-use priority and ChatGPT Work context; separated first-capture prerequisites from later packaging and public-sharing choices.
 - Recorded approved Tauri owner delivery, embedded SQLite storage, and selected read-only public snapshots as linked decision revisions; updated current scope, layout, and staged work.
 
-The first local recording checkpoint is published on the active Stage 01 branch; no complete Stage 01 release or public snapshot demo is published yet.
+The first local recording checkpoint is published on the active Stage 01 branch; no complete Stage 01 release is published yet; live sharing evidence is tracked in the implementation status.
 
 ### App-led onboarding
 

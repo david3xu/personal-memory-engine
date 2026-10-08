@@ -71,7 +71,7 @@ Keep the authoritative database in a durable per-user application-data location,
 
 The approved sharing direction uses a deliberate flow: select a card and versions, preview exactly what will become public, publish, then copy the verified URL. Rationale, rejected-option reasons, and source evidence may contain private information, so the preview must cover those fields rather than only the title. Personal memory stays private until explicitly selected for publication; first-stage verification uses synthetic records.
 
-Hosted read-only snapshots are selected for URLs that work while the local app is stopped, subject to hosting availability. The owner selects/configures the publishing destination, which stores only the deliberately published copy. This is separate from the private SQLite store and write-capable MCP connection. The hosting provider and publication lifecycle remain open; no project-operated private-memory service or live local-backed sharing is approved for this delivery.
+Hosted read-only snapshots are selected for URLs that work while the local app is stopped, subject to hosting availability. The owner selects/configures the publishing destination, which stores only the deliberately published copy. This is separate from the private SQLite store and write-capable MCP connection. GitHub Pages is selected in D034. New publications have new URLs; private revisions do not update them, and withdrawal replaces the live page with a notice. no project-operated private-memory service or live local-backed sharing is approved for this delivery.
 
 Define whether later decision revisions change an existing link, whether older versions appear, and how publication is withdrawn. Label the public view's version and publication time so readers understand its scope. Removing a hosted publication prevents future access there but cannot erase copies already downloaded by readers.
 
@@ -108,7 +108,7 @@ See the [user-first implementation plan](implementation-plan.md) for work order,
 1. **Interface and installation:** Tauri owner delivery is selected. Select the first supported operating system, distribution format, and signing plan. Cards plus timeline are the minimum visual proposal.
 2. **Storage and recovery:** Embedded SQLite is selected. Define the driver, record contract, migrations, and initial export/backup/restore/deletion policy.
 3. **Worker and connection:** Which real worker is tested first, what transport/authentication connects it to the local service, and is that route available to the user?
-4. **Public sharing:** Read-only hosted snapshots are selected and must work with the local app stopped. Define selection/version/evidence controls, hosting setup, and update/withdrawal behavior.
+4. **Public sharing:** GitHub Pages is selected; frozen previews and explicit withdrawal are implemented. Verify live publication and withdrawal against the installed preview and an independent anonymous reader.
 5. **Build context:** Use the prescribed single ChatGPT Work conversation for the build/use/improve/publish workflow if completing the supplied external project brief.
 
 For 01.1, establish actual Work repository/recording access and agree the capture/storage contract before implementation. Close installation and publishing choices before their corresponding steps, as described in the implementation plan. Unselected technology choices are not implied approvals; the complete minimum release still requires the full brief's applicable checks.

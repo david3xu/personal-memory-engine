@@ -9,6 +9,9 @@ rust-version.workspace = true
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
+memory-public-snapshot = { path = "../../../crates/public-snapshot" }
+memory-github-publication = { path = "../../../crates/github-publication" }
+tokio = { version = "1", features = ["sync"] }
 tauri = { version = "2", features = [] }
 tauri-plugin-opener = "2"
 memory-engine = { path = "../../../crates/engine" }

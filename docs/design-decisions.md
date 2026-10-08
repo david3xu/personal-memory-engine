@@ -813,3 +813,14 @@ The following entries are appended to the initial ledger. Earlier entries remain
 - **Related decisions:** D028 (ease of use), D032 (ordinary chat capture).
 - **Previous version:** None.
 - **Status:** Confirmed interface constraint.
+
+
+### D034 / D034-v1 — GitHub Pages for the first shared URL
+
+- **Chosen direction:** Use GitHub Pages under the owner's GitHub account for the first public snapshot URL. The private memory remains local.
+- **Stated rationale:** None supplied in the answer; the question's explanation is assistant context, not an invented user reason.
+- **Rejected alternatives and reasons:** None stated.
+- **Source:** User answered “Use GitHub Pages (recommended)” to the question “For the first shared URL, should we use GitHub Pages under your GitHub account? It keeps the published snapshot in infrastructure you control; the private memory stays on your Mac.”
+- **Related decisions:** D012-v2 (selected read-only public snapshots), D003-v3 (local private store), D022/D028 (ease of use).
+- **Previous version:** None; this selects the provider without replacing the sharing or ownership boundaries.
+- **Status:** Confirmed provider. Implementation is authorized by the preceding “go”. Synthetic public demonstration is used for verification; this does not authorize disclosing private cards. This entry is recorded in Markdown; actual MCP decision tools are unavailable in this turn, so no engine capture is claimed.

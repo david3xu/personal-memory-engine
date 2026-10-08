@@ -33,7 +33,8 @@ with a compatible local Codex host and bundled MCP connection manager. No develo
 This package is not signed or notarized. Normal public installation still needs
 verification. The owner’s Work recording test passed on the maintainer setup;
 compatibility with other accounts/modes is not guaranteed. Do not disable system security.
-Public sharing and backup/restore are not included in this early preview.
+Share decisions publishes only a reviewed selection to your GitHub Pages repository.
+Backup/restore is not included in this early preview.
 
 Guide: https://github.com/david3xu/personal-memory-engine/blob/074f841099aa11cb490d58dbaba542fc02d2c955/docs/user-guides/install-and-connect.md
 GUIDE
