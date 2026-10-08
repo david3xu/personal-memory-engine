@@ -2,11 +2,11 @@
 
 A local-first, user-owned personal decision memory engine that records explicit choices, stated reasoning, and evolving history through MCP.
 
-[Public GitHub repository](https://github.com/david3xu/personal-memory-engine)
+[Public GitHub repository](https://github.com/david3xu/personal-memory-engine) · [Read-only synthetic demo](https://david3xu.github.io/personal-memory-engine/shares/95609636-32d5-47b9-bc15-fa5aa56d7485/)
 
 ## Project status
 
-Stage 01 implementation is active on `stage/01-working-prototype`, authorized in D029. The first working checkpoint records decisions through MCP, stores linked versions in local SQLite, and displays cards/history in a packaged Tauri app. The macOS Apple Silicon app and local worker plugin have been installed and checked on the maintainer’s Mac. The owner confirmed a successful ChatGPT Work recording test, and its persisted local receipt was checked; selected GitHub Pages sharing is now implemented, with live verification pending; recovery remains a later checkpoint. There is no stable release yet. Installed paths are generated per user; app relocation repairs the existing launcher, and host discovery supports additional installation locations. See the [implementation evidence](docs/implementation-status.md) and [install/connect guide](docs/user-guides/install-and-connect.md). The project uses Apache License 2.0, and its selected GitHub owner is `david3xu`.
+Stage 01 implementation is active on `stage/01-working-prototype`, authorized in D029. The first working checkpoint records decisions through MCP, stores linked versions in local SQLite, and displays cards/history in a packaged Tauri app. The macOS Apple Silicon app and local worker plugin have been installed and checked on the maintainer’s Mac. The owner confirmed a successful ChatGPT Work recording test, and its persisted local receipt was checked; selected GitHub Pages sharing is now implemented and verified with a synthetic demo; recovery remains a later checkpoint. There is no stable release yet. Installed paths are generated per user; app relocation repairs the existing launcher, and host discovery supports additional installation locations. See the [implementation evidence](docs/implementation-status.md) and [install/connect guide](docs/user-guides/install-and-connect.md). The project uses Apache License 2.0, and its selected GitHub owner is `david3xu`.
 
 ## What it aims to do
 

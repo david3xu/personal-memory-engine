@@ -79,3 +79,8 @@ The required build, use, improvement, and publication workflow still needs to ha
 - [GitHub flow](https://docs.github.com/en/get-started/using-github/github-flow): descriptive branches, pull requests, checks, and retiring completed branches.
 - [Protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches): remote settings for review, checks, force pushes, and deletion.
 - [Adding locally hosted code to GitHub](https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github): local repository preparation, remote creation, and linking local history to a remote.
+
+
+## Independent public-demo check
+
+The optional `public-demo` job checks the deliberately published synthetic notebook snapshot from a GitHub-hosted runner without credentials. Set the repository's nonsecret `PUBLIC_DEMO_URL` variable to that selected snapshot URL to enable it. Forks can leave it unset. This diagnostic is separate from required `checks` and `desktop`; a hosting outage does not change the approved main protection settings. If the demo is intentionally withdrawn or replaced, update/remove the variable and documentation link together. It never uploads private memory.

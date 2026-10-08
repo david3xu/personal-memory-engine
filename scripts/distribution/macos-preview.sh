@@ -36,7 +36,7 @@ compatibility with other accounts/modes is not guaranteed. Do not disable system
 Share decisions publishes only a reviewed selection to your GitHub Pages repository.
 Backup/restore is not included in this early preview.
 
-Guide: https://github.com/david3xu/personal-memory-engine/blob/074f841099aa11cb490d58dbaba542fc02d2c955/docs/user-guides/install-and-connect.md
+Guide: https://github.com/david3xu/personal-memory-engine/blob/634577aca2adf0b2f96876b1f187f0281b4d2cd4/docs/user-guides/install-and-connect.md
 GUIDE
 hdiutil create -ov -volname 'Personal Memory Engine Preview' -srcfolder "$image_stage" -format UDZO "$image_path"
 (cd "$image_dir" && shasum -a 256 "$image_name" > "$image_name.sha256")

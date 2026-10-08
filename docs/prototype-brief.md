@@ -18,9 +18,9 @@ The confirmed direction is D021; local authoritative SQLite storage is D003-v3. 
 - Preserve chosen options, stated rationale, rejected alternatives with their stated reasons, and available source evidence. Do not invent missing content.
 - Preserve earlier versions and link a changed choice to its earlier record.
 - Store authoritative user memory on the user's local machine; the project does not operate a service holding users' memory.
-- Provide a visual decision and history interface, plus a public URL other people can visit. Tauri owner delivery and selected read-only public snapshots are approved; supported platform, distribution details, exact selection controls, and hosting remain open.
+- Provide a visual decision and history interface, plus a public URL other people can visit. Tauri owner delivery and selected read-only public snapshots are approved; the current preview targets macOS Apple Silicon and selected GitHub Pages sharing. Broader distribution remains open.
 - Start small while allowing later mature stages and reuse in a broader project. Split Stage 01 into reviewable steps that together deliver the full basic working app before adding broader features (D027); exact step grouping remains proposed.
-- Use Rust for the memory engine (D025) and TypeScript for the interface (D026); Tauri for owner delivery, SQLite for local persistence, and public snapshots for selected sharing are approved. UI framework, runtime adapters, and detailed contracts remain to be selected.
+- Use Rust for the memory engine (D025) and TypeScript for the interface (D026); Tauri for owner delivery, SQLite for local persistence, and public snapshots for selected sharing are approved. The implementation uses plain TypeScript/Vite, local stdio MCP and generated Rust contracts; broader adapters remain later work.
 - Make installation easy for users and make public-link sharing easy for readers (D022). Prioritize ease of use and work in ChatGPT Work (D028); actual folder access and MCP recording must be verified. First-platform distribution and snapshot hosting/lifecycle details still need design at their relevant steps.
 - The supplied external brief requires one working promised capability, a reachable public URL, and a verified software change after the first version, with its build workflow in one ChatGPT Work conversation. These are separate from the user's application decisions.
 
@@ -57,7 +57,7 @@ Export, backup, recovery, and deliberate deletion should have an explicit initia
 
 ## Installation and sharing experience
 
-Easy installation and public sharing are confirmed goals under D022. Tauri, SQLite, and selected public snapshots are approved. Detailed setup, lifecycle, and acceptance checks below remain design/verification work.
+Easy installation and public sharing are confirmed goals under D022. Tauri, SQLite, and selected public snapshots are approved. Selected sharing is implemented; the checkpoint evidence separates verified paths from remaining distribution and recovery work.
 
 ### Installation and first use
 
@@ -71,7 +71,7 @@ Keep the authoritative database in a durable per-user application-data location,
 
 The approved sharing direction uses a deliberate flow: select a card and versions, preview exactly what will become public, publish, then copy the verified URL. Rationale, rejected-option reasons, and source evidence may contain private information, so the preview must cover those fields rather than only the title. Personal memory stays private until explicitly selected for publication; first-stage verification uses synthetic records.
 
-Hosted read-only snapshots are selected for URLs that work while the local app is stopped, subject to hosting availability. The owner selects/configures the publishing destination, which stores only the deliberately published copy. This is separate from the private SQLite store and write-capable MCP connection. GitHub Pages is selected in D034. New publications have new URLs; private revisions do not update them, and withdrawal replaces the live page with a notice. no project-operated private-memory service or live local-backed sharing is approved for this delivery.
+Hosted read-only snapshots are selected for URLs that work while the local app is stopped, subject to hosting availability. The owner selects/configures the publishing destination, which stores only the deliberately published copy. This is separate from the private SQLite store and write-capable MCP connection. GitHub Pages is selected in D034. New publications have new URLs; private revisions do not update them, and withdrawal replaces the live page with a notice. No project-operated private-memory service or live local-backed sharing is approved for this delivery.
 
 Define whether later decision revisions change an existing link, whether older versions appear, and how publication is withdrawn. Label the public view's version and publication time so readers understand its scope. Removing a hosted publication prevents future access there but cannot erase copies already downloaded by readers.
 
