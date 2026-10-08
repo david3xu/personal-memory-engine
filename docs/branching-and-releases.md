@@ -84,3 +84,9 @@ The owner confirmed that the full build/use/improve workflow happened in one Cha
 ## Independent public-demo check
 
 The optional `public-demo` job checks the deliberately published synthetic notebook snapshot from a GitHub-hosted runner without credentials. Set the repository's nonsecret `PUBLIC_DEMO_URL` variable to that selected snapshot URL to enable it. Forks can leave it unset. This diagnostic is separate from required `checks` and `desktop`; a hosting outage does not change the approved main protection settings. If the demo is intentionally withdrawn or replaced, update/remove the variable and documentation link together. It never uploads private memory.
+
+## Separate showcase publication
+
+The static project entry point is under `showcase/` on the existing Pages branch; individual owner-selected snapshots remain under `shares/`. The maintainer showcase script has an explicit asset allowlist and preservation checks rather than using the owner app's publication ledger. See the [showcase plan](submission-improvements.md) for this checkpoint.
+
+The optional `public-showcase` job uses the nonsecret `PUBLIC_SHOWCASE_URL` variable to check all approved static assets and the synthetic two-version example anonymously. It is separate from the required main checks and can be disabled on forks by leaving the variable unset.

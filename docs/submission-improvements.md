@@ -2,7 +2,7 @@
 
 Updated: 2026-10-08
 
-Status: implementation and verification in progress on `stage/01-submission-showcase`, branched from the accepted main prototype. This is presentation and demonstration work within Stage 01, not a claim that the broader desktop release is complete.
+Status: implemented and published from `stage/01-submission-showcase`, branched from the accepted main prototype. Merge verification is tracked in [PR #9](https://github.com/david3xu/personal-memory-engine/pull/9). This is presentation and demonstration work within Stage 01, not a claim that the broader desktop release is complete.
 
 ## Outcome
 
@@ -49,7 +49,15 @@ Signed/notarized distribution, fresh-user installation, backup/restore and broad
 
 ## Evidence
 
-Implementation and verification results will be appended here when observed.
+- `pnpm check` passed: formatter/lint/contracts/TypeScript, owner build, Rust warnings/integrity/runtime checks, five showcase publication-boundary tests and the real-process demo build.
+- The scripted fixture used a fresh isolated database: the initial retry returned the identical record, the revision linked to the latest version, and both unchanged records were read after restarting the helper.
+- The installed desktop preview was opened with the existing development storage override pointing to that isolated store. Its actual current/earlier views and frozen history/evidence preview were inspected. Public images contain only the committed fictional scenario; no worker or GitHub connection was made from that instance.
+- Browser checks at 1280px and 390px found no horizontal overflow. Native disclosure controls opened/collapsed by pointer and keyboard. The richer example displayed earlier reasons when expanded.
+- All local Markdown links resolve; `git diff --check` is clean. Stale PR #8 and protection-status wording was reconciled in current documentation.
+- The additive publisher preserved every preexisting non-showcase leaf entry and created publication commit `d26e9ae3dba417f81c9fc5a49c87fcacd1ce2f30`. Pages reported that commit built successfully.
+- Anonymous HTTPS verified all allowed showcase assets and the existing notebook snapshot. The live [project showcase](https://david3xu.github.io/personal-memory-engine/showcase/) links the [synthetic revision example](https://david3xu.github.io/personal-memory-engine/showcase/example/) and the separate owner-published notebook snapshot.
+- The nonsecret `PUBLIC_SHOWCASE_URL` variable enables an independent GitHub-hosted reader job. Required `checks` and `desktop` remain the main merge gate; current results are attached to PR #9.
+- The short walkthrough is an expandable static guide with actual screenshots, not a screen-recorded AI conversation. The desktop binary and worker plugin are unchanged by this checkpoint.
 
 ## Publication references
 
