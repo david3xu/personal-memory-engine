@@ -22,3 +22,13 @@ test('worker plugin retains one identity and local stdio in both host formats', 
   assert.equal(portable.hooks, undefined);
   assert.equal(compatibility.hooks, undefined);
 });
+
+test('desktop version comes from Cargo rather than duplicate frontend values', () => {
+  const repo = new URL('../../', import.meta.url);
+  const desktop = JSON.parse(
+    readFileSync(new URL('web/owner/src-tauri/tauri.conf.json', repo), 'utf8'),
+  );
+  const frontend = JSON.parse(readFileSync(new URL('web/owner/package.json', repo), 'utf8'));
+  assert.equal(desktop.version, undefined);
+  assert.equal(frontend.version, undefined);
+});

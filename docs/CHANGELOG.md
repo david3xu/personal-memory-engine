@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Improved compatible desktop host discovery and automatic existing-launcher repair after app relocation; preserved separate storage, pause and history.
+- Consolidated desktop/connector versions around their package metadata and pinned preview help to immutable documentation.
+
+
 - Completed an owner-confirmed ChatGPT Work recording test and checked its persisted receipt; the current chat also saved real design choices through MCP without a plugin mention.
 
 - Replaced per-chat plugin setup with direct, one-time desktop MCP registration using the host's bundled connection manager. Added normal-chat explicit-choice guidance and a plain synthetic test prompt.

@@ -12,6 +12,10 @@ use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 async fn real_host_registers_discovers_and_preserves_unrelated_settings() {
     let cli =
         PathBuf::from(std::env::var_os("MEMORY_HOST_CLI").expect("MEMORY_HOST_CLI is required"));
+    assert!(
+        DesktopHost::installed().await.is_some(),
+        "installed compatible host is discoverable"
+    );
     let dir = tempfile::tempdir().unwrap();
     let config_home = dir.path().join("isolated host");
     std::fs::create_dir(&config_home).unwrap();

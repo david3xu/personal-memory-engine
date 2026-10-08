@@ -72,7 +72,7 @@ async fn decision_history(
 fn open_connection_docs(app: tauri::AppHandle) -> Result<(), String> {
     // A fixed help destination keeps arbitrary URL opening out of the interface boundary.
     app.opener()
-        .open_url("https://github.com/david3xu/personal-memory-engine/blob/stage/01-working-prototype/docs/user-guides/install-and-connect.md", None::<&str>)
+        .open_url("https://github.com/david3xu/personal-memory-engine/blob/074f841099aa11cb490d58dbaba542fc02d2c955/docs/user-guides/install-and-connect.md", None::<&str>)
         .map_err(|error| error.to_string())
 }
 fn main() {

@@ -21,7 +21,10 @@ async fn installed_catalog_records_without_developer_runtime() {
     let helper = std::env::var_os("MEMORY_PACKAGE_HELPER")
         .map(PathBuf::from)
         .unwrap_or_else(|| PathBuf::from(env!("CARGO_BIN_EXE_memory-mcp")));
-    let catalog = worker_package::prepare(&source(), &helper, &data).unwrap();
+    let original_helper = dir.path().join("first app/Contents/MacOS/memory-mcp");
+    std::fs::create_dir_all(original_helper.parent().unwrap()).unwrap();
+    std::fs::copy(&helper, &original_helper).unwrap();
+    let catalog = worker_package::prepare(&source(), &original_helper, &data).unwrap();
     let url = url::Url::parse(&worker_package::plugin_link(&catalog).unwrap()).unwrap();
     assert_eq!(
         url.query_pairs()
@@ -64,7 +67,7 @@ async fn installed_catalog_records_without_developer_runtime() {
         .collect();
     let mut command = tokio::process::Command::new(server["command"].as_str().unwrap());
     command
-        .args(args)
+        .args(&args)
         .env("PATH", "/usr/bin:/bin")
         .stdin(std::process::Stdio::piped())
         .stdout(std::process::Stdio::piped())
@@ -103,8 +106,61 @@ async fn installed_catalog_records_without_developer_runtime() {
         .await
         .unwrap()
         .unwrap();
-    // Existing installed manifests use the stable launcher; reconnect can repair helper relocation.
-    worker_package::prepare(&source(), &helper, &data).unwrap();
+    // Move the real helper, remove the original, then use the unchanged cached MCP manifest.
+    let moved_helper = dir
+        .path()
+        .join("moved owner's app & space/Contents/MacOS/memory-mcp");
+    std::fs::create_dir_all(moved_helper.parent().unwrap()).unwrap();
+    std::fs::rename(&original_helper, &moved_helper).unwrap();
+    let before = serde_json::to_value(store.connection_control().status().unwrap()).unwrap();
+    worker_package::refresh_if_prepared(&moved_helper, &data).unwrap();
+    assert_eq!(
+        before,
+        serde_json::to_value(store.connection_control().status().unwrap()).unwrap()
+    );
+    store.connection_control().pause().unwrap();
+    let paused_state = serde_json::to_value(store.connection_control().status().unwrap()).unwrap();
+    worker_package::refresh_if_prepared(&moved_helper, &data).unwrap();
+    assert_eq!(
+        paused_state,
+        serde_json::to_value(store.connection_control().status().unwrap()).unwrap()
+    );
+    let mut command = tokio::process::Command::new(server["command"].as_str().unwrap());
+    let mut moved = command
+        .args(&args)
+        .env("PATH", "/usr/bin:/bin")
+        .stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .kill_on_drop(true)
+        .spawn()
+        .unwrap();
+    let client = Client
+        .serve((moved.stdout.take().unwrap(), moved.stdin.take().unwrap()))
+        .await
+        .unwrap();
+    let paused = client
+        .call_tool(CallToolRequestParams::new("list_decisions"))
+        .await
+        .unwrap();
+    assert_eq!(paused.is_error, Some(true));
+    store.connection_control().resume().unwrap();
+    let appended = client.call_tool(CallToolRequestParams::new("record_decision").with_arguments(json!({"request_id":"after-app-relocation","user_confirmed":true,"chosen_option":"Synthetic choice after moving the app","worker":"Isolated relocated helper test"}).as_object().unwrap().clone())).await.unwrap();
+    assert_eq!(appended.is_error, Some(false));
+    let records = client
+        .call_tool(CallToolRequestParams::new("list_decisions"))
+        .await
+        .unwrap();
+    assert_eq!(records.is_error, Some(false));
+    assert!(
+        serde_json::to_string(&records)
+            .unwrap()
+            .contains("A blue cover for my demo notebook")
+    );
+    client.cancel().await.unwrap();
+    tokio::time::timeout(std::time::Duration::from_secs(5), moved.wait())
+        .await
+        .unwrap()
+        .unwrap();
     assert_eq!(
         std::fs::read(plugin.join("mcp.json")).unwrap(),
         serde_json::to_vec_pretty(&portable).unwrap()
@@ -126,4 +182,24 @@ fn incomplete_resources_do_not_create_a_discoverable_catalog() {
     );
     assert!(!worker_package::catalog_path(dir.path()).exists());
     assert!(worker_package::plugin_link(std::path::Path::new("relative/catalog.json")).is_err());
+}
+
+#[test]
+fn automatic_refresh_does_not_create_connections_or_follow_symlinks() {
+    let dir = tempfile::tempdir().unwrap();
+    worker_package::refresh_if_prepared(&std::env::current_exe().unwrap(), dir.path()).unwrap();
+    assert!(!dir.path().join("worker-plugins").exists());
+    #[cfg(unix)]
+    {
+        let launcher = dir.path().join("worker-plugins/start-installed-mcp.sh");
+        std::fs::create_dir(launcher.parent().unwrap()).unwrap();
+        let unrelated = dir.path().join("unrelated file");
+        std::fs::write(&unrelated, "unchanged").unwrap();
+        std::os::unix::fs::symlink(&unrelated, &launcher).unwrap();
+        assert!(
+            worker_package::refresh_if_prepared(&std::env::current_exe().unwrap(), dir.path())
+                .is_err()
+        );
+        assert_eq!(std::fs::read_to_string(unrelated).unwrap(), "unchanged");
+    }
 }

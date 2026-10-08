@@ -23,11 +23,12 @@ pub async fn connection_status(
     let data_dir = state.data_dir.clone();
     let resources = state.plugin_source.clone();
     let helper = state.helper.clone();
-    let host_state = match DesktopHost::installed() {
+    let host_state = match DesktopHost::installed().await {
         Some(host) => host.state(&data_dir).await?,
         None => HostState::Unavailable,
     };
     tauri::async_runtime::spawn_blocking(move || {
+        worker_package::refresh_if_prepared(&helper, &data_dir)?;
         let control = store.connection_control().status()?;
         let test_prompt = control
             .test_request_id
@@ -50,8 +51,9 @@ pub async fn connect_chatgpt(state: tauri::State<'_, DesktopState>) -> Result<()
     let data_dir = state.data_dir.clone();
     let resources = state.plugin_source.clone();
     let helper = state.helper.clone();
-    let host =
-        DesktopHost::installed().ok_or("Install or update ChatGPT desktop before connecting.")?;
+    let host = DesktopHost::installed()
+        .await
+        .ok_or("Install or update ChatGPT desktop before connecting.")?;
     let prepare_dir = data_dir.clone();
     tauri::async_runtime::spawn_blocking(move || {
         worker_package::prepare(&resources, &helper, &prepare_dir)
@@ -72,7 +74,9 @@ pub async fn start_connection_test(
 ) -> Result<(), String> {
     let store = state.store.clone();
     let data_dir = state.data_dir.clone();
-    let host = DesktopHost::installed().ok_or("ChatGPT desktop is unavailable.")?;
+    let host = DesktopHost::installed()
+        .await
+        .ok_or("ChatGPT desktop is unavailable.")?;
     if host.state(&data_dir).await? != HostState::Registered {
         return Err("Choose Connect once before testing recording.".into());
     }

@@ -4,6 +4,14 @@
 
 Stage 01 implementation is active. Rust owns decision contracts and operations; SQLite, MCP, and Tauri are separate adapters. Plain TypeScript/Vite is the initial interface implementation. The desktop installs/opens on the maintainer’s Mac and displays a real decision captured through a direct stdio MCP client. The app bundles the helper, registers its MCP once using ChatGPT desktop’s bundled connection manager, and opens an unsent local test chat. It verifies a fresh persisted synthetic choice. Decision cards stay separate from connection settings. The real desktop app-server discovers all three tools in isolated configuration. The owner’s synthetic chat test passed, its persisted receipt was verified, and this existing chat used the actual MCP tools to save D032/D033 without a plugin mention. The owner confirmed the successful test was in ChatGPT Work. Durable pause blocks worker access without changing cards. Clean-machine installation, recovery, and snapshot hosting still need end-to-end evidence.
 
+## Portable installation contracts
+
+The app version is authoritative in Cargo's workspace package. Tauri inherits it when its version is omitted; the interface displays the host's `app_version`. The private frontend package has no separate version. The portable plugin's `plugin.json` owns its independently versioned connector; the Rust adapter derives it from that manifest and compatibility metadata must agree.
+
+Host discovery checks an explicit absolute `PERSONAL_MEMORY_HOST_CLI` override first, then standard system/per-user ChatGPT and Codex app locations, then a bounded macOS Spotlight query for the verified compatible host bundle ID. An invalid override fails closed. The bundled CLI's internal layout remains host-specific; a different layout needs an adapter update or explicit override, not a global filesystem scan.
+
+Opening/refreshing the owner app repairs only an existing app-owned launcher from its current bundled helper. The registered launcher path and separate database stay stable; pause and receipts are preserved. Launchers that are symlinks/non-files fail closed. Other workers' copied direct-helper configurations must be recopied after an app move. Preview help links are pinned to an existing documentation commit, independent of branch lifetime; release preparation must refresh that pin when the guide changes.
+
 ## Canonical records
 
 - Product choices and their history: [design decision ledger](docs/design-decisions.md).

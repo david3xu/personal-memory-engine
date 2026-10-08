@@ -20,7 +20,7 @@ root.innerHTML = `
   <button id="nav-decisions" class="nav-button active"><span>▦</span> Decisions <span id="nav-count" class="count">0</span></button>
   <button id="nav-connection" class="nav-button"><span>⚙</span> Settings</button>
   <div class="sidebar-note"><span class="local-dot"></span> Private by default<p>Your memory lives on this device.<br>You choose what to share.</p></div>
-  <div class="sidebar-footer">Personal Memory Engine <span>Early prototype · 0.1.0</span></div>
+  <div class="sidebar-footer">Personal Memory Engine <span id="app-version">Early prototype</span></div>
 </aside>
 <main>
   <header><div class="breadcrumb">Your workspace <span>/</span> <strong id="breadcrumb-page">Decisions</strong></div><span class="privacy-chip"><span class="local-dot"></span> Local memory</span></header>
@@ -304,6 +304,7 @@ async function refresh(force = false): Promise<void> {
     ]);
     workerStatus = nextWorker;
     localState = nextStatus;
+    el('#app-version').textContent = `Early prototype · ${nextStatus.app_version}`;
     decisions = nextDecisions;
     if (!actionError) el('#error').classList.add('hidden');
     el('#nav-count').textContent = String(decisions.length);

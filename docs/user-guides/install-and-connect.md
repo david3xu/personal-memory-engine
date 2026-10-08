@@ -44,7 +44,7 @@ In **Settings**, choose **Pause recording** to block all worker reads and writes
 - **Tools unavailable:** restart ChatGPT and use a new supported local chat. A cloud chat cannot automatically launch the local helper.
 - **Test chat did not open:** expand **Chat did not open?**, copy the choice, and send it in a new supported desktop chat.
 - **Still waiting:** a successful `record_decision` call is required. Tool discovery, a failed save, or a receipt from an earlier test cannot pass. Send the newest test if you started another.
-- **Moved the app:** choose Connect again to repair the app-owned helper launcher.
+- **Moved the app:** open the complete app at its new location. It refreshes its existing recording launcher automatically. If setup reports an error, use Settings → Repair connection. Separately copied configurations for other workers must be copied again.
 
 ## Other workers and local data
 

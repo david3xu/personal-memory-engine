@@ -19,17 +19,10 @@ pub struct DesktopHost {
     config_home: Option<PathBuf>,
 }
 impl DesktopHost {
-    pub fn installed() -> Option<Self> {
-        let mut apps = vec![PathBuf::from("/Applications/ChatGPT.app")];
-        if let Some(home) = dirs::home_dir() {
-            apps.push(home.join("Applications/ChatGPT.app"));
-        }
-        apps.into_iter().find_map(|app| {
-            let cli = app.join("Contents/Resources/codex-cli/bin/codex");
-            cli.is_file().then_some(Self {
-                cli,
-                config_home: None,
-            })
+    pub async fn installed() -> Option<Self> {
+        crate::host_discovery::find_cli().await.map(|cli| Self {
+            cli,
+            config_home: None,
         })
     }
     // Explicit test configuration never changes the owner's host or launches a model.

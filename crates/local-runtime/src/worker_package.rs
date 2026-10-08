@@ -4,7 +4,17 @@ use serde_json::json;
 use std::path::{Path, PathBuf};
 pub const PLUGIN_NAME: &str = "personal-memory-engine";
 pub const MARKETPLACE_NAME: &str = "personal-memory-engine-desktop";
-pub const PACKAGE_VERSION: &str = "0.1.2";
+pub fn package_version() -> &'static str {
+    static MANIFEST: std::sync::LazyLock<serde_json::Value> = std::sync::LazyLock::new(|| {
+        serde_json::from_str(include_str!(
+            "../../../plugins/personal-memory-engine/plugin.json"
+        ))
+        .expect("the checked bundled plugin manifest is valid")
+    });
+    MANIFEST["version"]
+        .as_str()
+        .expect("the checked plugin version is present")
+}
 const PACKAGE_FILES: &[&str] = &[
     "plugin.json",
     "mcp.json",
@@ -31,7 +41,7 @@ fn private_directory(path: &Path) -> Result<(), String> {
 pub fn catalog_path(data_dir: &Path) -> PathBuf {
     data_dir
         .join("worker-plugins")
-        .join(PACKAGE_VERSION)
+        .join(package_version())
         .join(".agents/plugins/marketplace.json")
 }
 pub fn prepare(source: &Path, helper: &Path, data_dir: &Path) -> Result<PathBuf, String> {
@@ -61,13 +71,13 @@ pub fn prepare(source: &Path, helper: &Path, data_dir: &Path) -> Result<PathBuf,
         if *relative == "plugin.json" || *relative == ".codex-plugin/plugin.json" {
             let manifest: serde_json::Value = serde_json::from_slice(bytes)
                 .map_err(|_| "Bundled connector manifest is invalid.".to_string())?;
-            if manifest["name"] != PLUGIN_NAME || manifest["version"] != PACKAGE_VERSION {
+            if manifest["name"] != PLUGIN_NAME || manifest["version"] != package_version() {
                 return Err("Bundled connector version does not match the app.".into());
             }
         }
     }
     let catalog = catalog_path(data_dir);
-    let root = data_dir.join("worker-plugins").join(PACKAGE_VERSION);
+    let root = data_dir.join("worker-plugins").join(package_version());
     let plugin = root.join("plugins").join(PLUGIN_NAME);
     for (relative, bytes) in files {
         let target = plugin.join(relative);
@@ -76,14 +86,7 @@ pub fn prepare(source: &Path, helper: &Path, data_dir: &Path) -> Result<PathBuf,
     }
     // Installed copies read a stable app-owned launcher. Reconnecting after an app move updates
     // this launcher without depending on a cached manifest being reinstalled by the host.
-    let launcher = data_dir.join("worker-plugins/start-installed-mcp.sh");
-    let quote = |value: &str| format!("'{}'", value.replace('\'', "'\\''"));
-    let script = format!(
-        "#!/bin/bash\nset -euo pipefail\nexec {} --data-dir {}\n",
-        quote(&helper.to_string_lossy()),
-        quote(&data_dir.to_string_lossy())
-    );
-    private_write(&launcher, script.as_bytes())?;
+    let launcher = write_launcher(helper.as_path(), data_dir)?;
     let server = json!({"mcpServers":{"personal-memory":{"type":"stdio","command":"/bin/bash","args":[launcher]}}});
     let mut portable = server.clone();
     portable["$schema"] = json!("https://agent-plugins.org/schemas/1.0.0/mcp.schema.json");
@@ -123,4 +126,41 @@ pub fn test_link(request_id: &str) -> String {
     url.query_pairs_mut()
         .append_pair("prompt", &test_prompt(request_id));
     url.into()
+}
+
+// Refresh an existing owner-created launcher after the complete app is moved. This neither
+// creates a new host connection nor changes pause, receipts, or the memory database.
+pub fn refresh_if_prepared(helper: &Path, data_dir: &Path) -> Result<(), String> {
+    let launcher = data_dir.join("worker-plugins/start-installed-mcp.sh");
+    match std::fs::symlink_metadata(&launcher) {
+        Ok(meta) if meta.is_file() => { write_launcher(helper, data_dir)?; Ok(()) },
+        Ok(_) => Err("The recording launcher is not a regular file. Repair its location before reconnecting.".into()),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(_) => Err("The recording launcher could not be inspected. Check local storage access.".into()),
+    }
+}
+fn write_launcher(helper: &Path, data_dir: &Path) -> Result<PathBuf, String> {
+    let helper = helper
+        .canonicalize()
+        .map_err(|_| "Recording helper is missing. Reinstall the app.".to_string())?;
+    if !helper.is_file() || !data_dir.is_absolute() {
+        return Err("The installed app's local paths are unavailable.".into());
+    }
+    let launcher = data_dir.join("worker-plugins/start-installed-mcp.sh");
+    match std::fs::symlink_metadata(&launcher) {
+        Ok(meta) if meta.is_file() => {},
+        Ok(_) => return Err("The recording launcher is not a regular file. Repair its location before reconnecting.".into()),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {},
+        Err(_) => return Err("The recording launcher could not be inspected. Check local storage access.".into()),
+    }
+    let quote = |value: &str| format!("'{}'", value.replace('\'', "'\\''"));
+    let script = format!(
+        "#!/bin/bash\nset -euo pipefail\nexec {} --data-dir {}\n",
+        quote(&helper.to_string_lossy()),
+        quote(&data_dir.to_string_lossy())
+    );
+    if std::fs::read(&launcher).ok().as_deref() != Some(script.as_bytes()) {
+        private_write(&launcher, script.as_bytes())?;
+    }
+    Ok(launcher)
 }
