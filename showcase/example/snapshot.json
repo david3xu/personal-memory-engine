@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "title": "Synthetic travel decision — preserved history",
+  "cards": [
+    {
+      "versions": [
+        {
+          "chosen_option": "Take the train for the weekend trip",
+          "rationale": "It is direct and arrives before noon.",
+          "alternatives": [
+            {
+              "option": "Take the coach",
+              "reason": "It needs one change."
+            },
+            {
+              "option": "Drive",
+              "reason": "I do not want to drive for this trip."
+            }
+          ],
+          "evidence": [],
+          "recorded_at": "2026-10-08T12:42:10.815104+00:00"
+        },
+        {
+          "chosen_option": "Take the coach for the weekend trip",
+          "rationale": "The train now arrives too late. The coach still arrives before noon, so I accept the change.",
+          "alternatives": [
+            {
+              "option": "Take the train",
+              "reason": "The revised timetable arrives after 15:00."
+            },
+            {
+              "option": "Drive",
+              "reason": "I still do not want to drive for this trip."
+            }
+          ],
+          "evidence": [
+            {
+              "content": "Fictional timetable update: the train arrives at 15:20; the coach arrives at 11:40.",
+              "reference": "Synthetic scenario supplied with this demonstration"
+            }
+          ],
+          "recorded_at": "2026-10-08T12:42:10.817695+00:00"
+        }
+      ]
+    }
+  ]
+}

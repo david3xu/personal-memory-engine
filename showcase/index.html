@@ -1,0 +1,330 @@
+<!doctype html>
+<!-- Present the project and its isolated synthetic demonstration without connecting to owner memory. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'"
+    />
+    <meta
+      name="description"
+      content="Remember what you chose, why, and what changed. An open-source, local-first decision memory app with deliberate public sharing."
+    />
+    <meta name="pme-showcase" content="personal-memory-engine-showcase-v1" />
+    <title>Personal Memory Engine — Your choices, with their context</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="brand" href="./" aria-label="Personal Memory Engine home"
+        ><span class="brand-mark" aria-hidden="true">m</span>Personal Memory Engine</a
+      >
+      <nav aria-label="Project">
+        <a href="#walkthrough">Walkthrough</a
+        ><a href="https://github.com/david3xu/personal-memory-engine">GitHub ↗</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span> LOCAL FIRST · OPEN SOURCE</p>
+          <h1>Your choices.<br />Their context.<br /><em>Yours to keep.</em></h1>
+          <p class="lead">You remember what you decided.<br />Now remember why—and what changed.</p>
+          <p class="intro">
+            Chat with your AI as usual. A connected worker records your explicit choices through
+            MCP. Personal Memory Engine keeps the decision, your stated reasons, and its history on
+            your device.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#walkthrough"
+              >Explore the prototype <span aria-hidden="true">↓</span></a
+            ><a class="button secondary" href="example/">Read a decision history ↗</a>
+          </div>
+          <p class="caption">Working local prototype · Rust + TypeScript · Apache 2.0</p>
+        </div>
+        <figure class="hero-image">
+          <div class="image-label">
+            <span class="dot"></span> THE ACTUAL DESKTOP APP <span>Synthetic example</span>
+          </div>
+          <a
+            href="assets/decision-workspace.jpg"
+            aria-label="Open full-size screenshot of the actual app with a synthetic revised decision"
+            ><img
+              src="assets/decision-workspace.jpg"
+              alt="The actual desktop app showing a revised coach choice and its stated rationale."
+              width="2360"
+              height="1600"
+          /></a>
+          <figcaption>A choice can change. Its earlier reasoning stays intact.</figcaption>
+        </figure>
+      </section>
+      <section class="principles wrap" aria-label="Product principles">
+        <div>
+          <span class="small-number">01</span>
+          <h2>Keep the context</h2>
+          <p>
+            Chosen option, stated reasons, alternatives and supplied evidence. Unstated information
+            stays absent.
+          </p>
+        </div>
+        <div>
+          <span class="small-number">02</span>
+          <h2>Preserve the change</h2>
+          <p>
+            A new version links to the earlier choice. You can read both, with their original
+            reasoning.
+          </p>
+        </div>
+        <div>
+          <span class="small-number">03</span>
+          <h2>Choose what leaves</h2>
+          <p>
+            Your memory stays local. Preview selected decisions before publishing a frozen,
+            read-only copy.
+          </p>
+        </div>
+      </section>
+      <section id="walkthrough" class="walkthrough wrap">
+        <div class="section-heading">
+          <p class="eyebrow">THE WHOLE EXPERIENCE</p>
+          <h2>From a conversation<br />to a decision you can revisit.</h2>
+          <p>
+            A short, five-step walkthrough. The travel story below is fictional; its records were
+            created through the real MCP helper in isolated storage. The screenshots show the actual
+            app.
+          </p>
+        </div>
+        <div class="tour">
+          <details open>
+            <summary>
+              <span class="step">1</span><span>Connect once. Keep your normal chat.</span
+              ><span class="expand" aria-hidden="true">+</span>
+            </summary>
+            <div class="tour-content">
+              <p>
+                In the desktop app’s Settings, connect a supported AI worker. The worker can then
+                call the local MCP tools when you make an explicit choice. You do not need to
+                mention a plugin for every decision.
+              </p>
+              <div class="flow" aria-label="Decision recording path">
+                <span>Normal conversation</span><span aria-hidden="true">→</span
+                ><span>AI calls MCP</span><span aria-hidden="true">→</span
+                ><strong>Local memory</strong>
+              </div>
+              <p class="caption">
+                No chat scraping or monitoring. Connection support depends on the AI host.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="step">2</span><span>Make a choice. Keep only what you stated.</span
+              ><span class="expand" aria-hidden="true">+</span>
+            </summary>
+            <div class="tour-content">
+              <blockquote>
+                <p>
+                  “I choose the train for the weekend trip because it is direct and arrives before
+                  noon. I reject the coach because it needs one change, and driving because I do not
+                  want to drive.”
+                </p>
+                <cite>Fictional participant · scripted demonstration</cite>
+              </blockquote>
+              <p>
+                The resulting card contains the choice, the reason and those alternatives. This
+                initial version has no evidence, because the scenario did not supply any.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="step">3</span><span>Change your mind. Preserve the earlier version.</span
+              ><span class="expand" aria-hidden="true">+</span>
+            </summary>
+            <div class="tour-content">
+              <blockquote>
+                <p>
+                  “I now choose the coach for the same trip. The train now arrives too late. The
+                  coach still arrives before noon, so I accept the change.”
+                </p>
+                <cite>Fictional participant · scripted revision</cite>
+              </blockquote>
+              <div class="comparison">
+                <article>
+                  <p class="eyebrow">EARLIER CHOICE</p>
+                  <h3>Take the train</h3>
+                  <p>Direct. Arrives before noon.</p>
+                </article>
+                <span aria-hidden="true">→</span>
+                <article>
+                  <p class="eyebrow">CURRENT CHOICE</p>
+                  <h3>Take the coach</h3>
+                  <p>The train timetable changed. Arriving before noon matters more.</p>
+                </article>
+              </div>
+              <p>
+                The supplied fictional timetable is attached to the revision. Both versions were
+                read back unchanged after restarting the MCP helper.
+              </p>
+              <a class="text-link" href="example/">Read both versions and their full context →</a>
+              <figure>
+                <img
+                  src="assets/decision-history.jpg"
+                  alt="Actual app displaying the coach revision and clickable train and coach versions."
+                  width="2360"
+                  height="1600"
+                  loading="lazy"
+                />
+                <figcaption>Actual app, isolated synthetic records.</figcaption>
+              </figure>
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="step">4</span><span>Preview exactly what you want to share.</span
+              ><span class="expand" aria-hidden="true">+</span>
+            </summary>
+            <div class="tour-content">
+              <p>
+                Select a decision, then choose whether to include its earlier versions and supplied
+                evidence. Review the public copy before publishing. Nothing is selected by default.
+              </p>
+              <figure>
+                <img
+                  src="assets/sharing-preview.jpg"
+                  alt="Actual sharing dialog previewing the synthetic travel decision with history and evidence deliberately selected."
+                  width="2360"
+                  height="1600"
+                  loading="lazy"
+                />
+                <figcaption>
+                  Actual preview. Publication is an owner action, separate from MCP recording.
+                </figcaption>
+              </figure>
+              <p class="caption">
+                A frozen copy does not silently change when local memory changes. Withdrawal
+                replaces the live page; downloaded copies and hosting history may remain.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              <span class="step">5</span
+              ><span>Give someone a link. Your private memory stays local.</span
+              ><span class="expand" aria-hidden="true">+</span>
+            </summary>
+            <div class="tour-content">
+              <p>
+                A reader opens a static, read-only page without installing the app. The public page
+                has no connection to your private database or recording tools.
+              </p>
+              <div class="actions">
+                <a class="button primary" href="example/">Open the richer synthetic example ↗</a
+                ><a class="text-link" href="../shares/95609636-32d5-47b9-bc15-fa5aa56d7485/"
+                  >Open the owner-published notebook snapshot ↗</a
+                >
+              </div>
+              <p class="caption">
+                The travel example is generated by the demo build. The notebook snapshot was
+                separately selected and published through the installed app.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section class="ownership wrap">
+        <div>
+          <p class="eyebrow">A SMALL APP WITH A CLEAR FOUNDATION</p>
+          <h2>Your memory lives<br />with you.</h2>
+          <p>
+            The project operates no service holding your memory. The local Rust engine handles
+            decision integrity; TypeScript presents cards and history. MCP, SQLite, the desktop host
+            and publishing each have their own boundary.
+          </p>
+          <a
+            class="text-link"
+            href="https://github.com/david3xu/personal-memory-engine/blob/main/docs/architecture/engine-and-adapters.md"
+            >Explore the architecture →</a
+          >
+        </div>
+        <div class="boundary">
+          <p class="eyebrow">ON YOUR DEVICE</p>
+          <p class="boundary-title">AI worker → MCP → Rust engine</p>
+          <p>Local SQLite memory<br />Owner’s desktop cards and history</p>
+          <hr />
+          <p class="eyebrow">ONLY AFTER YOU SELECT AND PREVIEW</p>
+          <p class="boundary-title">A frozen public copy</p>
+          <p>Read-only HTML on your GitHub Pages account</p>
+        </div>
+      </section>
+      <section class="progress wrap">
+        <div class="section-heading">
+          <p class="eyebrow">BUILT, USED, IMPROVED</p>
+          <h2>A working prototype.<br />An honest next step.</h2>
+        </div>
+        <div class="progress-grid">
+          <article>
+            <h3>Working today</h3>
+            <p>
+              Local MCP recording, append-only history, desktop review, selected GitHub Pages
+              sharing and verified withdrawal.
+            </p>
+          </article>
+          <article>
+            <h3>Improved after use</h3>
+            <p>
+              An initial recording attempt found the tool unavailable. Setup was changed to direct
+              one-time MCP registration, and connection controls moved into Settings. The owner
+              subsequently confirmed recording in ChatGPT Work.
+            </p>
+          </article>
+          <article>
+            <h3>Before wider distribution</h3>
+            <p>
+              Signed and notarized installation, fresh-user testing, backup/restore and broader host
+              compatibility. The current macOS Apple Silicon preview remains unsigned.
+            </p>
+          </article>
+        </div>
+        <p class="caption">
+          The travel walkthrough verifies a scripted MCP flow; it does not claim to reproduce a live
+          AI chat. <a href="verification.json">Build verification receipt</a> ·
+          <a
+            href="https://github.com/david3xu/personal-memory-engine/blob/main/docs/implementation-status.md"
+            >Detailed evidence and limitations</a
+          >
+        </p>
+      </section>
+      <section class="contribute wrap">
+        <div>
+          <p class="eyebrow">BUILD THE NEXT PIECE</p>
+          <h2>Open source. Clear boundaries.</h2>
+          <p>
+            Contribute to presentation, worker adapters, guides and usability. Changes to decision
+            integrity, storage and public disclosure require focused review.
+          </p>
+        </div>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/david3xu/personal-memory-engine"
+            >Explore the repository ↗</a
+          ><a
+            class="button secondary"
+            href="https://github.com/david3xu/personal-memory-engine/blob/main/.github/CONTRIBUTING.md"
+            >Contribution guide</a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="wrap">
+      <span>Personal Memory Engine · Apache 2.0</span
+      ><a
+        href="https://github.com/david3xu/personal-memory-engine/blob/main/docs/user-guides/install-and-connect.md"
+        >Installation and connection guide ↗</a
+      ><span>Read-only showcase · No analytics</span>
+    </footer>
+  </body>
+</html>
